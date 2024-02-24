@@ -1,3 +1,3 @@
 export enum RuleId {
-  PlayerTurn = 1
+  ChooseBannerCard = 1
 }

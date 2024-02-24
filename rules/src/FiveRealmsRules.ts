@@ -2,7 +2,7 @@ import { hideFront, PositiveSequenceStrategy, SecretMaterialRules } from '@gamep
 import { PlayerId } from './FiveRealmsOptions'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
-import { PlayerTurn } from './rules/PlayerTurn'
+import { ChooseBannerCardHeaderRule } from './rules/ChooseBannerCardHeaderRule'
 import { RuleId } from './rules/RuleId'
 
 
@@ -12,7 +12,7 @@ import { RuleId } from './rules/RuleId'
  */
 export class FiveRealmsRules extends SecretMaterialRules<PlayerId, MaterialType, LocationType> {
   rules = {
-    [RuleId.PlayerTurn]: PlayerTurn
+    [RuleId.ChooseBannerCard]: ChooseBannerCardHeaderRule
   }
 
   locationsStrategies = {

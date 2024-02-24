@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { ComponentType } from 'react'
-import { PlayerTurnHeader } from './PlayerTurnHeader'
+import { ChooseBannerCardHeader } from './ChooseBannerCardHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
-  [RuleId.PlayerTurn]: PlayerTurnHeader
+  [RuleId.ChooseBannerCard]: ChooseBannerCardHeader
 }
