@@ -121,7 +121,7 @@ export class PlayerHandLocator extends HandLocator<PlayerColor, MaterialType, Lo
 
 ### 3.3 The setup
 
-Once you have one Material type and one Location type, you can start to setup a new game in [GameTemplateRules.ts](/rules/src/GameTemplateRules.ts)
+Once you have one Material type and one Location type, you can start to setup a new game in [FiveRealmsRules.ts](/rules/src/FiveRealmsRules.ts)
 
 You can easily create and manipulate the material in the setup:
 
@@ -164,7 +164,7 @@ Then, run:
 ```
 rclone config
 > n (For "New remote)
-name> game-template
+name> 5-royaumes
 Storage> s3 (Amazon S3 Compliant Storage Provider)
 provider> Other
 env_auth> false

@@ -1,30 +1,42 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { PlayerColor } from '@gamepark/game-template/PlayerColor'
-import { PlayerPanel, usePlayers } from '@gamepark/react-game'
+import { Realm } from '@gamepark/5-royaumes/cards/Realm'
+import { PlayerId } from '@gamepark/5-royaumes/FiveRealmsOptions'
+import { FiveRealmsRules } from '@gamepark/5-royaumes/FiveRealmsRules'
+import { PlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
 import { FC } from 'react'
 
 export const PlayerPanels: FC<any> = () => {
+  const playerId = usePlayerId()
   const players = usePlayers({ sortFromMe: true })
+  const rules = useRules<FiveRealmsRules>()!
   return (
     <>
-      {players.map((player, index) =>
-        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={panelPosition(index)}/>
+      {players.map((player) =>
+        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={[panelPosition, player.id === (playerId ?? rules.players[0])? bottomPosition: topPosition ]}/>
       )}
     </>
   )
 }
-const panelPosition = (index: number) => css`
+const panelPosition = css`
   position: absolute;
   right: 1em;
-  top: ${8.5 + index * 16}em;
   width: 28em;
   height: 14em;
 `
 
-export const playerColorCode: Record<PlayerColor, string> = {
-  [PlayerColor.Red]: 'red',
-  [PlayerColor.Blue]: 'blue',
-  [PlayerColor.Green]: 'green',
-  [PlayerColor.Yellow]: 'yellow'
+const topPosition = css`
+  top: 8.5em;
+`
+
+const bottomPosition = css`
+  top: 50em;
+`
+
+export const playerColorCode: Record<PlayerId, string> = {
+  [Realm.Reptile]: 'red',
+  [Realm.Feline]: 'yellow',
+  [Realm.BirdOfPrey]: 'purple',
+  [Realm.Ursid]: 'green',
+  [Realm.Marine]: 'blue'
 }
