@@ -8,7 +8,14 @@ export class PlayerThroneRoomLocator extends ItemLocator {
   locationDescription = new PlayerThroneRoomDescription()
 
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
-    return this.locationDescription.getLocationPosition(item.location, context)
+    return {
+      ...this.locationDescription.getLocationPosition(item.location, context),
+      z: 0
+    }
+  }
+
+  getRotateZ(item: MaterialItem, { rules, player }: ItemContext): number {
+    return item.location.player === (player ?? rules.players[0])? 0: 180
   }
 
 }

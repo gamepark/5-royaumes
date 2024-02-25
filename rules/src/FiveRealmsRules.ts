@@ -33,7 +33,11 @@ export class FiveRealmsRules extends SecretMaterialRules<PlayerId, MaterialType,
     [MaterialType.CharacterCard]: {
       [LocationType.BannerDeck]: new PositiveSequenceStrategy(),
       [LocationType.PlayerInfluenceZone]: new PositiveSequenceStrategy(),
-      [LocationType.PlayerHand]: new PositiveSequenceStrategy()
+      [LocationType.PlayerHand]: new PositiveSequenceStrategy(),
+      [LocationType.Discard]: new PositiveSequenceStrategy()
+    },
+    [MaterialType.CastleCard]: {
+      [LocationType.CastleDeck]: new PositiveSequenceStrategy()
     }
   }
 
@@ -42,7 +46,7 @@ export class FiveRealmsRules extends SecretMaterialRules<PlayerId, MaterialType,
       [LocationType.BannerDeck]: hideFront,
       [LocationType.AlkaneSquare]: hideFront,
       [LocationType.PlayerHand]: hideCardWhenNotRotated,
-      [LocationType.PlayerInfluenceZone]: hideFront
+      [LocationType.PlayerInfluenceZone]: hideFront,
     }
   }
 

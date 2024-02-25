@@ -5,6 +5,7 @@ import { ItemLocator } from '@gamepark/react-game'
 import { alkaneSquareLocator } from './AlkaneSquareLocator'
 import { bannerDeckLocator } from './BannerDeckLocator'
 import { castleDeckLocator } from './CastleDeckLocator'
+import { discardLocator } from './DiscardLocator'
 import { influenceZoneLocator } from './InfluenceZoneLocator'
 import { playerCastleLocator } from './PlayerCastleLocator'
 import { playerHandLocator } from './PlayerHandLocator'
@@ -19,5 +20,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, Materi
   [LocationType.PlayerInfluenceZone]: influenceZoneLocator,
   [LocationType.PlayerCastle]: playerCastleLocator,
   [LocationType.CastleDeck]: castleDeckLocator,
-  [LocationType.PlayerHand]: playerHandLocator
+  [LocationType.PlayerHand]: playerHandLocator,
+  [LocationType.Discard]: discardLocator
 }

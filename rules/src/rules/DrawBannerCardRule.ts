@@ -43,9 +43,7 @@ export class DrawBannerCardRule extends PlayerTurnRule {
     }
 
     moves.push(...this.material(MaterialType.CharacterCard).indexes(cards).moveItems({ type: LocationType.PlayerHand, player: this.player }))
-    if (this.player === this.game.players[0]) {
-      moves.push(this.rules().startRule(RuleId.ChooseAction))
-    }
+    moves.push(this.rules().startRule(RuleId.ChooseAction))
 
     return moves
   }

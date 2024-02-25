@@ -15,6 +15,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
   extraCss = css`
     border-radius: 0.5em;
     border: 0.05em dashed white;
+    pointer-events: none;
   `
 
   getLocations({ rules }: MaterialContext<number, number, number>) {
@@ -50,6 +51,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
         break
     }
 
+    baseCoordinates.z = 0.05
     return baseCoordinates
   }
 }
