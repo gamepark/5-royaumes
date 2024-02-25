@@ -1,8 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { ComponentType } from 'react'
-import { ChooseBannerCardHeader } from './ChooseBannerCardHeader'
+import { ChooseActionRuleHeader } from './ChooseActionRuleHeader'
+import { ChooseAlkaneColorRuleHeader } from './ChooseAlkaneColorRuleHeader'
+import { DrawBannerCardRuleHeader } from './DrawBannerCardRuleHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
-  [RuleId.ChooseBannerCard]: ChooseBannerCardHeader
+  [RuleId.DrawBannerCard]: DrawBannerCardRuleHeader,
+  [RuleId.ChooseAlkaneColor]: ChooseAlkaneColorRuleHeader,
+  [RuleId.ChooseAction]: ChooseActionRuleHeader
 }

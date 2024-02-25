@@ -59,7 +59,7 @@ export class FiveRealmsSetup extends MaterialGameSetup<PlayerId, MaterialType, L
   }
 
   start() {
-    this.startPlayerTurn(RuleId.ChooseBannerCard, this.game.players[0])
+    this.startPlayerTurn(RuleId.DrawBannerCard, this.game.players[0])
   }
 }
 

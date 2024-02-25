@@ -6,5 +6,6 @@ export enum LocationType {
   CastleDeck,
   BannerDeck,
   Discard,
-  AlkaneSquare
+  AlkaneSquare,
+  PlayerHand
 }

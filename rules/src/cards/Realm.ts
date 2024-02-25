@@ -1,3 +1,4 @@
+
 import { isEnumValue } from '@gamepark/rules-api'
 
 export enum Realm {

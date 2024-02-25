@@ -30,7 +30,7 @@ const topPosition = css`
 `
 
 const bottomPosition = css`
-  top: 50em;
+  top: 85em;
 `
 
 export const playerColorCode: Record<PlayerId, string> = {

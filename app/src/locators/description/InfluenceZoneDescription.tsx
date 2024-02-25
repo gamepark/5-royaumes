@@ -7,11 +7,12 @@ import { Coordinates, Location } from '@gamepark/rules-api'
 export class InfluenceZoneDescription extends LocationDescription {
   width = 6.35 + 0.4
   height = 2 * 8.89
+  borderRadius = 0.5
 
   alwaysVisible = true
 
   extraCss = css`
-    border-radius: 0.5em;
+    border-radius: 0.7em;
     border: 0.05em dashed white;
   `
 
@@ -21,7 +22,7 @@ export class InfluenceZoneDescription extends LocationDescription {
         .map((_, id) => ({
           type: LocationType.PlayerInfluenceZone,
           player,
-          id,
+          id: id + 1,
           x: 0
         }))
     })
@@ -32,15 +33,16 @@ export class InfluenceZoneDescription extends LocationDescription {
   }
 
   getInfluenceZonePosition(location: Location, { rules, player }: MaterialContext) {
+    const xIndex = location.id - 1
     if (location.player === (player ?? rules.players[0])) {
       return {
-        x: 15 + (location.id * (this.width + 0.4)),
+        x: 15 + (xIndex * (this.width + 0.4)),
         y: 13.4,
         z: 0 }
     }
 
     return {
-      x: 13 - (location.id * (this.width + 0.4)),
+      x: 13 - (xIndex * (this.width + 0.4)),
       y: -19.4,
       z: 0 }
   }

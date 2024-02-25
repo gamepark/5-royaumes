@@ -7,6 +7,7 @@ import { bannerDeckLocator } from './BannerDeckLocator'
 import { castleDeckLocator } from './CastleDeckLocator'
 import { influenceZoneLocator } from './InfluenceZoneLocator'
 import { playerCastleLocator } from './PlayerCastleLocator'
+import { playerHandLocator } from './PlayerHandLocator'
 import { playerThroneLocator } from './PlayerThroneLocator'
 import { playerThroneRoomLocator } from './PlayerThroneRoomLocator'
 
@@ -17,5 +18,6 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, Materi
   [LocationType.AlkaneSquare]: alkaneSquareLocator,
   [LocationType.PlayerInfluenceZone]: influenceZoneLocator,
   [LocationType.PlayerCastle]: playerCastleLocator,
-  [LocationType.CastleDeck]: castleDeckLocator
+  [LocationType.CastleDeck]: castleDeckLocator,
+  [LocationType.PlayerHand]: playerHandLocator
 }

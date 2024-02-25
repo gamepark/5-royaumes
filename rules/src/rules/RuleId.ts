@@ -1,3 +1,7 @@
 export enum RuleId {
-  ChooseBannerCard = 1
+  DrawBannerCard = 1,
+  ChooseAlkaneColor,
+  ChooseAction,
+  Influence,
+  Recruit
 }
