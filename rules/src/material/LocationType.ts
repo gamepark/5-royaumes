@@ -3,7 +3,7 @@ export enum LocationType {
   PlayerThroneRoom,
   PlayerThrone,
   PlayerCastle,
-  CastleDeck,
+  CastlePile,
   BannerDeck,
   Discard,
   AlkaneSquare,

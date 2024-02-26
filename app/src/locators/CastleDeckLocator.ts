@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { DeckLocator } from '@gamepark/react-game'
+import { PileLocator } from '@gamepark/react-game'
 
-export class CastleDeckLocator extends DeckLocator {
+export class CastleDeckLocator extends PileLocator {
 
   delta = { x: -0.05, y: -0.05}
 
   coordinates = { x: -44, y: 18, z: 0 }
+
+  radius = 2
 
 }
 

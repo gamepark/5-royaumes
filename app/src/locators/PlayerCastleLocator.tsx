@@ -1,20 +1,23 @@
-import { ItemContext, LineLocator } from '@gamepark/react-game'
+import { ItemContext, PileLocator } from '@gamepark/react-game'
 /** @jsxImportSource @emotion/react */
 import { MaterialItem } from '@gamepark/rules-api'
 import { throneCardDescription } from '../material/descriptions/ThroneCardDescription'
 import { playerThroneLocator } from './PlayerThroneLocator'
 
-export class PlayerCastleLocator extends LineLocator {
+export class PlayerCastleLocator extends PileLocator {
 
+  radius = 2
 
   getCoordinates(item: MaterialItem, context: ItemContext) {
     const playerId = item.location.player!
     const position = playerThroneLocator.getThronePosition(playerId, context)
     const { rules, player } = context
     if (playerId === (player ?? rules.players[0])) {
-      position.x -= 0.8 + throneCardDescription.width * 2
+      position.x -= 0.8 + throneCardDescription.width
+      position.y -= 0.8 + 1.5 * throneCardDescription.width
     } else {
-      position.x += 0.8 + throneCardDescription.width * 2
+      position.x += 0.8 + throneCardDescription.width
+      position.y += 0.8 + 1.5 * throneCardDescription.width
     }
 
     return position

@@ -3,5 +3,6 @@ export enum RuleId {
   ChooseAlkaneColor,
   ChooseAction,
   Influence,
-  Recruit
+  Recruit,
+  RefillAlkane
 }

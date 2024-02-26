@@ -19,7 +19,7 @@ export const Locators: Partial<Record<LocationType, ItemLocator<PlayerId, Materi
   [LocationType.AlkaneSquare]: alkaneSquareLocator,
   [LocationType.PlayerInfluenceZone]: influenceZoneLocator,
   [LocationType.PlayerCastle]: playerCastleLocator,
-  [LocationType.CastleDeck]: castleDeckLocator,
+  [LocationType.CastlePile]: castleDeckLocator,
   [LocationType.PlayerHand]: playerHandLocator,
   [LocationType.Discard]: discardLocator
 }

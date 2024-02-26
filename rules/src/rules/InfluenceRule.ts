@@ -15,7 +15,7 @@ export class InfluenceRule extends PlayerTurnRule {
         player: this.player
       })
 
-    moves.push(this.rules().startPlayerTurn(RuleId.DrawBannerCard, this.nextPlayer))
+    moves.push(this.rules().startRule(RuleId.RefillAlkane))
 
     return moves;
   }

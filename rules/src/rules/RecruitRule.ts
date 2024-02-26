@@ -44,7 +44,7 @@ export class RecruitRule extends PlayerTurnRule {
 
     const moves: MaterialMove[] = []
     moves.push(...this.hand.moveItems({ type: LocationType.Discard }))
-    moves.push(this.rules().startPlayerTurn(RuleId.DrawBannerCard, this.nextPlayer))
+    moves.push(this.rules().startRule(RuleId.RefillAlkane))
     return moves
   }
 

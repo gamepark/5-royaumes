@@ -48,6 +48,6 @@ export class InfluenceZoneDescription extends LocationDescription {
   }
 
   getRotateZ(location: Location<number, number>, { rules, player }: LocationContext): number {
-    return location.player === (player ?? rules.players[0])? 0: -180
+    return location.player === (player ?? rules.players[0])? 0: 180
   }
 }

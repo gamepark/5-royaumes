@@ -1,5 +1,5 @@
 export enum MaterialType {
   CharacterCard = 1,
-  CastleCard,
+  Castle,
   ThroneCard
 }

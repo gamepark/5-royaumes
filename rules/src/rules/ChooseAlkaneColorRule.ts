@@ -12,6 +12,7 @@ export class ChooseAlkaneColorRule extends PlayerTurnRule {
     const adjacentCards = alkaneCard
       .filter((item) => this.isAdjacent(item, bannerCard!))
 
+
     return adjacentCards.moveItems({
       type: LocationType.PlayerHand,
       player: this.player
@@ -24,7 +25,7 @@ export class ChooseAlkaneColorRule extends PlayerTurnRule {
 
   get placedCard() {
     const index = this.placedCardIndex
-    if (!index) return undefined
+    if (index === undefined) return undefined
     return this.material(MaterialType.CharacterCard).getItem(index)!
   }
 

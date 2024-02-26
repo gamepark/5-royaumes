@@ -12,10 +12,10 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
   return <>
     <GameTable
       xMin={-50}
-      xMax={55}
+      xMax={50}
       yMin={-30}
       yMax={24}
-      margin={{ top: 7, left: 0, right: 9, bottom: 0 }}
+      margin={{ top: 7, left: 0, right: 21, bottom: 0 }}
       css={css`background: rgba(255, 255, 255, 0.2)`}
     >
       <GameTableNavigation css={css`flex-direction: column; left: auto; right: 3em; top: 28em`}/>

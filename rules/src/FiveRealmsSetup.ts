@@ -20,10 +20,8 @@ export class FiveRealmsSetup extends MaterialGameSetup<PlayerId, MaterialType, L
   }
 
   setupCastle(options: FiveRealmsOptions) {
-    this.material(MaterialType.CastleCard).createItem({ location: { type: LocationType.CastleDeck }, quantity: 14})
-
     for (let player = 1; player <= options.players; player++) {
-      this.material(MaterialType.CastleCard).createItem({ location: { type: LocationType.PlayerCastle, player }, quantity: 2})
+      this.material(MaterialType.Castle).createItem({ location: { type: LocationType.PlayerCastle, player }, quantity: 2})
     }
   }
 
