@@ -2,6 +2,7 @@
 import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
+import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { playerColorCode } from '../../panels/PlayerPanels'
@@ -35,8 +36,20 @@ export class InfluenceZoneDescription extends LocationDescription {
     })
   }
 
-  getCoordinates(location: Location<number, number>, context: LocationContext): Coordinates | undefined {
-    return this.getInfluenceZonePosition(location, context)
+  canShortClick(move: MaterialMove, location: Location, context: MaterialContext): any {
+    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return false
+    const { rules } = context
+    const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
+    if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.player === location.player) return true
+
+    return super.canShortClick(move, location, context)
+  }
+
+  getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
+    const position = this.getInfluenceZonePosition(location, context)
+    const { rules } = context
+    if (!rules.game.rule?.id || (rules.game.rule?.id === RuleId.Sorcerer && rules.game.rule?.player === location.player && rules.material(MaterialType.CharacterCard).selected().length)) position.z += 10
+    return position
   }
 
   getInfluenceZonePosition(location: Location, { rules, player }: MaterialContext) {

@@ -32,10 +32,10 @@ export class PlayerThroneRoomDescription extends LocationDescription {
     })
   }
 
-  getCoordinates(location: Location<number, number>, context: LocationContext): Coordinates | undefined {
+  getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
     const position = this.getLocationPosition(location, context)
     const { rules } = context
-    if (!rules.game.rule?.id || (rules.game.rule?.id === RuleId.Sorcerer && rules.material(MaterialType.CharacterCard).selected().length)) position.z += 10
+    if (!rules.game.rule?.id || (rules.game.rule?.id === RuleId.Sorcerer && rules.game.rule?.player === location.player && rules.material(MaterialType.CharacterCard).selected().length)) position.z += 10
     return position
   }
 
@@ -67,9 +67,8 @@ export class PlayerThroneRoomDescription extends LocationDescription {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return false
     const { rules } = context
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.x === location.x) return true
+    if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.x === location.x && move.location.player === location.player) return true
 
     return super.canShortClick(move, location, context)
-
   }
 }
