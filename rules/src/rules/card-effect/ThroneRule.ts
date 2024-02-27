@@ -8,9 +8,9 @@ import { CaptainEffect } from './CaptainEffect'
 import { ColonelEffect } from './ColonelEffect'
 import { Effect } from './Effect'
 import { GaiaEffect } from './GaiaEffect'
+import { GeneralEffect } from './GeneralEffect'
 import { KingEffect } from './KingEffect'
 import { MarshallEffect } from './MarshallEffect'
-import { OuranosEffect } from './OuranosEffect'
 import { PapesseEffect } from './PapesseEffect'
 import { QueenEffect } from './QueenEffect'
 import { SorcererEffect } from './SorcererEffect'
@@ -32,14 +32,14 @@ export class ThroneRule extends MaterialRulesPart {
     if (isQueen(id)) return new QueenEffect(game, this.player, card)
     if (isSorcerer(id)) return new SorcererEffect(game, this.player, card)
     if (isRealmWarrior(id)) return new WarriorEffect(game, this.player, card)
-    if (isRealmTitan(id)) return new TitanEffect(game, this.player, card)
+    if (isRealmTitan(id) || id === Card.Ouranos) return new TitanEffect(game, this.player, card)
     if (id === Card.Papesse) return new PapesseEffect(game, this.player, card)
     if (id === Card.Gaia) return new GaiaEffect(game, this.player, card)
-    if (id === Card.Ouranos) return new OuranosEffect(game, this.player, card)
     if (id === Card.Colonel) return new ColonelEffect(game, this.player, card)
     if (id === Card.Captain) return new CaptainEffect(game, this.player, card)
     if (id === Card.WarriorMonk) return new WarriorMonkEffect(game, this.player, card)
     if (id === Card.Marshall) return new MarshallEffect(game, this.player, card)
+    if (id === Card.General) return new GeneralEffect(game, this.player, card)
     return
   }
 

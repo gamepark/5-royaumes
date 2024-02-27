@@ -1,21 +1,10 @@
-import { isMoveItemType, MaterialMove, MoveItem } from '@gamepark/rules-api'
+import { MaterialMove } from '@gamepark/rules-api'
 import { isTitan } from '../../cards/CardType'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
-import { Effect } from './Effect'
+import { TitanEffect } from './TitanEffect'
 
-export class GaiaEffect extends Effect {
-  onRecruit(move: MoveItem): MaterialMove[] {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
-    return [
-      this.material(MaterialType.Castle).createItem({
-        location: {
-          type: LocationType.PlayerCastle,
-          player: this.player
-        }
-      })
-    ]
-  }
+export class GaiaEffect extends TitanEffect {
 
   getScore(): number | undefined {
     const opponent = this.game.players.find((p) => p !== this.player)!

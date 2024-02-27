@@ -43,13 +43,16 @@ export class RecruitRule extends PlayerTurnRule {
     return moves
   }
 
+  beforeItemMove(move: ItemMove) {
+    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
+    if (move.location.type !== LocationType.PlayerThroneRoom && move.location.type !== LocationType.PlayerTitan) return []
+    return new ThroneRule(this.game, this.player).onRecruit(move)
+  }
+
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
 
     const moves: MaterialMove[] = []
-    if (move.location.type === LocationType.PlayerThroneRoom || move.location.type === LocationType.PlayerTitan) {
-      moves.push(...new ThroneRule(this.game, this.player).onRecruit(move))
-    }
 
     if ((move.location.type === LocationType.PlayerHand && move.location.rotation && !this.hiddenCards.length && !this.cardsToRecruit.length)
       || move.location.type === LocationType.PlayerThroneRoom || move.location.type === LocationType.PlayerTitan) {

@@ -41,19 +41,23 @@ export class WarriorRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
+    if (!isMoveItemType(MaterialType.CharacterCard)(move) && !isMoveItemType(MaterialType.Castle)(move)) return []
     return [this.rules().startRule(RuleId.Influence)]
   }
 
   get opponentCastle() {
-    return this.material(MaterialType.Castle).location(LocationType.PlayerCastle).player((p) => p !== this.player)
+    return this.material(MaterialType.Castle).location(LocationType.PlayerCastle).player(this.opponent)
   }
 
   get opponentTitan() {
-    return this.material(MaterialType.CharacterCard).location(LocationType.PlayerTitan).player((p) => p !== this.player)
+    return this.material(MaterialType.CharacterCard).location(LocationType.PlayerTitan).player(this.opponent)
   }
 
   get opponentCharacter() {
-    return this.material(MaterialType.CharacterCard).location(LocationType.PlayerThroneRoom).player((p) => p !== this.player)
+    return this.material(MaterialType.CharacterCard).location(LocationType.PlayerThroneRoom).player(this.opponent)
+  }
+
+  get opponent() {
+    return this.game.players.find((p) => p !== this.player)
   }
 }

@@ -11,6 +11,7 @@ export class SorcererEffect extends Effect {
     if (this.card.getItem()!.id.back !== move.location.id) return []
     if (![3, 5].includes(influenceCard.location.x! + 1) || !this.discard.length) return []
 
+    // TODO: sorcerer effect can be done twice (if player influence 5 cards)
     return [this.rules().startRule(RuleId.Sorcerer)]
   }
 

@@ -45,6 +45,7 @@ import Ursid4 from '../../images/card/ursid/ursid_4.jpg'
 import Ursid5 from '../../images/card/ursid/ursid_5.jpg'
 /** @jsxImportSource @emotion/react */
 import UrsidBack from '../../images/card/ursid/ursid_back.jpg'
+import { CharacterCardHelp } from '../help/CharacterCardHelp'
 
 export class CharacterCardDescription extends CardDescription {
   borderRadius = 0.5
@@ -101,9 +102,12 @@ export class CharacterCardDescription extends CardDescription {
     const { rules } = context
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.itemIndex !== context.index) return false
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
+    if (item.location.type === LocationType.Discard) return false
     if (item.location.type === LocationType.AlkaneSquare && move.location.type === LocationType.PlayerHand) return true
     return super.canShortClick(move, context)
   }
+
+  help = CharacterCardHelp
 }
 
 export const characterCardDescription = new CharacterCardDescription()

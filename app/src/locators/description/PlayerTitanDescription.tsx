@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
+import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location } from '@gamepark/rules-api'
+import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 
 export class PlayerTitanDescription extends LocationDescription {
   width = 6.35 + 0.4
@@ -23,7 +24,7 @@ export class PlayerTitanDescription extends LocationDescription {
     }))
   }
 
-  getCoordinates(location: Location<number, number>, context: LocationContext): Coordinates | undefined {
+  getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
     return this.getTitanPosition(location, context)
   }
 
@@ -41,7 +42,15 @@ export class PlayerTitanDescription extends LocationDescription {
       z: 0 }
   }
 
-  getRotateZ(location: Location<number, number>, { rules, player }: LocationContext): number {
+  getRotateZ(location: Location, { rules, player }: LocationContext): number {
     return location.player === (player ?? rules.players[0])? 0: 180
+  }
+
+  isMoveToLocation(move: MaterialMove, location: Location, context: MaterialContext): any {
+    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return super.isMoveToLocation(move, location, context)
+    const { rules } = context
+    const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)
+    if (item?.location.type === LocationType.Discard) return false
+    return super.isMoveToLocation(move, location, context)
   }
 }
