@@ -6,26 +6,27 @@ import { RuleId } from './RuleId'
 
 export class InfluenceRule extends PlayerTurnRule {
   onRuleStart() {
-    const hand = this.hand
+    return this.placeCardMove
+  }
 
+  afterItemMove(move: ItemMove) {
+    const moves: MaterialMove[] = new ThroneRule(this.game, this.player).onInfluence(move)
+    if (moves.find(isStartRule)) return moves
+    moves.push(...this.placeCardMove)
+    return moves
+  }
+
+  get placeCardMove() {
+    const hand = this.hand
     if (!hand.length) return [this.rules().startRule(RuleId.RefillAlkane)]
     const realms = hand.getItem()!.id.back
-    const moves: MaterialMove[] = hand
+    return hand
+      .limit(1)
       .moveItems({
         type: LocationType.PlayerInfluenceZone,
         id: realms,
         player: this.player
       })
-
-    return moves;
-  }
-
-  afterItemMove(move: ItemMove) {
-    const moves: MaterialMove[] = new ThroneRule(this.game, this.player).onInfluence(move)
-    if (this.hand.length || moves.find(isStartRule)) return moves
-    moves.push(this.rules().startRule(RuleId.RefillAlkane))
-
-    return moves
   }
 
   get hand() {

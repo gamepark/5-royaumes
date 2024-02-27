@@ -54,28 +54,28 @@ export class AlkaneSquareRule extends MaterialRulesPart {
     return this.material(MaterialType.CharacterCard)
       .location(LocationType.AlkaneSquare)
       .minBy((item) => item.location.x!)
-      .getItem()!.location.x
+      .getItem()?.location.x
   }
 
   get maxX() {
     return this.material(MaterialType.CharacterCard)
       .location(LocationType.AlkaneSquare)
       .maxBy((item) => item.location.x!)
-      .getItem()!.location.x
+      .getItem()?.location.x
   }
 
   get minY() {
     return this.material(MaterialType.CharacterCard)
       .location(LocationType.AlkaneSquare)
       .minBy((item) => item.location.y!)
-      .getItem()!.location.y
+      .getItem()?.location.y
   }
 
   get maxY() {
     return this.material(MaterialType.CharacterCard)
       .location(LocationType.AlkaneSquare)
       .maxBy((item) => item.location.y!)
-      .getItem()!.location.y
+      .getItem()?.location.y
   }
 
   get alkaneCards() {

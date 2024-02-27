@@ -1,9 +1,9 @@
 import { isMoveItemType, ItemMove, Material, MaterialItem, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { isTitan } from '../cards/CardType'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { ThroneRule } from './card-effect/ThroneRule'
 import { RuleId } from './RuleId'
+import { PlaceCardRule } from './utils/PlaceCardRule'
 
 export class RecruitRule extends PlayerTurnRule {
   onRuleStart() {
@@ -16,29 +16,12 @@ export class RecruitRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const cards = this.cardsToRecruit
-    const titans = cards.filter((item) => isTitan(item.id.front))
-    const characters = cards.filter((item) => !isTitan(item.id.front))
     const moves: MaterialMove[] = []
 
-    // Character
-    moves.push(
-      ...Array.from(Array(4))
-        .flatMap((_, x) =>
-          characters.moveItems({
-            type: LocationType.PlayerThroneRoom,
-            player: this.player,
-            x
-          })
-        )
-    )
-
-    // Titans
-    moves.push(
-      ...titans.moveItems({
-        type: LocationType.PlayerTitan,
-        player: this.player
-      })
-    )
+    for (const index of cards.getIndexes()) {
+      const rule = new PlaceCardRule(this.game, index)
+      moves.push(...rule.recruitMoves)
+    }
 
     return moves
   }
