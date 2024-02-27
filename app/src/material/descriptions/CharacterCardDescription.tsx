@@ -1,6 +1,9 @@
 import { Card } from '@gamepark/5-royaumes/cards/Card'
 import { Realm } from '@gamepark/5-royaumes/cards/Realm'
-import { CardDescription } from '@gamepark/react-game'
+import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
+import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
+import { CardDescription, ItemContext } from '@gamepark/react-game'
+import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import BirdOfPrey1 from '../../images/card/birdofprey/bird_of_prey_1.jpg'
 import BirdOfPrey2 from '../../images/card/birdofprey/bird_of_prey_2.jpg'
 import BirdOfPrey3 from '../../images/card/birdofprey/bird_of_prey_3.jpg'
@@ -13,20 +16,22 @@ import Feline3 from '../../images/card/feline/feline_3.jpg'
 import Feline4 from '../../images/card/feline/feline_4.jpg'
 import Feline5 from '../../images/card/feline/feline_5.jpg'
 import FelineBack from '../../images/card/feline/feline_back.jpg'
-import ImperialOrder1 from '../../images/card/imperialorder/imperial_order1.jpg'
-import ImperialOrder2 from '../../images/card/imperialorder/imperial_order2.jpg'
-import ImperialOrder3 from '../../images/card/imperialorder/imperial_order3.jpg'
-import ImperialOrder4 from '../../images/card/imperialorder/imperial_order4.jpg'
+import Captain from '../../images/card/imperialorder/captain.jpg'
+import Colonel from '../../images/card/imperialorder/colonel.jpg'
+import General from '../../images/card/imperialorder/general.jpg'
+import ImperialOrderBack from '../../images/card/imperialorder/imperial_order_back.jpg'
+import Marechal from '../../images/card/imperialorder/marechal.jpg'
 import Marine1 from '../../images/card/marine/marine_1.jpg'
 import Marine2 from '../../images/card/marine/marine_2.jpg'
 import Marine3 from '../../images/card/marine/marine_3.jpg'
 import Marine4 from '../../images/card/marine/marine_4.jpg'
 import Marine5 from '../../images/card/marine/marine_5.jpg'
 import MarineBack from '../../images/card/marine/marine_back.jpg'
-import ReligiousOrder1 from '../../images/card/religiousorder/religious_order1.jpg'
-import ReligiousOrder2 from '../../images/card/religiousorder/religious_order2.jpg'
-import ReligiousOrder3 from '../../images/card/religiousorder/religious_order3.jpg'
-import ReligiousOrder4 from '../../images/card/religiousorder/religious_order4.jpg'
+import Gaia from '../../images/card/religiousorder/gaia.jpg'
+import Ouranos from '../../images/card/religiousorder/ouranos.jpg'
+import Papesse from '../../images/card/religiousorder/papesse.jpg'
+import ReligiousOrderBack from '../../images/card/religiousorder/religious_order_back.jpg'
+import WarriorMonk from '../../images/card/religiousorder/warrior_monk.jpg'
 import Reptile1 from '../../images/card/reptile/reptile_1.jpg'
 import Reptile2 from '../../images/card/reptile/reptile_2.jpg'
 import Reptile3 from '../../images/card/reptile/reptile_3.jpg'
@@ -41,7 +46,6 @@ import Ursid5 from '../../images/card/ursid/ursid_5.jpg'
 /** @jsxImportSource @emotion/react */
 import UrsidBack from '../../images/card/ursid/ursid_back.jpg'
 
-
 export class CharacterCardDescription extends CardDescription {
   borderRadius = 0.5
   width = 6.35
@@ -52,7 +56,9 @@ export class CharacterCardDescription extends CardDescription {
     [Realm.Feline]: FelineBack,
     [Realm.BirdOfPrey]: BirdsOfPreyBack,
     [Realm.Ursid]: UrsidBack,
-    [Realm.Marine]:  MarineBack
+    [Realm.Marine]: MarineBack,
+    [Realm.ImperialOrder]: ImperialOrderBack,
+    [Realm.ReligiousOrder]: ReligiousOrderBack
   }
 
   images = {
@@ -81,14 +87,22 @@ export class CharacterCardDescription extends CardDescription {
     [Card.Marine3]: Marine3,
     [Card.Marine4]: Marine4,
     [Card.Marine5]: Marine5,
-    [Card.ImperialOrder1]: ImperialOrder1,
-    [Card.ImperialOrder2]: ImperialOrder2,
-    [Card.ImperialOrder3]: ImperialOrder3,
-    [Card.ImperialOrder4]: ImperialOrder4,
-    [Card.ReligiousOrder1]: ReligiousOrder1,
-    [Card.ReligiousOrder2]: ReligiousOrder2,
-    [Card.ReligiousOrder3]: ReligiousOrder3,
-    [Card.ReligiousOrder4]: ReligiousOrder4
+    [Card.Marshall]: Marechal,
+    [Card.Colonel]: Colonel,
+    [Card.Captain]: Captain,
+    [Card.General]: General,
+    [Card.Gaia]: Gaia,
+    [Card.Ouranos]: Ouranos,
+    [Card.Papesse]: Papesse,
+    [Card.WarriorMonk]: WarriorMonk
+  }
+
+  canShortClick(move: MaterialMove, context: ItemContext): boolean {
+    const { rules } = context
+    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.itemIndex !== context.index) return false
+    const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
+    if (item.location.type === LocationType.AlkaneSquare && move.location.type === LocationType.PlayerHand) return true
+    return super.canShortClick(move, context)
   }
 }
 

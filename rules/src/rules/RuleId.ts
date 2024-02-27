@@ -4,5 +4,8 @@ export enum RuleId {
   ChooseAction,
   Influence,
   Recruit,
-  RefillAlkane
+  RefillAlkane,
+  Sorcerer,
+  Warrior,
+  EndGame
 }

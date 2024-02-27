@@ -3,9 +3,10 @@ export enum LocationType {
   PlayerThroneRoom,
   PlayerThrone,
   PlayerCastle,
-  CastlePile,
+  CastleStock,
   BannerDeck,
   Discard,
   AlkaneSquare,
-  PlayerHand
+  PlayerHand,
+  PlayerTitan
 }

@@ -8,5 +8,10 @@ import { DrawBannerCardRuleHeader } from './DrawBannerCardRuleHeader'
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.DrawBannerCard]: DrawBannerCardRuleHeader,
   [RuleId.ChooseAlkaneColor]: ChooseAlkaneColorRuleHeader,
-  [RuleId.ChooseAction]: ChooseActionRuleHeader
+  [RuleId.ChooseAction]: ChooseActionRuleHeader,
+  [RuleId.Influence]: () => <>Influence</>,
+  [RuleId.Recruit]: () => <>Recruit</>,
+  [RuleId.RefillAlkane]: () => <>RefillAlkane</>,
+  [RuleId.Sorcerer]: () => <>Sorcerer</>,
+  [RuleId.Warrior]: () => <>Warrior</>,
 }

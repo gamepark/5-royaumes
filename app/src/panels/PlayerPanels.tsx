@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { Realm } from '@gamepark/5-royaumes/cards/Realm'
-import { PlayerId } from '@gamepark/5-royaumes/FiveRealmsOptions'
 import { FiveRealmsRules } from '@gamepark/5-royaumes/FiveRealmsRules'
 import { PlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
 import { FC } from 'react'
@@ -33,7 +32,7 @@ const bottomPosition = css`
   top: 85em;
 `
 
-export const playerColorCode: Record<PlayerId, string> = {
+export const playerColorCode: Partial<Record<Realm, string>> = {
   [Realm.Reptile]: 'red',
   [Realm.Feline]: 'yellow',
   [Realm.BirdOfPrey]: 'purple',

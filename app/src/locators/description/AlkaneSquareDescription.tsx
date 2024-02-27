@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { AlkaneSquareRule } from '@gamepark/5-royaumes/rules/utils/AlkaneSquareRule'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location } from '@gamepark/rules-api'
+import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
 
 export class AlkaneSquareDescription extends LocationDescription {
@@ -37,5 +38,12 @@ export class AlkaneSquareDescription extends LocationDescription {
       y: baseY + (computedY! * (characterCardDescription.height + 0.2)),
       z: 0
     }
+  }
+
+
+  canShortClick(move: MaterialMove, location: Location): boolean {
+    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location.type !== location.type) return false
+    if (move.location.x !== location.x || move.location.y !== location.y) return false
+    return true
   }
 }

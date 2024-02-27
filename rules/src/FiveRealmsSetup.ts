@@ -1,7 +1,7 @@
 import { MaterialGameSetup, MaterialItem } from '@gamepark/rules-api'
 import { banners, Card, isBirdOfPrey, isFeline, isMarine, isReptile, isUrsid } from './cards/Card'
 import { Realm } from './cards/Realm'
-import { FiveRealmsOptions, PlayerId } from './FiveRealmsOptions'
+import { FiveRealmsOptions } from './FiveRealmsOptions'
 import { FiveRealmsRules } from './FiveRealmsRules'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
@@ -10,7 +10,7 @@ import { RuleId } from './rules/RuleId'
 /**
  * This class creates a new Game based on the game options
  */
-export class FiveRealmsSetup extends MaterialGameSetup<PlayerId, MaterialType, LocationType, FiveRealmsOptions> {
+export class FiveRealmsSetup extends MaterialGameSetup<Realm, MaterialType, LocationType, FiveRealmsOptions> {
   Rules = FiveRealmsRules
 
   setupMaterial(options: FiveRealmsOptions) {
@@ -20,8 +20,8 @@ export class FiveRealmsSetup extends MaterialGameSetup<PlayerId, MaterialType, L
   }
 
   setupCastle(options: FiveRealmsOptions) {
-    for (let player = 1; player <= options.players; player++) {
-      this.material(MaterialType.Castle).createItem({ location: { type: LocationType.PlayerCastle, player }, quantity: 2})
+    for (const player of options.players) {
+      this.material(MaterialType.Castle).createItem({ location: { type: LocationType.PlayerCastle, player: player.id }, quantity: 2})
     }
   }
 

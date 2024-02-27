@@ -9,20 +9,24 @@ import {
   SecretMaterialRules,
   TimeLimit
 } from '@gamepark/rules-api'
-import { PlayerId } from './FiveRealmsOptions'
+import { Realm } from './cards/Realm'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { ThroneRule } from './rules/card-effect/ThroneRule'
 import { ChooseActionRule } from './rules/ChooseActionRule'
 import { ChooseAlkaneColorRule } from './rules/ChooseAlkaneColorRule'
 import { DrawBannerCardRule } from './rules/DrawBannerCardRule'
+import { EndGameRule } from './rules/EndGameRule'
 import { InfluenceRule } from './rules/InfluenceRule'
 import { RecruitRule } from './rules/RecruitRule'
 import { RefillAlkaneRule } from './rules/RefillAlkaneRule'
 import { RuleId } from './rules/RuleId'
+import { SorcererRule } from './rules/SorcererRule'
+import { WarriorRule } from './rules/WarriorRule'
 
 
 export const hideCardWhenNotRotated: HidingStrategy = (
-  item: MaterialItem, player?: PlayerId
+  item: MaterialItem, player?: Realm
 ) => {
   if (!item.location.rotation) return ['id.front']
   return item.location.player === player ? [] : ['id.front']
@@ -31,9 +35,9 @@ export const hideCardWhenNotRotated: HidingStrategy = (
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
-export class FiveRealmsRules extends SecretMaterialRules<PlayerId, MaterialType, LocationType>
-  implements CompetitiveScore<MaterialGame<PlayerId, MaterialType, LocationType>, MaterialMove<PlayerId, MaterialType, LocationType>, PlayerId>,
-    TimeLimit<MaterialGame<PlayerId, MaterialType, LocationType>, MaterialMove<PlayerId, MaterialType, LocationType>, PlayerId> {
+export class FiveRealmsRules extends SecretMaterialRules<Realm, MaterialType, LocationType>
+  implements CompetitiveScore<MaterialGame<Realm, MaterialType, LocationType>, MaterialMove<Realm, MaterialType, LocationType>, Realm>,
+    TimeLimit<MaterialGame<Realm, MaterialType, LocationType>, MaterialMove<Realm, MaterialType, LocationType>, Realm> {
 
 
 
@@ -43,7 +47,10 @@ export class FiveRealmsRules extends SecretMaterialRules<PlayerId, MaterialType,
     [RuleId.ChooseAction]: ChooseActionRule,
     [RuleId.Influence]: InfluenceRule,
     [RuleId.Recruit]: RecruitRule,
-    [RuleId.RefillAlkane]: RefillAlkaneRule
+    [RuleId.RefillAlkane]: RefillAlkaneRule,
+    [RuleId.Sorcerer]: SorcererRule,
+    [RuleId.Warrior]: WarriorRule,
+    [RuleId.EndGame]: EndGameRule
   }
 
   locationsStrategies = {
@@ -51,7 +58,8 @@ export class FiveRealmsRules extends SecretMaterialRules<PlayerId, MaterialType,
       [LocationType.BannerDeck]: new PositiveSequenceStrategy(),
       [LocationType.PlayerInfluenceZone]: new PositiveSequenceStrategy(),
       [LocationType.PlayerHand]: new PositiveSequenceStrategy(),
-      [LocationType.Discard]: new PositiveSequenceStrategy()
+      [LocationType.Discard]: new PositiveSequenceStrategy(),
+      [LocationType.PlayerTitan]: new PositiveSequenceStrategy()
     }
   }
 
@@ -64,14 +72,17 @@ export class FiveRealmsRules extends SecretMaterialRules<PlayerId, MaterialType,
     }
   }
 
-  getScore(playerId: PlayerId): number {
-    return this.material(MaterialType.Castle)
+  getScore(playerId: Realm): number {
+    const castle = this.material(MaterialType.Castle)
       .location(LocationType.PlayerCastle)
       .player(playerId)
       .getItem()?.quantity ?? 0
+
+    const throneRule = new ThroneRule(this.game, playerId)
+    return castle + throneRule.getScore()
   }
 
-  giveTime(_playerId: PlayerId): number {
+  giveTime(_playerId: Realm): number {
     return 60
   }
 

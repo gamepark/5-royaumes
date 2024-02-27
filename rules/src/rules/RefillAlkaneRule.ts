@@ -8,7 +8,10 @@ export class RefillAlkaneRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     const alkaneCards = this.alkaneCards
     const deck = this.bannerDeck.deck()
-    if (!deck.length) return [this.rules().endGame()]
+    const isEnd = !deck.length
+    || (alkaneCards.length === 1 && deck.length < 6)
+    || !alkaneCards.length && deck.length < 7
+    if (isEnd) return [this.rules().startRule(RuleId.EndGame)]
     if (alkaneCards.length > 1) return [this.endRuleMoves]
     if (alkaneCards.length === 1) {
       const remainingCard = alkaneCards.getItem()!
@@ -19,15 +22,19 @@ export class RefillAlkaneRule extends PlayerTurnRule {
           y: 0
         }))
       }
-    } else {
+    } else if (alkaneCards.length === 0 ) {
       moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 0}))
     }
 
-    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 0}))
-    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 1}))
-    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 2}))
-    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 2}))
-    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 1}))
+    if (alkaneCards.length <= 1) {
+      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 0}))
+      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 1}))
+      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 2}))
+      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 2}))
+      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 1}))
+    }
+
+
     moves.push(this.endRuleMoves)
 
     return moves;

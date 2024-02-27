@@ -6,7 +6,11 @@ export enum Realm {
   Feline,
   BirdOfPrey,
   Ursid,
-  Marine
+  Marine,
+  ImperialOrder,
+  ReligiousOrder
 }
 
 export const realms = Object.values(Realm).filter(isEnumValue)
+
+export const baseRealms = realms.filter((r) => r <= Realm.Marine)
