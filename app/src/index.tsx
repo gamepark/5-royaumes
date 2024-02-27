@@ -8,14 +8,23 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
+import { theme } from './theme'
 import translations from './translations.json'
 
 setupTranslation(translations, { debug: false })
 
 ReactDOM.render(
   <StrictMode>
-    <GameProvider game="5-royaumes" Rules={FiveRealmsRules} optionsSpec={FiveRealmsOptionsSpec} GameSetup={FiveRealmsSetup}
-                  material={Material} locators={Locators} animations={new MaterialGameAnimations()}>
+    <GameProvider
+      game="5-royaumes"
+      Rules={FiveRealmsRules}
+      optionsSpec={FiveRealmsOptionsSpec}
+      GameSetup={FiveRealmsSetup}
+      material={Material}
+      locators={Locators}
+      animations={new MaterialGameAnimations()}
+      theme={theme}
+    >
       <App/>
     </GameProvider>
   </StrictMode>,

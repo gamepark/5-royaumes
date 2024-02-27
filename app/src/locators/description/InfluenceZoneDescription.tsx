@@ -4,6 +4,7 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
+import { playerColorCode } from '../../panels/PlayerPanels'
 
 export class InfluenceZoneDescription extends LocationDescription {
   width = 6.35 + 0.4
@@ -12,10 +13,15 @@ export class InfluenceZoneDescription extends LocationDescription {
 
   alwaysVisible = true
 
-  extraCss = css`
-    border-radius: 0.7em;
-    border: 0.05em dashed white;
-  `
+  getExtraCss(location: Location) {
+    const realm = location.id
+    return css`
+      border-radius: 0.7em;
+      border: 0.05em dashed white;
+      background: ${playerColorCode[realm]};
+      background: linear-gradient(180deg, ${playerColorCode[realm]}60 0%, ${playerColorCode[realm]}00 70%);
+    `
+  }
 
   getLocations({ rules }: MaterialContext) {
     return rules.players.flatMap((player) => {
@@ -37,7 +43,7 @@ export class InfluenceZoneDescription extends LocationDescription {
     const xIndex = location.id - 1
     if (location.player === (player ?? rules.players[0])) {
       return {
-        x: 15 + (xIndex * (this.width + 0.4)),
+        x: 13 + (xIndex * (this.width + 0.4)),
         y: 13.4,
         z: 0 }
     }
@@ -56,7 +62,7 @@ export class InfluenceZoneDescription extends LocationDescription {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return super.isMoveToLocation(move, location, context)
     const { rules } = context
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)
-    if (item?.location.type === LocationType.Discard) return false
+    if (item?.location.type === LocationType.Discard && !item.selected) return false
     return super.isMoveToLocation(move, location, context)
   }
 }

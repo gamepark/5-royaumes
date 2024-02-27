@@ -31,7 +31,7 @@ export class PlayerTitanDescription extends LocationDescription {
   getTitanPosition(location: Location, { rules, player }: MaterialContext) {
     if (location.player === (player ?? rules.players[0])) {
       return {
-        x: 15 - (this.width + 1),
+        x: 13 - (this.width + 1),
         y: 13.4,
         z: 0 }
     }
@@ -50,7 +50,7 @@ export class PlayerTitanDescription extends LocationDescription {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return super.isMoveToLocation(move, location, context)
     const { rules } = context
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)
-    if (item?.location.type === LocationType.Discard) return false
+    if (item?.location.type === LocationType.Discard && !item.selected) return false
     return super.isMoveToLocation(move, location, context)
   }
 }

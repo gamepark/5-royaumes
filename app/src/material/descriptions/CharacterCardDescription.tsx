@@ -100,12 +100,11 @@ export class CharacterCardDescription extends CardDescription {
 
   canShortClick(move: MaterialMove, context: ItemContext): boolean {
     const { rules } = context
-    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.itemIndex !== context.index) return false
+    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.itemIndex !== context.index) return super.canShortClick(move, context)
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if (item.location.type === LocationType.Discard) return false
-    if (item.location.type === LocationType.AlkaneSquare && move.location.type === LocationType.PlayerHand) return true
-    return super.canShortClick(move, context)
+    return item.location.type === LocationType.AlkaneSquare && move.location.type === LocationType.PlayerHand;
   }
+
 
   help = CharacterCardHelp
 }

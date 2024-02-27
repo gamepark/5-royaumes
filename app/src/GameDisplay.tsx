@@ -16,7 +16,6 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
       yMin={-30}
       yMax={24}
       margin={{ top: 7, left: 0, right: 21, bottom: 0 }}
-      css={css`background: rgba(255, 255, 255, 0.2)`}
     >
       <GameTableNavigation css={css`flex-direction: column; left: auto; right: 3em; top: 28em`}/>
     </GameTable>

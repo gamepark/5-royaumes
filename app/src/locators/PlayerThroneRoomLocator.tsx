@@ -10,7 +10,7 @@ export class PlayerThroneRoomLocator extends ItemLocator {
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
     return {
       ...this.locationDescription.getLocationPosition(item.location, context),
-      z: 0
+      z: 0.05
     }
   }
 

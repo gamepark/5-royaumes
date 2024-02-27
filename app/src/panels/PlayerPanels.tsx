@@ -33,9 +33,9 @@ const bottomPosition = css`
 `
 
 export const playerColorCode: Partial<Record<Realm, string>> = {
-  [Realm.Reptile]: 'red',
-  [Realm.Feline]: 'yellow',
-  [Realm.BirdOfPrey]: 'purple',
-  [Realm.Ursid]: 'green',
-  [Realm.Marine]: 'blue'
+  [Realm.Reptile]: '#B51F20',
+  [Realm.Feline]: '#B68A11',
+  [Realm.BirdOfPrey]: '#6D3286',
+  [Realm.Ursid]: '#3D5C37',
+  [Realm.Marine]: '#014C78'
 }
