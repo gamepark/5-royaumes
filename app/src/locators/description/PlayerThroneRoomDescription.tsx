@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+import { css, Interpolation, Theme } from '@emotion/react'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
@@ -15,13 +15,29 @@ export class PlayerThroneRoomDescription extends LocationDescription {
 
   alwaysVisible = true
 
+  getExtraCss(location: Location, context: LocationContext): Interpolation<Theme> {
+    const extraCss = this.extraCss
+    const { rules } = context
+
+    const isEnd = !rules.game.rule?.id
+    const isMyTurn = (context.player && rules.game.rule?.player === context.player)
+    if (isEnd) return [extraCss, noPointerEvent]
+    if (!isMyTurn) return extraCss
+
+    const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer && rules.game.rule?.player === location.player
+    const isRecruit = rules.game.rule?.id === RuleId.Recruit && rules.game.rule?.player === location.player
+    if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) return [extraCss, noPointerEvent]
+
+    return extraCss
+  }
+
 
   extraCss = css`
     border-radius: 0.5em;
     border: 0.05em dashed white;
   `
 
-  getLocations({ rules }: MaterialContext<number, number, number>) {
+  getLocations({ rules }: MaterialContext) {
     return rules.players.flatMap((player) => {
       return Array.from(Array(4))
         .map((_, x) => ({
@@ -35,7 +51,15 @@ export class PlayerThroneRoomDescription extends LocationDescription {
   getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
     const position = this.getLocationPosition(location, context)
     const { rules } = context
-    if (!rules.game.rule?.id || (rules.game.rule?.id === RuleId.Sorcerer && rules.game.rule?.player === location.player && rules.material(MaterialType.CharacterCard).selected().length)) position.z += 10
+    const isEnd = !rules.game.rule?.id
+    const isMyTurn = (context.player && rules.game.rule?.player === context.player)
+    if (!isMyTurn) return position
+    if (isEnd) position.z += 10
+
+    const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer && rules.game.rule?.player === location.player
+    const isRecruit = rules.game.rule?.id === RuleId.Recruit && rules.game.rule?.player === location.player
+    if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) position.z += 10
+
     return position
   }
 
@@ -72,3 +96,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
     return super.canShortClick(move, location, context)
   }
 }
+
+const noPointerEvent = css`
+  pointer-events: none
+`

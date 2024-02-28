@@ -21,7 +21,7 @@ export class AlkaneSquareDescription extends LocationDescription {
     return new AlkaneSquareRule(rules.game).validAlkaneSquare
   }
 
-  getCoordinates(location: Location<number, number>, context: LocationContext): Coordinates | undefined {
+  getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
     return this.getSquarePosition(location, context)
   }
 

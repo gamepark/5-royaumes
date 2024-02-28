@@ -12,6 +12,11 @@ export class WarriorEffect extends Effect {
     const influenceCard = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
     if ((influenceCard.location.x! + 1) !== 4) return []
     if (!this.canUseWarrior) return []
+    this.addActivation()
+    return []
+  }
+
+  get moves() {
     return [this.rules().startRule(RuleId.Warrior)]
   }
 

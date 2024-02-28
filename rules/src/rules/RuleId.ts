@@ -7,5 +7,6 @@ export enum RuleId {
   RefillAlkane,
   Sorcerer,
   Warrior,
-  EndGame
+  EndGame,
+  ActivateCharacters
 }

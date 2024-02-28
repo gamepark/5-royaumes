@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { baseRealms } from '@gamepark/5-royaumes/cards/Realm'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
@@ -26,12 +27,11 @@ export class InfluenceZoneDescription extends LocationDescription {
 
   getLocations({ rules }: MaterialContext) {
     return rules.players.flatMap((player) => {
-      return Array.from(Array(5))
-        .map((_, id) => ({
+      return baseRealms
+        .map(id => ({
           type: LocationType.PlayerInfluenceZone,
           player,
-          id: id + 1,
-          x: 0
+          id: id
         }))
     })
   }
@@ -40,7 +40,7 @@ export class InfluenceZoneDescription extends LocationDescription {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return false
     const { rules } = context
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.player === location.player) return true
+    if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.id === location.id && move.location.player === location.player) return true
 
     return super.canShortClick(move, location, context)
   }
@@ -48,7 +48,7 @@ export class InfluenceZoneDescription extends LocationDescription {
   getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
     const position = this.getInfluenceZonePosition(location, context)
     const { rules } = context
-    if (!rules.game.rule?.id || (rules.game.rule?.id === RuleId.Sorcerer && rules.game.rule?.player === location.player && rules.material(MaterialType.CharacterCard).selected().length)) position.z += 10
+    if (rules.game.rule?.id === RuleId.Sorcerer && rules.game.rule?.player === location.player && rules.material(MaterialType.CharacterCard).selected().length) position.z += 10
     return position
   }
 
@@ -67,15 +67,7 @@ export class InfluenceZoneDescription extends LocationDescription {
       z: 0 }
   }
 
-  getRotateZ(location: Location<number, number>, { rules, player }: LocationContext): number {
+  getRotateZ(location: Location, { rules, player }: LocationContext): number {
     return location.player === (player ?? rules.players[0])? 0: 180
-  }
-
-  isMoveToLocation(move: MaterialMove, location: Location, context: MaterialContext): any {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return super.isMoveToLocation(move, location, context)
-    const { rules } = context
-    const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)
-    if (item?.location.type === LocationType.Discard && !item.selected) return false
-    return super.isMoveToLocation(move, location, context)
   }
 }

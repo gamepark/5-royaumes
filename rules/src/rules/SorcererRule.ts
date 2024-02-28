@@ -2,8 +2,10 @@ import { isMoveItemType, isSelectItemType, ItemMove, MaterialMove, PlayerTurnRul
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { ThroneRule } from './card-effect/ThroneRule'
+import { Memory } from './Memory'
 import { RuleId } from './RuleId'
-import { PlaceCardRule } from './utils/PlaceCardRule'
+import { InfluenceUtils } from './utils/InfluenceUtils'
+import { RecruitUtils } from './utils/RecruitUtils'
 
 export class SorcererRule extends PlayerTurnRule {
 
@@ -13,9 +15,8 @@ export class SorcererRule extends PlayerTurnRule {
     const unselected = discard.filter((item) => !item.selected)
     const moves: MaterialMove[] = []
     if (selected.length) {
-      const rule = new PlaceCardRule(this.game, selected.getIndex())
-      moves.push(...rule.recruitMoves)
-      moves.push(...rule.influenceMoves)
+      moves.push(...new RecruitUtils(this.game, selected).recruitMoves)
+      moves.push(...new InfluenceUtils(this.game, selected).influenceMoves)
     }
 
     moves.push(...unselected.selectItems())
@@ -58,12 +59,24 @@ export class SorcererRule extends PlayerTurnRule {
       }
     }
 
-    moves.push(this.rules().startRule(RuleId.Influence))
+    moves.push(this.rules().startRule(RuleId.ActivateCharacters))
 
     return moves
   }
 
+  get hiddenCards() {
+    return this.hand.rotation((r) => r === undefined)
+  }
+
   get discard() {
     return this.material(MaterialType.CharacterCard).location(LocationType.Discard)
+  }
+
+  get hand() {
+    return this.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(this.player)
+  }
+
+  get character() {
+    return this.remind<number>(Memory.CurrentCharacter)
   }
 }

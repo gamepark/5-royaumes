@@ -1,5 +1,6 @@
 import { Material, MaterialGame, MaterialMove, MaterialRulesPart, MoveItem } from '@gamepark/rules-api'
 import { Realm } from '../../cards/Realm'
+import { Memory } from '../Memory'
 
 export class Effect extends MaterialRulesPart {
   constructor(game: MaterialGame, readonly player: Realm, readonly card: Material) {
@@ -14,8 +15,30 @@ export class Effect extends MaterialRulesPart {
     return []
   }
 
+  get moves(): MaterialMove[] {
+    return []
+  }
+
   onGameEnd(): MaterialMove[] {
     return []
+  }
+
+  addActivation(): void {
+    this.memorize<number[]>(Memory.ActivatedCharacters, (chars) => {
+      const characters = chars ?? []
+      characters.push(this.card.getIndex())
+      return characters
+    })
+  }
+
+  consumeActivation(): void {
+
+    this.memorize<number[]>(Memory.ActivatedCharacters, (chars) => {
+      const characters = [...chars]
+      const index = chars.findIndex((index) => index === this.card.getIndex())
+      characters.splice(index, 1)
+      return characters
+    })
   }
 
   getScore(): number | undefined {

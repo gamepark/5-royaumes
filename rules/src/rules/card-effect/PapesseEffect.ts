@@ -9,6 +9,11 @@ export class PapesseEffect extends Effect {
 
     const influenceCard = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
     if ((influenceCard.location.x! + 1) !== 4) return []
+    this.addActivation()
+    return []
+  }
+
+  get moves() {
     return [
       this.material(MaterialType.Castle).createItem({
         location: {

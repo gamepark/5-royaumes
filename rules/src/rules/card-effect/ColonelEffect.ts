@@ -15,8 +15,13 @@ export class ColonelEffect extends Effect {
       .length
 
     if (lineSize !== 5) return []
+    this.addActivation()
+    return []
+  }
+
+  get moves() {
     return [
-      this.material(MaterialType.Castle).createItem({ location: { type: LocationType.PlayerCastle, player: this.player }})
+      this.material(MaterialType.Castle).createItem({ location: { type: LocationType.PlayerCastle, player: this.player } })
     ]
   }
 
@@ -49,15 +54,15 @@ export class ColonelEffect extends Effect {
       .material(MaterialType.CharacterCard)
       .location(LocationType.PlayerInfluenceZone)
       .player(playerId)
-      let influenceLines: number | undefined = undefined
+    let influenceLines: number | undefined = undefined
 
-      for (const realm of baseRealms) {
-        const size = influenceCards.locationId(realm).maxBy((item) => item.location.x!)?.getItem()?.location.x ?? 0
-        if (influenceLines === undefined || size < influenceLines) {
-          influenceLines = size
-        }
+    for (const realm of baseRealms) {
+      const size = influenceCards.locationId(realm).maxBy((item) => item.location.x!)?.getItem()?.location.x ?? 0
+      if (influenceLines === undefined || size < influenceLines) {
+        influenceLines = size
       }
+    }
 
-      return influenceLines ?? 0
+    return influenceLines ?? 0
   }
 }

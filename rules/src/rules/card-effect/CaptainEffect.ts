@@ -6,21 +6,25 @@ import { Effect } from './Effect'
 
 export class CaptainEffect extends Effect {
 
-    onInfluence(): MaterialMove[] {
-      const columns = baseRealms
-      const moves: MaterialMove[] = []
-      const columnCards = this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone)
-      for (const realm of columns) {
-        const realmCards = columnCards.locationId(realm)
-        const myCount = realmCards.player(this.player).length
-        if (myCount > realmCards.player((p) => p !== this.player).length) {
-          moves.push(
-            this.material(MaterialType.Castle).createItem({ location: { type: LocationType.PlayerCastle, player: this.player }})
-          )
-        }
+  onInfluence(): MaterialMove[] {
+    const columns = baseRealms
+    const moves: MaterialMove[] = []
+    const columnCards = this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone)
+    for (const realm of columns) {
+      const realmCards = columnCards.locationId(realm)
+      const myCount = realmCards.player(this.player).length
+      if (myCount > realmCards.player((p) => p !== this.player).length) {
+        this.addActivation()
       }
+    }
 
-      return moves
+    return moves
+  }
+
+  get moves() {
+    return [
+      this.material(MaterialType.Castle).createItem({ location: { type: LocationType.PlayerCastle, player: this.player } })
+    ]
   }
 
   onRecruit() {

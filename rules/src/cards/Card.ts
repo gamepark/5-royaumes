@@ -43,33 +43,31 @@ export enum Card {
 }
 
 
-export const cards = Object.values(Card).filter<Card>(isEnumValue)
+export const gameCards = Object.values(Card).filter<Card>(isEnumValue)
 
 export const isReptile = (card: Card) => card < Card.Feline1
-export const reptiles = cards.filter(isReptile)
+export const reptiles = gameCards.filter(isReptile)
 
 export const isFeline = (card: Card) => card > Card.Reptile5 && card < Card.BirdOfPrey1
 
-export const felines = cards.filter(isFeline)
+export const felines = gameCards.filter(isFeline)
 
 export const isBirdOfPrey = (card: Card) => card > Card.Feline5 && card < Card.Ursid1
 
-export const birdsOfPrey = cards.filter(isBirdOfPrey)
+export const birdsOfPrey = gameCards.filter(isBirdOfPrey)
 
 export const isUrsid = (card: Card) => card > Card.BirdOfPrey5 && card < Card.Marine1
 
-export const ursids = cards.filter(isUrsid)
+export const ursids = gameCards.filter(isUrsid)
 
 export const isMarine = (card: Card) => card > Card.Ursid5 && card < Card.Marshall
 
-export const marines = cards.filter(isMarine)
+export const marines = gameCards.filter(isMarine)
 
 export const isImperialOrder = (card: Card) => card > Card.Marine5 && card < Card.Gaia
 
-export const imperialOrder = cards.filter(isImperialOrder)
+export const imperialOrder = gameCards.filter(isImperialOrder)
 
 export const isReligiousOrder = (card: Card) => card > Card.General
 
-export const religiousOrder = cards.filter(isReligiousOrder)
-
-export const banners = cards.filter((c) => isReptile(c) || isFeline(c) || isBirdOfPrey(c) || isUrsid(c) || isMarine(c))
+export const religiousOrder = gameCards.filter(isReligiousOrder)

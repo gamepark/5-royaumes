@@ -12,6 +12,7 @@ import {
 import { Realm } from './cards/Realm'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
+import { ActivateCharactersRule } from './rules/ActivateCharactersRule'
 import { ThroneRule } from './rules/card-effect/ThroneRule'
 import { ChooseActionRule } from './rules/ChooseActionRule'
 import { ChooseAlkaneColorRule } from './rules/ChooseAlkaneColorRule'
@@ -50,7 +51,8 @@ export class FiveRealmsRules extends SecretMaterialRules<Realm, MaterialType, Lo
     [RuleId.RefillAlkane]: RefillAlkaneRule,
     [RuleId.Sorcerer]: SorcererRule,
     [RuleId.Warrior]: WarriorRule,
-    [RuleId.EndGame]: EndGameRule
+    [RuleId.EndGame]: EndGameRule,
+    [RuleId.ActivateCharacters]: ActivateCharactersRule
   }
 
   locationsStrategies = {

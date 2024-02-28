@@ -2,8 +2,9 @@ import { Card } from '@gamepark/5-royaumes/cards/Card'
 import { Realm } from '@gamepark/5-royaumes/cards/Realm'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
+import { CustomMoveType } from '@gamepark/5-royaumes/rules/CustomMoveType'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
+import { isCustomMoveType, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import BirdOfPrey1 from '../../images/card/birdofprey/bird_of_prey_1.jpg'
 import BirdOfPrey2 from '../../images/card/birdofprey/bird_of_prey_2.jpg'
 import BirdOfPrey3 from '../../images/card/birdofprey/bird_of_prey_3.jpg'
@@ -100,6 +101,7 @@ export class CharacterCardDescription extends CardDescription {
 
   canShortClick(move: MaterialMove, context: ItemContext): boolean {
     const { rules } = context
+    if (isCustomMoveType(CustomMoveType.ActivateCharacter)(move) && move.data === context.index) return true
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.itemIndex !== context.index) return super.canShortClick(move, context)
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
     return item.location.type === LocationType.AlkaneSquare && move.location.type === LocationType.PlayerHand;

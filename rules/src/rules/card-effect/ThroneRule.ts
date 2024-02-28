@@ -25,7 +25,6 @@ export class ThroneRule extends MaterialRulesPart {
 
   }
 
-
   getEffectRule(game: MaterialGame, card: Material): Effect | undefined {
     const id = card.getItem()!.id.front
     if (isKing(id)) return new KingEffect(game, this.player, card)
@@ -41,6 +40,14 @@ export class ThroneRule extends MaterialRulesPart {
     if (id === Card.Marshall) return new MarshallEffect(game, this.player, card)
     if (id === Card.General) return new GeneralEffect(game, this.player, card)
     return
+  }
+
+  consumeEffect(card: Material) {
+    this.getEffectRule(this.game, card)?.consumeActivation()
+  }
+
+  getMoves(card: Material): MaterialMove[] {
+    return this.getEffectRule(this.game, card)?.moves ?? []
   }
 
   onInfluence(move: ItemMove) {

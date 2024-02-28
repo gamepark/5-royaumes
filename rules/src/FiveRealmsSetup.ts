@@ -1,5 +1,5 @@
 import { MaterialGameSetup, MaterialItem } from '@gamepark/rules-api'
-import { banners, Card, isBirdOfPrey, isFeline, isMarine, isReptile, isUrsid } from './cards/Card'
+import { Card, gameCards, isBirdOfPrey, isFeline, isImperialOrder, isMarine, isReligiousOrder, isReptile, isUrsid } from './cards/Card'
 import { Realm } from './cards/Realm'
 import { FiveRealmsOptions } from './FiveRealmsOptions'
 import { FiveRealmsRules } from './FiveRealmsRules'
@@ -26,7 +26,7 @@ export class FiveRealmsSetup extends MaterialGameSetup<Realm, MaterialType, Loca
   }
 
   setupBanners() {
-    const cards: MaterialItem[] = banners
+    const cards: MaterialItem[] = gameCards
       .flatMap((c) =>
         Array
           .from(Array(2))
@@ -67,5 +67,7 @@ export const getCardBack = (c: Card) => {
   if (isBirdOfPrey(c)) return Realm.BirdOfPrey
   if (isUrsid(c)) return Realm.Ursid
   if (isMarine(c)) return Realm.Marine
+  if (isReligiousOrder(c)) return Realm.ReligiousOrder
+  if (isImperialOrder(c)) return Realm.ImperialOrder
   return
 }

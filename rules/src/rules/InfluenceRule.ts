@@ -3,6 +3,7 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { ThroneRule } from './card-effect/ThroneRule'
 import { RuleId } from './RuleId'
+import { InfluenceUtils } from './utils/InfluenceUtils'
 
 export class InfluenceRule extends PlayerTurnRule {
   onRuleStart() {
@@ -18,15 +19,10 @@ export class InfluenceRule extends PlayerTurnRule {
 
   get placeCardMove() {
     const hand = this.hand
-    if (!hand.length) return [this.rules().startRule(RuleId.RefillAlkane)]
-    const realms = hand.getItem()!.id.back
-    return hand
-      .limit(1)
-      .moveItems({
-        type: LocationType.PlayerInfluenceZone,
-        id: realms,
-        player: this.player
-      })
+    if (!hand.length) return [this.rules().startRule(RuleId.ActivateCharacters)]
+    const moves = new InfluenceUtils(this.game, hand).influenceMoves
+    if (!moves.length) return []
+    return moves.slice(0, 1)
   }
 
   get hand() {
