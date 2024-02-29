@@ -4,6 +4,7 @@ import { isKing, isQueen, isKingdomTitan, isKingdomWarrior, isSorcerer } from '.
 import { Kingdom } from '../../cards/Kingdom'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { Memory, ThroneActivationState } from '../Memory'
 import { CaptainEffect } from './CaptainEffect'
 import { ColonelEffect } from './ColonelEffect'
 import { Effect } from './Effect'
@@ -53,6 +54,8 @@ export class ThroneRule extends MaterialRulesPart {
   onInfluence(move: ItemMove) {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
     const moves: MaterialMove[] = []
+    this.controlThrone(move)
+
     for (const character of this.throneRoom.getIndexes()) {
       const item = this.material(MaterialType.CharacterCard).index(character)
       const effectRule = this.getEffectRule(this.game, item)
@@ -62,6 +65,18 @@ export class ThroneRule extends MaterialRulesPart {
     }
 
     return moves
+  }
+
+  controlThrone(move: MoveItem) {
+    const throneState = this.throneState
+    const movesItem = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
+    if (!throneState && movesItem.id.back === this.player && (movesItem.location.x! + 1) === 3) {
+      this.memorize(Memory.ThroneActivation, ThroneActivationState.ACTIVATED, this.player)
+    }
+  }
+
+  get throneState() {
+    return this.remind<ThroneActivationState | undefined>(Memory.ThroneActivation, this.player)
   }
 
   onRecruit(move: MoveItem) {

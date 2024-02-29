@@ -1,9 +1,10 @@
 import { CustomMove, isCustomMoveType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import uniq from 'lodash/uniq'
+import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { ThroneRule } from './card-effect/ThroneRule'
 import { CustomMoveType } from './CustomMoveType'
-import { Memory } from './Memory'
+import { Memory, ThroneActivationState } from './Memory'
 import { RuleId } from './RuleId'
 
 export class ActivateCharactersRule extends PlayerTurnRule {
@@ -47,8 +48,33 @@ export class ActivateCharactersRule extends PlayerTurnRule {
   }
 
   get goToRefillMoves() {
-    if (!this.activations.length) return [this.rules().startRule(RuleId.RefillAlkane)]
+    const moves: MaterialMove[] = this.throneEffectMoves
+    if (!this.activations.length) moves.push(this.rules().startRule(RuleId.RefillAlkane))
+    return moves
+  }
+
+  get throneEffectMoves() {
+    const throneState = this.throneState
+    if (throneState === ThroneActivationState.ACTIVATED) {
+      this.memorize(Memory.ThroneActivation, ThroneActivationState.CONSUMED, this.player)
+      return [
+        this
+          .material(MaterialType.Castle)
+          .createItem({
+            location: {
+              type: LocationType.PlayerCastle,
+              player: this.player
+            },
+            quantity: 2
+          })
+      ]
+    }
+
     return []
+  }
+
+  get throneState() {
+    return this.remind<ThroneActivationState | undefined>(Memory.ThroneActivation, this.player)
   }
 
   get currentCharacter() {

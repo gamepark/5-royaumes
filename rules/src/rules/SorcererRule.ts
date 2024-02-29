@@ -64,10 +64,6 @@ export class SorcererRule extends PlayerTurnRule {
     return moves
   }
 
-  get hiddenCards() {
-    return this.hand.rotation((r) => r === undefined)
-  }
-
   get discard() {
     return this.material(MaterialType.CharacterCard).location(LocationType.Discard)
   }
