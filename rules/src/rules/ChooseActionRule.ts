@@ -1,14 +1,13 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
-import { Realm } from '../cards/Realm'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { RuleId } from './RuleId'
+import { InfluenceUtils } from './utils/InfluenceUtils'
 
 export class ChooseActionRule extends PlayerTurnRule {
   onRuleStart() {
-    const hand = this.hand
-    console.log(hand.filter((item) => item.id.back === Realm.ReligiousOrder).length)
-    if (!hand.filter((item) => item.id.back === Realm.ReligiousOrder).length) return []
+    const canInfluence = new InfluenceUtils(this.game, this.hand).influenceMoves.length
+    if (canInfluence) return []
 
     return [
       this.rules().startRule(RuleId.Recruit)
@@ -16,6 +15,7 @@ export class ChooseActionRule extends PlayerTurnRule {
   }
 
   getPlayerMoves() {
+
     return [
       this.rules().startRule(RuleId.Influence),
       this.rules().startRule(RuleId.Recruit)

@@ -1,4 +1,4 @@
-import { CustomMove, isCustomMoveType, isMoveItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isEndGame, isMoveItemType, isStartRule, ItemMove, MaterialMove, MoveItem, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { ThroneRule } from './card-effect/ThroneRule'
@@ -22,33 +22,59 @@ export class RecruitRule extends PlayerTurnRule {
     ]
   }
 
-  beforeItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
-    if (move.location.type !== LocationType.PlayerThroneRoom && move.location.type !== LocationType.PlayerTitan) return []
-    return new ThroneRule(this.game, this.player).onRecruit(move)
-  }
-
   onCustomMove(move: CustomMove) {
     if (!isCustomMoveType(CustomMoveType.Discard)(move)) return []
-    return this.discardHand
+    return [
+      ...this.discardHand(),
+      this.goToActivation()
+    ]
   }
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
+    if ((move.location.type === LocationType.PlayerHand && move.location.rotation && !this.hiddenCards.length && !new RecruitUtils(this.game, this.hand).recruitMoves.length)) {
+      return [
+        ...this.discardHand(),
+        this.goToActivation()
+      ]
+    }
 
     const moves: MaterialMove[] = []
+    if (move.location.type === LocationType.PlayerThroneRoom || move.location.type === LocationType.PlayerTitan) {
+      const recruitMoves = new ThroneRule(this.game, this.player).onRecruit(move)
+      const onRecruit = this.onRecruit(move)
+      if (recruitMoves.some(isStartRule)) {
 
-    if ((move.location.type === LocationType.PlayerHand && move.location.rotation && !this.hiddenCards.length && !new RecruitUtils(this.game, this.hand).recruitMoves.length)
-      || move.location.type === LocationType.PlayerThroneRoom || move.location.type === LocationType.PlayerTitan) {
-      moves.push(...this.discardHand)
-      if (move.location.type === LocationType.PlayerTitan) {
-        const titans = this.material(MaterialType.CharacterCard).location(LocationType.PlayerTitan).player(this.player).length
-        if (titans === 5) {
-          moves.push(this.rules().endGame())
-          return moves
+        if (onRecruit.some(isEndGame)) {
+          moves.push(...recruitMoves.filter((move) => !isStartRule(move)))
+          moves.push(...onRecruit)
+        } else {
+          moves.push(...onRecruit)
+          moves.push(...recruitMoves)
         }
+
+        return moves
       }
 
+      moves.push(...recruitMoves)
+      moves.push(...onRecruit)
+      if (!onRecruit.some(isEndGame)) {
+        moves.push(this.goToActivation())
+      }
+    }
+
+    return moves
+  }
+
+  onRecruit(move: MoveItem) {
+    const moves: MaterialMove[] = []
+    moves.push(...this.discardHand())
+    if (move.location.type === LocationType.PlayerTitan) {
+      const titans = this.material(MaterialType.CharacterCard).location(LocationType.PlayerTitan).player(this.player).length
+      if (titans === 5) {
+        moves.push(this.rules().endGame())
+        return moves
+      }
     }
 
     return moves
@@ -58,12 +84,14 @@ export class RecruitRule extends PlayerTurnRule {
     return this.hand.rotation((r) => r === undefined)
   }
 
-  get discardHand() {
-    return [
-      ...this.hand.moveItems({ type: LocationType.Discard }),
-      this.rules().startRule(RuleId.RefillAlkane)
-    ]
+  discardHand() {
+    return this.hand.moveItems({ type: LocationType.Discard })
   }
+
+  goToActivation() {
+    return this.rules().startRule(RuleId.ActivateCharacters)
+  }
+
 
   get hand() {
     return this.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(this.player)

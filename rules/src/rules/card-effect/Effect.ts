@@ -32,13 +32,13 @@ export class Effect extends MaterialRulesPart {
   }
 
   consumeActivation(): void {
-
     this.memorize<number[]>(Memory.ActivatedCharacters, (chars) => {
       const characters = [...chars]
       const index = chars.findIndex((index) => index === this.card.getIndex())
       characters.splice(index, 1)
       return characters
     })
+    if (!this.remind<number[]>(Memory.ActivatedCharacters).length) this.forget(Memory.ActivatedCharacters)
   }
 
   getScore(): number | undefined {

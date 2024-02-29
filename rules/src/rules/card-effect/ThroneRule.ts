@@ -70,6 +70,7 @@ export class ThroneRule extends MaterialRulesPart {
       .material(MaterialType.CharacterCard)
       .location((location) => location.type === LocationType.PlayerThroneRoom && location.x === move.location.x)
       .player(this.player)
+      .index((index) => index !== move.itemIndex)
 
     const moves: MaterialMove[] = []
     if (cardOnPosition.length) {

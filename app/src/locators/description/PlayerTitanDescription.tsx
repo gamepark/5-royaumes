@@ -1,21 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
+import { EndGameCardScoring } from './EndGameCardScoring'
 
 export class PlayerTitanDescription extends LocationDescription {
   width = 6.35 + 0.4
-  height = 2 * 8.89
+  height = 21
   borderRadius = 0.5
 
   alwaysVisible = true
-
-  extraCss = css`
-    border-radius: 0.7em;
-    border: 0.05em dashed white;
-  `
 
   getLocations({ rules }: MaterialContext) {
     return rules.players.flatMap((player) => ({
@@ -41,15 +36,17 @@ export class PlayerTitanDescription extends LocationDescription {
     if (location.player === (player ?? rules.players[0])) {
       return {
         x: 13 - (this.width + 1),
-        y: 13.4,
+        y: 11.9,
         z: 0 }
     }
 
     return {
       x: 13 + (this.width + 1),
-      y: -19.4,
+      y: -17.9,
       z: 0 }
   }
+
+  content = EndGameCardScoring
 
   getRotateZ(location: Location, { rules, player }: LocationContext): number {
     return location.player === (player ?? rules.players[0])? 0: 180

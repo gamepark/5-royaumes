@@ -52,11 +52,11 @@ export class WarriorMonkEffect extends WarriorEffect {
       .filter((item) => isWarrior(item.id.front))
 
     if (warriors.length > opponentWarrior.length) {
-      return this
+      return Math.min(this
           .material(MaterialType.Castle)
           .location(LocationType.PlayerCastle)
           .player(opponent)
-          .getItem()?.quantity ?? 0
+          .getItem()?.quantity ?? 0, 2)
     }
 
     return 0

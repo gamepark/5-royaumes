@@ -45,7 +45,7 @@ export class RefillAlkaneRule extends PlayerTurnRule {
   get endRuleMove() {
     const freeTurns = this.freeTurns
     if (freeTurns) {
-      this.memorize<number>(Memory.FreeTurns, (turns) => turns--)
+      this.memorize<number>(Memory.FreeTurns, (turns) => turns - 1)
       if (this.freeTurns === 0) this.forget(Memory.FreeTurns)
       return this.rules().startRule(RuleId.DrawBannerCard)
     }

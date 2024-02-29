@@ -14,6 +14,7 @@ export class InfluenceUtils extends PlayerTurnRule {
     if (!this.cards.length) return []
     const item = this.cards.getItem()!
     const back = item.id.back
+    if (back === Realm.ReligiousOrder) return []
     if (back === Realm.ImperialOrder) {
       return baseRealms
         .filter((realm) => this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone).locationId(realm).player(this.player).length > 0)

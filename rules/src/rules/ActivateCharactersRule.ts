@@ -39,7 +39,6 @@ export class ActivateCharactersRule extends PlayerTurnRule {
       const throne = new ThroneRule(this.game, this.player)
       const moves = throne.getMoves(item)
       throne.consumeEffect(item)
-      console.log("AI MOVES ?", _move, moves)
       return moves
     }
 

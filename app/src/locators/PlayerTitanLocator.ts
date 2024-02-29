@@ -15,7 +15,7 @@ export class PlayerTitanLocator extends LineLocator {
   getCoordinates(item: MaterialItem, context: ItemContext): Coordinates {
     const baseCoordinates = this.locationDescription.getTitanPosition(item.location, context)
     const { rules, player } = context
-    const deltaY = (item.location.player === (player ?? rules.players[0]))? 4.25 : -4.25
+    const deltaY = (item.location.player === (player ?? rules.players[0]))? 5.8 : -5.8
     return {
       x: baseCoordinates.x,
       y: baseCoordinates.y + deltaY,
