@@ -56,9 +56,9 @@ export class CharacterCardDescription extends CardDescription {
   backImages = {
     [Kingdom.Reptile]: ReptileBack,
     [Kingdom.Feline]: FelineBack,
-    [Kingdom.BirdOfPrey]: BirdsOfPreyBack,
+    [Kingdom.Raptor]: BirdsOfPreyBack,
     [Kingdom.Ursid]: UrsidBack,
-    [Kingdom.Marine]: MarineBack,
+    [Kingdom.Sailor]: MarineBack,
     [Kingdom.ImperialOrder]: ImperialOrderBack,
     [Kingdom.ReligiousOrder]: ReligiousOrderBack
   }

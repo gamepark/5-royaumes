@@ -30,9 +30,9 @@ export class ThroneCardDescription extends CardDescription {
   images = {
     [Kingdom.Reptile]: ReptileThrone,
     [Kingdom.Feline]: FelineThrone,
-    [Kingdom.BirdOfPrey]: BordOfPreyThrone,
+    [Kingdom.Raptor]: BordOfPreyThrone,
     [Kingdom.Ursid]: UrsidsThrone,
-    [Kingdom.Marine]: MarineThrone,
+    [Kingdom.Sailor]: MarineThrone,
   }
 
 }

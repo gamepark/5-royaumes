@@ -35,7 +35,7 @@ const bottomPosition = css`
 export const playerColorCode: Partial<Record<Kingdom, string>> = {
   [Kingdom.Reptile]: '#B51F20',
   [Kingdom.Feline]: '#B68A11',
-  [Kingdom.BirdOfPrey]: '#6D3286',
+  [Kingdom.Raptor]: '#6D3286',
   [Kingdom.Ursid]: '#3D5C37',
-  [Kingdom.Marine]: '#014C78'
+  [Kingdom.Sailor]: '#014C78'
 }

@@ -64,9 +64,9 @@ export class FiveKingdomsSetup extends MaterialGameSetup<Kingdom, MaterialType, 
 export const getCardBack = (c: Card) => {
   if (isReptile(c)) return Kingdom.Reptile
   if (isFeline(c)) return Kingdom.Feline
-  if (isBirdOfPrey(c)) return Kingdom.BirdOfPrey
+  if (isBirdOfPrey(c)) return Kingdom.Raptor
   if (isUrsid(c)) return Kingdom.Ursid
-  if (isMarine(c)) return Kingdom.Marine
+  if (isMarine(c)) return Kingdom.Sailor
   if (isReligiousOrder(c)) return Kingdom.ReligiousOrder
   if (isImperialOrder(c)) return Kingdom.ImperialOrder
   return
