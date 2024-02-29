@@ -1,5 +1,5 @@
 import { MaterialGameSetup, MaterialItem } from '@gamepark/rules-api'
-import { Card, gameCards, isBirdOfPrey, isFeline, isImperialOrder, isMarine, isReligiousOrder, isReptile, isUrsid } from './cards/Card'
+import { Card, gameCards, isRaptor, isFeline, isImperialOrder, isSailor, isReligiousOrder, isReptile, isUrsid } from './cards/Card'
 import { Kingdom } from './cards/Kingdom'
 import { FiveKingdomsOptions } from './FiveKingdomsOptions'
 import { FiveKingdomsRules } from './FiveKingdomsRules'
@@ -64,9 +64,9 @@ export class FiveKingdomsSetup extends MaterialGameSetup<Kingdom, MaterialType, 
 export const getCardBack = (c: Card) => {
   if (isReptile(c)) return Kingdom.Reptile
   if (isFeline(c)) return Kingdom.Feline
-  if (isBirdOfPrey(c)) return Kingdom.Raptor
+  if (isRaptor(c)) return Kingdom.Raptor
   if (isUrsid(c)) return Kingdom.Ursid
-  if (isMarine(c)) return Kingdom.Sailor
+  if (isSailor(c)) return Kingdom.Sailor
   if (isReligiousOrder(c)) return Kingdom.ReligiousOrder
   if (isImperialOrder(c)) return Kingdom.ImperialOrder
   return

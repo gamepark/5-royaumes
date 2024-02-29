@@ -13,11 +13,11 @@ export enum Card {
   Feline4,
   Feline5,
 
-  BirdOfPrey1 = 21,
-  BirdOfPrey2,
-  BirdOfPrey3,
-  BirdOfPrey4,
-  BirdOfPrey5,
+  Raptor1 = 21,
+  Raptor2,
+  Raptor3,
+  Raptor4,
+  Raptor5,
 
   Ursid1 = 31,
   Ursid2,
@@ -25,11 +25,11 @@ export enum Card {
   Ursid4,
   Ursid5,
 
-  Marine1 = 41,
-  Marine2,
-  Marine3,
-  Marine4,
-  Marine5,
+  Sailor1 = 41,
+  Sailor2,
+  Sailor3,
+  Sailor4,
+  Sailor5,
 
   Marshall = 50,
   Colonel,
@@ -48,23 +48,23 @@ export const gameCards = Object.values(Card).filter<Card>(isEnumValue)
 export const isReptile = (card: Card) => card < Card.Feline1
 export const reptiles = gameCards.filter(isReptile)
 
-export const isFeline = (card: Card) => card > Card.Reptile5 && card < Card.BirdOfPrey1
+export const isFeline = (card: Card) => card > Card.Reptile5 && card < Card.Raptor1
 
 export const felines = gameCards.filter(isFeline)
 
-export const isBirdOfPrey = (card: Card) => card > Card.Feline5 && card < Card.Ursid1
+export const isRaptor = (card: Card) => card > Card.Feline5 && card < Card.Ursid1
 
-export const birdsOfPrey = gameCards.filter(isBirdOfPrey)
+export const raptors = gameCards.filter(isRaptor)
 
-export const isUrsid = (card: Card) => card > Card.BirdOfPrey5 && card < Card.Marine1
+export const isUrsid = (card: Card) => card > Card.Raptor5 && card < Card.Sailor1
 
 export const ursids = gameCards.filter(isUrsid)
 
-export const isMarine = (card: Card) => card > Card.Ursid5 && card < Card.Marshall
+export const isSailor = (card: Card) => card > Card.Ursid5 && card < Card.Marshall
 
-export const marines = gameCards.filter(isMarine)
+export const sailors = gameCards.filter(isSailor)
 
-export const isImperialOrder = (card: Card) => card > Card.Marine5 && card < Card.Gaia
+export const isImperialOrder = (card: Card) => card > Card.Sailor5 && card < Card.Gaia
 
 export const imperialOrder = gameCards.filter(isImperialOrder)
 

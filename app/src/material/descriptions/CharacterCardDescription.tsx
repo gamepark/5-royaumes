@@ -5,12 +5,12 @@ import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { CustomMoveType } from '@gamepark/5-royaumes/rules/CustomMoveType'
 import { CardDescription, ItemContext } from '@gamepark/react-game'
 import { isCustomMoveType, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
-import BirdOfPrey1 from '../../images/card/birdofprey/bird_of_prey_1.jpg'
-import BirdOfPrey2 from '../../images/card/birdofprey/bird_of_prey_2.jpg'
-import BirdOfPrey3 from '../../images/card/birdofprey/bird_of_prey_3.jpg'
-import BirdOfPrey4 from '../../images/card/birdofprey/bird_of_prey_4.jpg'
-import BirdOfPrey5 from '../../images/card/birdofprey/bird_of_prey_5.jpg'
-import BirdsOfPreyBack from '../../images/card/birdofprey/bird_of_prey_back.jpg'
+import Raptor1 from '../../images/card/raptor/raptor_1.jpg'
+import Raptor2 from '../../images/card/raptor/raptor_2.jpg'
+import Raptor3 from '../../images/card/raptor/raptor_3.jpg'
+import Raptor4 from '../../images/card/raptor/raptor_4.jpg'
+import Raptor5 from '../../images/card/raptor/raptor_5.jpg'
+import RaptorBack from '../../images/card/raptor/raptor_back.jpg'
 import Feline1 from '../../images/card/feline/feline_1.jpg'
 import Feline2 from '../../images/card/feline/feline_2.jpg'
 import Feline3 from '../../images/card/feline/feline_3.jpg'
@@ -22,12 +22,12 @@ import Colonel from '../../images/card/imperialorder/colonel.jpg'
 import General from '../../images/card/imperialorder/general.jpg'
 import ImperialOrderBack from '../../images/card/imperialorder/imperial_order_back.jpg'
 import Marechal from '../../images/card/imperialorder/marechal.jpg'
-import Marine1 from '../../images/card/marine/marine_1.jpg'
-import Marine2 from '../../images/card/marine/marine_2.jpg'
-import Marine3 from '../../images/card/marine/marine_3.jpg'
-import Marine4 from '../../images/card/marine/marine_4.jpg'
-import Marine5 from '../../images/card/marine/marine_5.jpg'
-import MarineBack from '../../images/card/marine/marine_back.jpg'
+import Sailor1 from '../../images/card/sailor/sailor_1.jpg'
+import Sailor2 from '../../images/card/sailor/sailor_2.jpg'
+import Sailor3 from '../../images/card/sailor/sailor_3.jpg'
+import Sailor4 from '../../images/card/sailor/sailor_4.jpg'
+import Sailor5 from '../../images/card/sailor/sailor_5.jpg'
+import SailorBack from '../../images/card/sailor/sailor_back.jpg'
 import Gaia from '../../images/card/religiousorder/gaia.jpg'
 import Ouranos from '../../images/card/religiousorder/ouranos.jpg'
 import Papesse from '../../images/card/religiousorder/papesse.jpg'
@@ -56,9 +56,9 @@ export class CharacterCardDescription extends CardDescription {
   backImages = {
     [Kingdom.Reptile]: ReptileBack,
     [Kingdom.Feline]: FelineBack,
-    [Kingdom.Raptor]: BirdsOfPreyBack,
+    [Kingdom.Raptor]: RaptorBack,
     [Kingdom.Ursid]: UrsidBack,
-    [Kingdom.Sailor]: MarineBack,
+    [Kingdom.Sailor]: SailorBack,
     [Kingdom.ImperialOrder]: ImperialOrderBack,
     [Kingdom.ReligiousOrder]: ReligiousOrderBack
   }
@@ -74,21 +74,21 @@ export class CharacterCardDescription extends CardDescription {
     [Card.Feline3]: Feline3,
     [Card.Feline4]: Feline4,
     [Card.Feline5]: Feline5,
-    [Card.BirdOfPrey1]: BirdOfPrey1,
-    [Card.BirdOfPrey2]: BirdOfPrey2,
-    [Card.BirdOfPrey3]: BirdOfPrey3,
-    [Card.BirdOfPrey4]: BirdOfPrey4,
-    [Card.BirdOfPrey5]: BirdOfPrey5,
+    [Card.Raptor1]: Raptor1,
+    [Card.Raptor2]: Raptor2,
+    [Card.Raptor3]: Raptor3,
+    [Card.Raptor4]: Raptor4,
+    [Card.Raptor5]: Raptor5,
     [Card.Ursid1]: Ursid1,
     [Card.Ursid2]: Ursid2,
     [Card.Ursid3]: Ursid3,
     [Card.Ursid4]: Ursid4,
     [Card.Ursid5]: Ursid5,
-    [Card.Marine1]: Marine1,
-    [Card.Marine2]: Marine2,
-    [Card.Marine3]: Marine3,
-    [Card.Marine4]: Marine4,
-    [Card.Marine5]: Marine5,
+    [Card.Sailor1]: Sailor1,
+    [Card.Sailor2]: Sailor2,
+    [Card.Sailor3]: Sailor3,
+    [Card.Sailor4]: Sailor4,
+    [Card.Sailor5]: Sailor5,
     [Card.Marshall]: Marechal,
     [Card.Colonel]: Colonel,
     [Card.Captain]: Captain,
