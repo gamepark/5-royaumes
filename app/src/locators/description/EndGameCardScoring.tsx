@@ -4,6 +4,7 @@ import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
+import { Memory } from '@gamepark/5-royaumes/rules/Memory'
 import { MaterialComponent, usePlayerId, useRules } from '@gamepark/react-game'
 import { isLocationSubset } from '@gamepark/react-game/dist/components/material/utils'
 import { Location } from '@gamepark/rules-api'
@@ -17,7 +18,7 @@ export const EndGameCardScoring: FC<EndGameCardScoringProps> = (props) => {
   const { location } = props
   const rules = useRules<FiveKingdomsRules>()!
   if (rules.game.rule?.id) return null
-  const cards = rules.material(MaterialType.CharacterCard).location((l) => isLocationSubset(l, location))
+  const cards = rules.material(location.type === LocationType.PlayerThrone ? MaterialType.ThroneCard : MaterialType.CharacterCard).location((l) => isLocationSubset(l, location))
   return (
     <>
       {
@@ -27,6 +28,23 @@ export const EndGameCardScoring: FC<EndGameCardScoringProps> = (props) => {
       }
     </>
   )
+}
+
+export const EndGameThroneScoring: FC<EndGameCardScoringProps> = (props) => {
+  const { location } = props
+  const playerId = usePlayerId()
+  const rules = useRules<FiveKingdomsRules>()!
+  if (rules.game.rule?.id) return null
+  const player = location.player
+  const itsFirst = player === (playerId ?? rules.players[0])
+  const consumed = rules.remind(Memory.ThroneActivation, location.player)
+  return (
+    <div css={charScoreStyle(itsFirst)}>
+      <MaterialComponent css={materialStyle} type={MaterialType.Castle}/>
+      <div css={scoreValueStyle}> x {consumed? 3: 0}</div>
+    </div>
+  )
+
 }
 
 type CardScoringProps = { index: number, rules: FiveKingdomsRules } & EndGameCardScoringProps
@@ -67,8 +85,8 @@ const scoreStyle = css`
 
 const charScoreStyle = (itsFirst: boolean) => css`
   ${scoreStyle};
-  ${itsFirst? `bottom: 2em;`: ''}
-  ${!itsFirst? `top: 2em;`: ''}
+  ${itsFirst ? `bottom: 2em;` : ''}
+  ${!itsFirst ? `top: 2em;` : ''}
 `
 
 const titanScoreStyle = (_itsFirst: boolean, x: number) => css`

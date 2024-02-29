@@ -10,7 +10,7 @@ export class PlayerCastleLocator extends PileLocator {
 
   getCoordinates(item: MaterialItem, context: ItemContext) {
     const playerId = item.location.player!
-    const position = playerThroneLocator.getThronePosition(playerId, context)
+    const position = playerThroneLocator.locationDescription.getThronePosition(playerId, context)
     const { rules, player } = context
     if (playerId === (player ?? rules.players[0])) {
       position.x -= 0.8 + throneCardDescription.width

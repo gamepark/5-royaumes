@@ -1,19 +1,14 @@
-import { ItemContext, ItemLocator, MaterialContext } from '@gamepark/react-game'
+import { ItemContext, ItemLocator } from '@gamepark/react-game'
 /** @jsxImportSource @emotion/react */
 import { MaterialItem } from '@gamepark/rules-api'
+import { PlayerThroneDescription } from './description/PlayerThroneDescription'
 
 export class PlayerThroneLocator extends ItemLocator {
 
+  locationDescription = new PlayerThroneDescription()
+
   getPosition(item: MaterialItem, context: ItemContext) {
-    return this.getThronePosition(item.id, context)
-  }
-
-  getThronePosition(playerId: number, { rules, player }: MaterialContext) {
-    if (playerId === (player ?? rules.players[0])) {
-      return { x: -9, y: 9, z: 0 }
-    }
-
-    return { x: 35, y: -15, z: 0 }
+    return this.locationDescription.getThronePosition(item.id, context)
   }
 
   getRotateZ(item: MaterialItem, { rules, player }: ItemContext): number {

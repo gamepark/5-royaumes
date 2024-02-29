@@ -64,7 +64,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
 
   getLocationPosition(location: Location, context: MaterialContext): Coordinates {
     const playerId = location.player!
-    const baseCoordinates = playerThroneLocator.getThronePosition(playerId, context)
+    const baseCoordinates = playerThroneLocator.locationDescription.getThronePosition(playerId, context)
     switch (location.x) {
       case 1:
         baseCoordinates.x += (characterCardDescription.width + 0.4)
