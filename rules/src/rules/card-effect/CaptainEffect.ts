@@ -1,5 +1,5 @@
 import { MaterialMove } from '@gamepark/rules-api'
-import { baseRealms } from '../../cards/Realm'
+import { baseKingdoms } from '../../cards/Kingdom'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Effect } from './Effect'
@@ -7,13 +7,13 @@ import { Effect } from './Effect'
 export class CaptainEffect extends Effect {
 
   onInfluence(): MaterialMove[] {
-    const columns = baseRealms
+    const columns = baseKingdoms
     const moves: MaterialMove[] = []
     const columnCards = this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone)
-    for (const realm of columns) {
-      const realmCards = columnCards.locationId(realm)
-      const myCount = realmCards.player(this.player).length
-      if (myCount > realmCards.player((p) => p !== this.player).length) {
+    for (const kingdom of columns) {
+      const kingdomCards = columnCards.locationId(kingdom)
+      const myCount = kingdomCards.player(this.player).length
+      if (myCount > kingdomCards.player((p) => p !== this.player).length) {
         this.addActivation()
       }
     }
@@ -35,9 +35,9 @@ export class CaptainEffect extends Effect {
     const opponent = this.game.players.find((p) => p !== this.player)!
 
     let castles = 0
-    for (const realm of baseRealms) {
-      const myInfluenceCount = this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone).locationId(realm).player(this.player).length
-      const opponentInfluenceCount = this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone).locationId(realm).player(opponent).length
+    for (const kingdom of baseKingdoms) {
+      const myInfluenceCount = this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone).locationId(kingdom).player(this.player).length
+      const opponentInfluenceCount = this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone).locationId(kingdom).player(opponent).length
       if (myInfluenceCount > opponentInfluenceCount) castles++
     }
 

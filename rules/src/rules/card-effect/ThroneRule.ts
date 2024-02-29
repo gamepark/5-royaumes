@@ -1,7 +1,7 @@
 import { isMoveItemType, ItemMove, Material, MaterialGame, MaterialMove, MaterialRulesPart, MoveItem } from '@gamepark/rules-api'
 import { Card } from '../../cards/Card'
-import { isKing, isQueen, isRealmTitan, isRealmWarrior, isSorcerer } from '../../cards/CardType'
-import { Realm } from '../../cards/Realm'
+import { isKing, isQueen, isKingdomTitan, isKingdomWarrior, isSorcerer } from '../../cards/CardType'
+import { Kingdom } from '../../cards/Kingdom'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { CaptainEffect } from './CaptainEffect'
@@ -20,7 +20,7 @@ import { WarriorMonkEffect } from './WarriorMonkEffect'
 
 export class ThroneRule extends MaterialRulesPart {
 
-  constructor(game: MaterialGame, readonly player: Realm) {
+  constructor(game: MaterialGame, readonly player: Kingdom) {
     super(game)
 
   }
@@ -30,8 +30,8 @@ export class ThroneRule extends MaterialRulesPart {
     if (isKing(id)) return new KingEffect(game, this.player, card)
     if (isQueen(id)) return new QueenEffect(game, this.player, card)
     if (isSorcerer(id)) return new SorcererEffect(game, this.player, card)
-    if (isRealmWarrior(id)) return new WarriorEffect(game, this.player, card)
-    if (isRealmTitan(id) || id === Card.Ouranos) return new TitanEffect(game, this.player, card)
+    if (isKingdomWarrior(id)) return new WarriorEffect(game, this.player, card)
+    if (isKingdomTitan(id) || id === Card.Ouranos) return new TitanEffect(game, this.player, card)
     if (id === Card.Papesse) return new PapesseEffect(game, this.player, card)
     if (id === Card.Gaia) return new GaiaEffect(game, this.player, card)
     if (id === Card.Colonel) return new ColonelEffect(game, this.player, card)

@@ -9,7 +9,7 @@ import {
   SecretMaterialRules,
   TimeLimit
 } from '@gamepark/rules-api'
-import { Realm } from './cards/Realm'
+import { Kingdom } from './cards/Kingdom'
 import { LocationType } from './material/LocationType'
 import { MaterialType } from './material/MaterialType'
 import { ActivateCharactersRule } from './rules/ActivateCharactersRule'
@@ -27,7 +27,7 @@ import { WarriorRule } from './rules/WarriorRule'
 
 
 export const hideCardWhenNotRotated: HidingStrategy = (
-  item: MaterialItem, player?: Realm
+  item: MaterialItem, player?: Kingdom
 ) => {
   if (!item.location.rotation) return ['id.front']
   return item.location.player === player ? [] : ['id.front']
@@ -36,9 +36,9 @@ export const hideCardWhenNotRotated: HidingStrategy = (
  * This class implements the rules of the board game.
  * It must follow Game Park "Rules" API so that the Game Park server can enforce the rules.
  */
-export class FiveRealmsRules extends SecretMaterialRules<Realm, MaterialType, LocationType>
-  implements CompetitiveScore<MaterialGame<Realm, MaterialType, LocationType>, MaterialMove<Realm, MaterialType, LocationType>, Realm>,
-    TimeLimit<MaterialGame<Realm, MaterialType, LocationType>, MaterialMove<Realm, MaterialType, LocationType>, Realm> {
+export class FiveKingdomsRules extends SecretMaterialRules<Kingdom, MaterialType, LocationType>
+  implements CompetitiveScore<MaterialGame<Kingdom, MaterialType, LocationType>, MaterialMove<Kingdom, MaterialType, LocationType>, Kingdom>,
+    TimeLimit<MaterialGame<Kingdom, MaterialType, LocationType>, MaterialMove<Kingdom, MaterialType, LocationType>, Kingdom> {
 
 
 
@@ -74,7 +74,7 @@ export class FiveRealmsRules extends SecretMaterialRules<Realm, MaterialType, Lo
     }
   }
 
-  getScore(playerId: Realm): number {
+  getScore(playerId: Kingdom): number {
     const castle = this.material(MaterialType.Castle)
       .location(LocationType.PlayerCastle)
       .player(playerId)
@@ -84,7 +84,7 @@ export class FiveRealmsRules extends SecretMaterialRules<Realm, MaterialType, Lo
     return castle + throneRule.getScore()
   }
 
-  giveTime(_playerId: Realm): number {
+  giveTime(_playerId: Kingdom): number {
     return 60
   }
 

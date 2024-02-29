@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { FiveRealmsOptionsSpec } from '@gamepark/5-royaumes/FiveRealmsOptions'
-import { FiveRealmsRules } from '@gamepark/5-royaumes/FiveRealmsRules'
-import { FiveRealmsSetup } from '@gamepark/5-royaumes/FiveRealmsSetup'
+import { FiveKingdomsOptionsSpec } from '@gamepark/5-royaumes/FiveKingdomsOptions'
+import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
+import { FiveKingdomsSetup } from '@gamepark/5-royaumes/FiveKingdomsSetup'
 import { GameProvider, MaterialGameAnimations, setupTranslation } from '@gamepark/react-game'
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
@@ -17,9 +17,9 @@ ReactDOM.render(
   <StrictMode>
     <GameProvider
       game="5-royaumes"
-      Rules={FiveRealmsRules}
-      optionsSpec={FiveRealmsOptionsSpec}
-      GameSetup={FiveRealmsSetup}
+      Rules={FiveKingdomsRules}
+      optionsSpec={FiveKingdomsOptionsSpec}
+      GameSetup={FiveKingdomsSetup}
       material={Material}
       locators={Locators}
       animations={new MaterialGameAnimations()}

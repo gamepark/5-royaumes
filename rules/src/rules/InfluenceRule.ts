@@ -1,5 +1,5 @@
 import { ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { Realm } from '../cards/Realm'
+import { Kingdom } from '../cards/Kingdom'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { ThroneRule } from './card-effect/ThroneRule'
@@ -32,7 +32,7 @@ export class InfluenceRule extends PlayerTurnRule {
   }
 
   get isImperialOrder() {
-    return this.hand.filter((item) => item.id.back === Realm.ImperialOrder).length
+    return this.hand.filter((item) => item.id.back === Kingdom.ImperialOrder).length
   }
 
   get hand() {

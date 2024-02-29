@@ -28,11 +28,11 @@ export class KingEffect extends Effect {
 
   getScore() {
     const item = this.card.getItem()!
-    const realm = item.id.back
+    const kingdom = item.id.back
     const influenceCards =  this
       .material(MaterialType.CharacterCard)
       .location(LocationType.PlayerInfluenceZone)
-      .locationId(realm)
+      .locationId(kingdom)
 
     const myCards = influenceCards
       .player(this.player)

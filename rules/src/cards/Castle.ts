@@ -5,4 +5,4 @@ export enum Castle {
   Three,
 }
 
-export const realms = Object.values(Castle).filter(isEnumValue)
+export const kingdoms = Object.values(Castle).filter(isEnumValue)

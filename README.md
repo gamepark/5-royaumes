@@ -121,7 +121,7 @@ export class PlayerHandLocator extends HandLocator<PlayerColor, MaterialType, Lo
 
 ### 3.3 The setup
 
-Once you have one Material type and one Location type, you can start to setup a new game in [FiveRealmsRules.ts](/rules/src/FiveRealmsRules.ts)
+Once you have one Material type and one Location type, you can start to setup a new game in [FiveKingdomsRules.ts](/rules/src/FiveKingdomsRules.ts)
 
 You can easily create and manipulate the material in the setup:
 

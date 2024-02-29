@@ -1,4 +1,4 @@
-import { Realm } from '@gamepark/5-royaumes/cards/Realm'
+import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ComponentSize, LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
@@ -6,7 +6,7 @@ import { Location } from '@gamepark/rules-api'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
 import { DiscardHelp } from './DiscardHelp'
 
-export class DiscardDescription extends LocationDescription<Realm, MaterialType, LocationType> {
+export class DiscardDescription extends LocationDescription<Kingdom, MaterialType, LocationType> {
 
   location = { type: LocationType.Discard }
 

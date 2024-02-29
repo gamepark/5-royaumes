@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { baseRealms, Realm } from '@gamepark/5-royaumes/cards/Realm'
+import { baseKingdoms, Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
@@ -16,18 +16,18 @@ export class InfluenceZoneDescription extends LocationDescription {
   alwaysVisible = true
 
   getExtraCss(location: Location) {
-    const realm = location.id
+    const kingdom = location.id
     return css`
       border-radius: 0.7em;
       border: 0.05em dashed white;
-      background: ${playerColorCode[realm]};
-      background: linear-gradient(180deg, ${playerColorCode[realm]}60 0%, ${playerColorCode[realm]}00 70%);
+      background: ${playerColorCode[kingdom]};
+      background: linear-gradient(180deg, ${playerColorCode[kingdom]}60 0%, ${playerColorCode[kingdom]}00 70%);
     `
   }
 
   getLocations({ rules }: MaterialContext) {
     return rules.players.flatMap((player) => {
-      return baseRealms
+      return baseKingdoms
         .map(id => ({
           type: LocationType.PlayerInfluenceZone,
           player,
@@ -73,12 +73,12 @@ export class InfluenceZoneDescription extends LocationDescription {
     return location.player === (player ?? rules.players[0])? 0: 180
   }
 
-  isMyLocation(rules: MaterialRules, location: Location, player?: Realm) {
+  isMyLocation(rules: MaterialRules, location: Location, player?: Kingdom) {
     return rules.game.rule?.player === location.player && location.player === player
   }
 
-  hasImperialOrderInHand(rules: MaterialRules, player?: Realm) {
+  hasImperialOrderInHand(rules: MaterialRules, player?: Kingdom) {
     if (!player) return false
-    return rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(player).filter((item) => item.id.back === Realm.ImperialOrder).length > 0
+    return rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(player).filter((item) => item.id.back === Kingdom.ImperialOrder).length > 0
   }
 }

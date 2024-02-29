@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { Realm } from '@gamepark/5-royaumes/cards/Realm'
+import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { CardDescription, MaterialContext } from '@gamepark/react-game'
 import BordOfPreyThrone from '../../images/throne/bird_of_prey_throne.jpg'
@@ -28,11 +28,11 @@ export class ThroneCardDescription extends CardDescription {
 
   backImage = ThroneBack
   images = {
-    [Realm.Reptile]: ReptileThrone,
-    [Realm.Feline]: FelineThrone,
-    [Realm.BirdOfPrey]: BordOfPreyThrone,
-    [Realm.Ursid]: UrsidsThrone,
-    [Realm.Marine]: MarineThrone,
+    [Kingdom.Reptile]: ReptileThrone,
+    [Kingdom.Feline]: FelineThrone,
+    [Kingdom.BirdOfPrey]: BordOfPreyThrone,
+    [Kingdom.Ursid]: UrsidsThrone,
+    [Kingdom.Marine]: MarineThrone,
   }
 
 }

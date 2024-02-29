@@ -1,5 +1,5 @@
 import { Material, MaterialGame, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
-import { baseRealms, Realm } from '../../cards/Realm'
+import { baseKingdoms, Kingdom } from '../../cards/Kingdom'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 
@@ -14,14 +14,14 @@ export class InfluenceUtils extends PlayerTurnRule {
     if (!this.cards.length) return []
     const item = this.cards.getItem()!
     const back = item.id.back
-    if (back === Realm.ReligiousOrder) return []
-    if (back === Realm.ImperialOrder) {
-      return baseRealms
-        .filter((realm) => this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone).locationId(realm).player(this.player).length > 0)
-        .flatMap((realm) => this.cards.moveItems({
+    if (back === Kingdom.ReligiousOrder) return []
+    if (back === Kingdom.ImperialOrder) {
+      return baseKingdoms
+        .filter((kingdom) => this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone).locationId(kingdom).player(this.player).length > 0)
+        .flatMap((kingdom) => this.cards.moveItems({
           type: LocationType.PlayerInfluenceZone,
           player: this.player,
-          id: realm
+          id: kingdom
         }))
     }
 

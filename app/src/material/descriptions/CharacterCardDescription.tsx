@@ -1,5 +1,5 @@
 import { Card } from '@gamepark/5-royaumes/cards/Card'
-import { Realm } from '@gamepark/5-royaumes/cards/Realm'
+import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { CustomMoveType } from '@gamepark/5-royaumes/rules/CustomMoveType'
@@ -54,13 +54,13 @@ export class CharacterCardDescription extends CardDescription {
   height = 8.89
 
   backImages = {
-    [Realm.Reptile]: ReptileBack,
-    [Realm.Feline]: FelineBack,
-    [Realm.BirdOfPrey]: BirdsOfPreyBack,
-    [Realm.Ursid]: UrsidBack,
-    [Realm.Marine]: MarineBack,
-    [Realm.ImperialOrder]: ImperialOrderBack,
-    [Realm.ReligiousOrder]: ReligiousOrderBack
+    [Kingdom.Reptile]: ReptileBack,
+    [Kingdom.Feline]: FelineBack,
+    [Kingdom.BirdOfPrey]: BirdsOfPreyBack,
+    [Kingdom.Ursid]: UrsidBack,
+    [Kingdom.Marine]: MarineBack,
+    [Kingdom.ImperialOrder]: ImperialOrderBack,
+    [Kingdom.ReligiousOrder]: ReligiousOrderBack
   }
 
   images = {

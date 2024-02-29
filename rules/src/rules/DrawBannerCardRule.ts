@@ -35,7 +35,7 @@ export class DrawBannerCardRule extends PlayerTurnRule {
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location.type !== LocationType.AlkaneSquare) return []
 
     const moves: MaterialMove[] = []
-    const cards = this.getAdjacentCardsOfSameRealm(move.itemIndex, [move.itemIndex])
+    const cards = this.getAdjacentCardsOfSameKingdom(move.itemIndex, [move.itemIndex])
     if (cards.length === 1) {
       this.memorize(Memory.PlacedCard, move.itemIndex)
       moves.push(this.rules().startRule(RuleId.ChooseAlkaneColor))
@@ -48,7 +48,7 @@ export class DrawBannerCardRule extends PlayerTurnRule {
     return moves
   }
 
-  getAdjacentCardsOfSameRealm(cardIndex: number, cards: number[]) {
+  getAdjacentCardsOfSameKingdom(cardIndex: number, cards: number[]) {
     const alkaneCards = this.alkaneCards
     const card = alkaneCards.getItem(cardIndex)!
 
@@ -65,7 +65,7 @@ export class DrawBannerCardRule extends PlayerTurnRule {
     if (!adjacentIndexes.length) return cards
     const sameCards = [...cards]
     for (const index of adjacentIndexes) {
-      sameCards.push(...this.getAdjacentCardsOfSameRealm(index, [...sameCards, index]))
+      sameCards.push(...this.getAdjacentCardsOfSameKingdom(index, [...sameCards, index]))
     }
 
     return sameCards

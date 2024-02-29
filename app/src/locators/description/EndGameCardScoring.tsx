@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { FiveRealmsRules } from '@gamepark/5-royaumes/FiveRealmsRules'
+import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
@@ -15,7 +15,7 @@ type EndGameCardScoringProps = {
 
 export const EndGameCardScoring: FC<EndGameCardScoringProps> = (props) => {
   const { location } = props
-  const rules = useRules<FiveRealmsRules>()!
+  const rules = useRules<FiveKingdomsRules>()!
   if (rules.game.rule?.id) return null
   const cards = rules.material(MaterialType.CharacterCard).location((l) => isLocationSubset(l, location))
   return (
@@ -29,7 +29,7 @@ export const EndGameCardScoring: FC<EndGameCardScoringProps> = (props) => {
   )
 }
 
-type CardScoringProps = { index: number, rules: FiveRealmsRules } & EndGameCardScoringProps
+type CardScoringProps = { index: number, rules: FiveKingdomsRules } & EndGameCardScoringProps
 
 export const CardScoring: FC<CardScoringProps> = (props) => {
   const { index, rules } = props

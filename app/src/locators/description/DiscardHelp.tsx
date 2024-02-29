@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { FiveRealmsRules } from '@gamepark/5-royaumes/FiveRealmsRules'
+import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { LocationHelpProps, MaterialComponent, pointerCursorCss, usePlay, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
@@ -11,7 +11,7 @@ export const DiscardHelp = ({ location }: LocationHelpProps) => {
   const { t } = useTranslation()
   const playerId = usePlayerId()
   const player = usePlayerName(location.player)
-  const cards = useRules<FiveRealmsRules>()?.material(MaterialType.CharacterCard).location(LocationType.Discard).player(location.player)
+  const cards = useRules<FiveKingdomsRules>()?.material(MaterialType.CharacterCard).location(LocationType.Discard).player(location.player)
     .sort(item => -item.location.x!)
   const play = usePlay()
   return <>

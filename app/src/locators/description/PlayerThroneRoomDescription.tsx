@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, Interpolation, Theme } from '@emotion/react'
-import { Realm } from '@gamepark/5-royaumes/cards/Realm'
+import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
@@ -84,7 +84,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
     return baseCoordinates
   }
 
-  isMyLocation(rules: MaterialRules, location: Location, player?: Realm) {
+  isMyLocation(rules: MaterialRules, location: Location, player?: Kingdom) {
     return rules.game.rule?.player === location.player && location.player === player
   }
 

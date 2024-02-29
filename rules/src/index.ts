@@ -1,3 +1,3 @@
-export { FiveRealmsRules } from './FiveRealmsRules'
-export { FiveRealmsOptionsSpec } from './FiveRealmsOptions'
-export { FiveRealmsSetup } from './FiveRealmsSetup'
+export { FiveKingdomsRules } from './FiveKingdomsRules'
+export { FiveKingdomsOptionsSpec } from './FiveKingdomsOptions'
+export { FiveKingdomsSetup } from './FiveKingdomsSetup'

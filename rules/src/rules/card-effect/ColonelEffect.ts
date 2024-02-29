@@ -1,5 +1,5 @@
 import { MaterialMove, MoveItem } from '@gamepark/rules-api'
-import { baseRealms, Realm } from '../../cards/Realm'
+import { baseKingdoms, Kingdom } from '../../cards/Kingdom'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Effect } from './Effect'
@@ -49,15 +49,15 @@ export class ColonelEffect extends Effect {
     return []
   }
 
-  getInfluenceLines(playerId: Realm) {
+  getInfluenceLines(playerId: Kingdom) {
     const influenceCards = this
       .material(MaterialType.CharacterCard)
       .location(LocationType.PlayerInfluenceZone)
       .player(playerId)
     let influenceLines: number | undefined = undefined
 
-    for (const realm of baseRealms) {
-      const size = influenceCards.locationId(realm).maxBy((item) => item.location.x!)?.getItem()?.location.x ?? 0
+    for (const kingdom of baseKingdoms) {
+      const size = influenceCards.locationId(kingdom).maxBy((item) => item.location.x!)?.getItem()?.location.x ?? 0
       if (influenceLines === undefined || size < influenceLines) {
         influenceLines = size
       }

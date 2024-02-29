@@ -1,9 +1,9 @@
 import { Material, MaterialGame, MaterialMove, MaterialRulesPart, MoveItem } from '@gamepark/rules-api'
-import { Realm } from '../../cards/Realm'
+import { Kingdom } from '../../cards/Kingdom'
 import { Memory } from '../Memory'
 
 export class Effect extends MaterialRulesPart {
-  constructor(game: MaterialGame, readonly player: Realm, readonly card: Material) {
+  constructor(game: MaterialGame, readonly player: Kingdom, readonly card: Material) {
     super(game)
   }
 
