@@ -1,16 +1,13 @@
+import { css } from '@emotion/react'
 import { Card } from '@gamepark/5-royaumes/cards/Card'
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { CustomMoveType } from '@gamepark/5-royaumes/rules/CustomMoveType'
-import { CardDescription, ItemContext } from '@gamepark/react-game'
-import { isCustomMoveType, isMoveItemType, MaterialMove } from '@gamepark/rules-api'
-import Raptor1 from '../../images/card/raptor/raptor_1.jpg'
-import Raptor2 from '../../images/card/raptor/raptor_2.jpg'
-import Raptor3 from '../../images/card/raptor/raptor_3.jpg'
-import Raptor4 from '../../images/card/raptor/raptor_4.jpg'
-import Raptor5 from '../../images/card/raptor/raptor_5.jpg'
-import RaptorBack from '../../images/card/raptor/raptor_back.jpg'
+import { Memory } from '@gamepark/5-royaumes/rules/Memory'
+import { CardDescription, ItemContext, MaterialContext } from '@gamepark/react-game'
+import { isLocationSubset } from '@gamepark/react-game/dist/components/material/utils/IsLocationSubset'
+import { isCustomMoveType, isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import Feline1 from '../../images/card/feline/feline_1.jpg'
 import Feline2 from '../../images/card/feline/feline_2.jpg'
 import Feline3 from '../../images/card/feline/feline_3.jpg'
@@ -22,12 +19,12 @@ import Colonel from '../../images/card/imperialorder/colonel.jpg'
 import General from '../../images/card/imperialorder/general.jpg'
 import ImperialOrderBack from '../../images/card/imperialorder/imperial_order_back.jpg'
 import Marechal from '../../images/card/imperialorder/marechal.jpg'
-import Sailor1 from '../../images/card/sailor/sailor_1.jpg'
-import Sailor2 from '../../images/card/sailor/sailor_2.jpg'
-import Sailor3 from '../../images/card/sailor/sailor_3.jpg'
-import Sailor4 from '../../images/card/sailor/sailor_4.jpg'
-import Sailor5 from '../../images/card/sailor/sailor_5.jpg'
-import SailorBack from '../../images/card/sailor/sailor_back.jpg'
+import Raptor1 from '../../images/card/raptor/raptor_1.jpg'
+import Raptor2 from '../../images/card/raptor/raptor_2.jpg'
+import Raptor3 from '../../images/card/raptor/raptor_3.jpg'
+import Raptor4 from '../../images/card/raptor/raptor_4.jpg'
+import Raptor5 from '../../images/card/raptor/raptor_5.jpg'
+import RaptorBack from '../../images/card/raptor/raptor_back.jpg'
 import Gaia from '../../images/card/religiousorder/gaia.jpg'
 import Ouranos from '../../images/card/religiousorder/ouranos.jpg'
 import Papesse from '../../images/card/religiousorder/papesse.jpg'
@@ -39,6 +36,12 @@ import Reptile3 from '../../images/card/reptile/reptile_3.jpg'
 import Reptile4 from '../../images/card/reptile/reptile_4.jpg'
 import Reptile5 from '../../images/card/reptile/reptile_5.jpg'
 import ReptileBack from '../../images/card/reptile/reptile_back.jpg'
+import Sailor1 from '../../images/card/sailor/sailor_1.jpg'
+import Sailor2 from '../../images/card/sailor/sailor_2.jpg'
+import Sailor3 from '../../images/card/sailor/sailor_3.jpg'
+import Sailor4 from '../../images/card/sailor/sailor_4.jpg'
+import Sailor5 from '../../images/card/sailor/sailor_5.jpg'
+import SailorBack from '../../images/card/sailor/sailor_back.jpg'
 import Ursid1 from '../../images/card/ursid/ursid_1.jpg'
 import Ursid2 from '../../images/card/ursid/ursid_2.jpg'
 import Ursid3 from '../../images/card/ursid/ursid_3.jpg'
@@ -109,6 +112,16 @@ export class CharacterCardDescription extends CardDescription {
 
 
   help = CharacterCardHelp
+
+  getItemExtraCss(item: MaterialItem, { rules }: MaterialContext) {
+    const currentCharacter = rules.remind(Memory.CurrentCharacter)
+    if (currentCharacter === undefined) return
+    const character = rules.material(MaterialType.CharacterCard).getItem(currentCharacter)!
+    return isLocationSubset(character.location, item.location) && css`
+      border-radius: 0.5em;
+      outline: solid 0.2em yellow;
+    `
+  }
 }
 
 export const characterCardDescription = new CharacterCardDescription()

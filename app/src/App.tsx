@@ -15,7 +15,7 @@ export default function App() {
   return (
     <>
       { !!game && <GameDisplay players={game.players.length} /> }
-      <LoadingScreen display={loading} author="Someone" artist="Somebody" publisher="Nobody" developer="You"/>
+      <LoadingScreen display={loading} author="Florian Grenier" artist="Jean-Marie Minguez" publisher="GRRRE GAMES" developer="Game Park"/>
       <MaterialHeader rulesStepsHeaders={Headers} loading={loading}/>
       <Menu/>
       <FailuresDialog/>

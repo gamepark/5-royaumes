@@ -8,7 +8,8 @@ export class ChooseAlkaneColorRule extends PlayerTurnRule {
 
   onRuleStart() {
     const adjacentCards = this.adjacentCards
-    if (!adjacentCards || adjacentCards.length > 1) return []
+    if (!adjacentCards) return []
+    if (adjacentCards.length > 1 && adjacentCards.filter((item) => adjacentCards.getItem()!.id.back === item.id.back).length !== adjacentCards.length) return []
     return adjacentCards.moveItems({
       type: LocationType.PlayerHand,
       player: this.player

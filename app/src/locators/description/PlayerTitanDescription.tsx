@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
+import TitanIcon from '../../images/icons/titan.png'
 import { EndGameCardScoring } from './EndGameCardScoring'
 
 export class PlayerTitanDescription extends LocationDescription {
@@ -11,6 +13,10 @@ export class PlayerTitanDescription extends LocationDescription {
   borderRadius = 0.5
 
   alwaysVisible = true
+
+  extraCss = css`
+    background: no-repeat center 18em / 35% url(${TitanIcon}), linear-gradient(0deg, #ffffff70 0%, #ffffff00 70%);
+  `
 
   getLocations({ rules }: MaterialContext) {
     return rules.players.flatMap((player) => ({
@@ -59,4 +65,5 @@ export class PlayerTitanDescription extends LocationDescription {
     if (item?.location.type === LocationType.Discard && !item.selected) return false
     return super.isMoveToLocation(move, location, context)
   }
+
 }

@@ -1,4 +1,4 @@
-import { CustomMove, isCustomMoveType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { CustomMove, isCustomMoveType, isStartRule, MaterialMove, PlayerTurnRule, RuleMove } from '@gamepark/rules-api'
 import uniq from 'lodash/uniq'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
@@ -10,13 +10,14 @@ import { RuleId } from './RuleId'
 export class ActivateCharactersRule extends PlayerTurnRule {
   onRuleStart() {
     const activations = this.activations
-    if (activations.length === 1) {
-      return [this.rules().customMove(CustomMoveType.ActivateCharacter, activations[0])]
-    }
-    return this.goToRefillMoves
+    this.forget(Memory.CurrentCharacter)
+    if (!activations.length) return this.goToRefillMoves
+    if (activations.length === 1) return [this.rules().customMove(CustomMoveType.ActivateCharacter, activations[0])]
+
+    return []
   }
 
-  getPlayerMoves(): MaterialMove<number, number, number>[] {
+  getPlayerMoves() {
     const cards = uniq(this.activations)
     return cards.map((card) => this.rules().customMove(CustomMoveType.ActivateCharacter, card))
   }
@@ -24,32 +25,28 @@ export class ActivateCharactersRule extends PlayerTurnRule {
   onCustomMove(move: CustomMove) {
     if (!isCustomMoveType(CustomMoveType.ActivateCharacter)(move)) return []
     this.memorize(Memory.CurrentCharacter, move.data)
-
     const item = this.material(MaterialType.CharacterCard).index(move.data)
     const throne = new ThroneRule(this.game, this.player)
     const moves = throne.getMoves(item)
     throne.consumeEffect(item)
-    if (moves.length) return moves
-    return this.goToRefillMoves
+    if (moves.some(isStartRule)) return moves
+    if (this.activations.length) moves.push(this.rules().startRule(RuleId.ActivateCharacter))
+    if (!this.activations.length) moves.push(...this.goToRefillMoves)
+    return moves
   }
 
-  afterItemMove(_move: ItemMove<number, number, number>): MaterialMove<number, number, number>[] {
-    const character = this.currentCharacter
-    if (character && this.activations.find((a) => a === character)) {
-      const item = this.material(MaterialType.CharacterCard).index(character)
-      const throne = new ThroneRule(this.game, this.player)
-      const moves = throne.getMoves(item)
-      throne.consumeEffect(item)
-      return moves
+  onRuleEnd(move: RuleMove) {
+    if (isStartRule(move) && move.id === RuleId.RefillAlkane) {
+      this.forget(Memory.ActivatedCharacters)
+      this.forget(Memory.CurrentCharacter)
     }
 
-    this.forget(Memory.CurrentCharacter)
-    return this.goToRefillMoves
+    return super.onRuleEnd(move)
   }
 
   get goToRefillMoves() {
     const moves: MaterialMove[] = this.throneEffectMoves
-    if (!this.activations.length) moves.push(this.rules().startRule(RuleId.RefillAlkane))
+    moves.push(this.rules().startRule(RuleId.RefillAlkane))
     return moves
   }
 

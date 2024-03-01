@@ -40,7 +40,7 @@ export class SorcererRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
+    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location.type === LocationType.Discard) return []
     const moves: MaterialMove[] = []
     const effectRule = new ThroneRule(this.game, this.player)
     if (move.location.type === LocationType.PlayerInfluenceZone) {
@@ -58,8 +58,7 @@ export class SorcererRule extends PlayerTurnRule {
         return moves
       }
     }
-
-    moves.push(this.rules().startRule(RuleId.ActivateCharacters))
+    moves.push(this.rules().startRule(RuleId.ActivateCharacter))
 
     return moves
   }

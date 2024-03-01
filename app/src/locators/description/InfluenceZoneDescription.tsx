@@ -7,22 +7,33 @@ import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialMove, MaterialRules } from '@gamepark/rules-api'
 import { playerColorCode } from '../../panels/PlayerPanels'
+import ReptileIcon from '../../images/icons/reptile.png'
+import FelineIcon from '../../images/icons/feline.png'
+import RaptorIcon from '../../images/icons/raptor.png'
+import UrsidIcon from '../../images/icons/ursids.png'
+import SailorIcon from '../../images/icons/sailor.png'
 
 export class InfluenceZoneDescription extends LocationDescription {
   width = 6.35 + 0.4
   height = 2 * 8.89
-  borderRadius = 0.5
+  borderRadius = 0.7
 
   alwaysVisible = true
 
   getExtraCss(location: Location) {
     const kingdom = location.id
     return css`
-      border-radius: 0.7em;
-      border: 0.05em dashed white;
       background: ${playerColorCode[kingdom]};
-      background: linear-gradient(180deg, ${playerColorCode[kingdom]}60 0%, ${playerColorCode[kingdom]}00 70%);
+      background: no-repeat center 1em / 30% url(${this.icons[location.id]}), linear-gradient(180deg, ${playerColorCode[kingdom]}70 0%, ${playerColorCode[kingdom]}00 100%);
     `
+  }
+
+  icons = {
+    [Kingdom.Reptile]: ReptileIcon,
+    [Kingdom.Feline]: FelineIcon,
+    [Kingdom.Raptor]: RaptorIcon,
+    [Kingdom.Ursid]: UrsidIcon,
+    [Kingdom.Sailor]: SailorIcon,
   }
 
   getLocations({ rules }: MaterialContext) {

@@ -89,7 +89,7 @@ export class RecruitRule extends PlayerTurnRule {
   }
 
   goToActivation() {
-    return this.rules().startRule(RuleId.ActivateCharacters)
+    return this.rules().startRule(RuleId.ActivateCharacter)
   }
 
 

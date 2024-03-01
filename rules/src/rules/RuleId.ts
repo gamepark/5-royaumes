@@ -8,5 +8,5 @@ export enum RuleId {
   Sorcerer,
   Warrior,
   EndGame,
-  ActivateCharacters
+  ActivateCharacter
 }

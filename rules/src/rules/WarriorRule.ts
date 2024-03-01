@@ -42,7 +42,7 @@ export class WarriorRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.CharacterCard)(move) && !isMoveItemType(MaterialType.Castle)(move)) return []
-    return [this.rules().startRule(RuleId.ActivateCharacters)]
+    return [this.rules().startRule(RuleId.ActivateCharacter)]
   }
 
   get opponentCastle() {

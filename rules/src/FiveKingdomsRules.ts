@@ -52,7 +52,7 @@ export class FiveKingdomsRules extends SecretMaterialRules<Kingdom, MaterialType
     [RuleId.Sorcerer]: SorcererRule,
     [RuleId.Warrior]: WarriorRule,
     [RuleId.EndGame]: EndGameRule,
-    [RuleId.ActivateCharacters]: ActivateCharactersRule
+    [RuleId.ActivateCharacter]: ActivateCharactersRule
   }
 
   locationsStrategies = {

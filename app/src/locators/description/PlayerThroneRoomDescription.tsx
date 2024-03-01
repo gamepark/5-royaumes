@@ -13,6 +13,7 @@ import { EndGameCardScoring } from './EndGameCardScoring'
 export class PlayerThroneRoomDescription extends LocationDescription {
   width = 6.35
   height = 8.89
+  borderRadius = 0.5
 
   alwaysVisible = true
 
@@ -32,8 +33,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
 
 
   extraCss = css`
-    border-radius: 0.5em;
-    border: 0.05em dashed white;
+    border: 0.05em solid white;
   `
 
   getLocations({ rules }: MaterialContext) {

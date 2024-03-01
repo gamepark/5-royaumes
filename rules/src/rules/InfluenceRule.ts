@@ -25,7 +25,7 @@ export class InfluenceRule extends PlayerTurnRule {
 
   get placeCardMove() {
     const hand = this.hand
-    if (!hand.length) return [this.rules().startRule(RuleId.ActivateCharacters)]
+    if (!hand.length) return [this.rules().startRule(RuleId.ActivateCharacter)]
     const moves = new InfluenceUtils(this.game, hand).influenceMoves
     if (!moves.length) return []
     return moves.slice(0, 1)
