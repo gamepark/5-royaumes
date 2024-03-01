@@ -10,7 +10,7 @@ import { EndGameCardScoring } from './EndGameCardScoring'
 export class PlayerTitanDescription extends LocationDescription {
   width = 6.35 + 0.4
   height = 21
-  borderRadius = 0.5
+  borderRadius = 0.7
 
   alwaysVisible = true
 
