@@ -40,22 +40,13 @@ export const EndGameThroneScoring: FC<EndGameCardScoringProps> = (props) => {
   const itsFirst = player === (playerId ?? rules.players[0])
   const throneState = rules.remind(Memory.ThroneActivation, location.player)
   const consumed = throneState === ThroneActivationState.CONSUMED
-  const isEnd = !rules.game.rule?.id
-  if (!isEnd && consumed) {
+  if (consumed) {
     return (<div css={consumedStyle(itsFirst)}>
-      {!isEnd && <FontAwesomeIcon icon={faCheck} css={consumedIcon}/>}
+      <FontAwesomeIcon icon={faCheck} css={consumedIcon}/>
     </div>)
   }
 
-  if (!isEnd) return null
-
-  return (
-    <div css={[charScoreStyle(itsFirst)]}>
-      <MaterialComponent css={materialStyle} type={MaterialType.Castle}/>
-      <div css={scoreValueStyle}> x {consumed ? 3 : 0}</div>
-    </div>
-  )
-
+  return null
 }
 
 type CardScoringProps = { index: number, rules: FiveKingdomsRules } & EndGameCardScoringProps
