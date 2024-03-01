@@ -55,7 +55,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
 
     const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer
     const isRecruit = rules.game.rule?.id === RuleId.Recruit
-    if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) position.z += 10
+    if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) position.z += 1
 
     return position
   }

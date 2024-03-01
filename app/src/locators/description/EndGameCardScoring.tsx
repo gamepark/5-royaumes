@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
-import { Memory } from '@gamepark/5-royaumes/rules/Memory'
+import { Memory, ThroneActivationState } from '@gamepark/5-royaumes/rules/Memory'
 import { MaterialComponent, usePlayerId, useRules } from '@gamepark/react-game'
 import { isLocationSubset } from '@gamepark/react-game/dist/components/material/utils'
 import { Location } from '@gamepark/rules-api'
@@ -34,14 +36,23 @@ export const EndGameThroneScoring: FC<EndGameCardScoringProps> = (props) => {
   const { location } = props
   const playerId = usePlayerId()
   const rules = useRules<FiveKingdomsRules>()!
-  if (rules.game.rule?.id) return null
   const player = location.player
   const itsFirst = player === (playerId ?? rules.players[0])
-  const consumed = rules.remind(Memory.ThroneActivation, location.player)
+  const throneState = rules.remind(Memory.ThroneActivation, location.player)
+  const consumed = throneState === ThroneActivationState.CONSUMED
+  const isEnd = !rules.game.rule?.id
+  if (!isEnd && consumed) {
+    return (<div css={consumedStyle(itsFirst)}>
+      {!isEnd && <FontAwesomeIcon icon={faCheck} css={consumedIcon}/>}
+    </div>)
+  }
+
+  if (!isEnd) return null
+
   return (
-    <div css={charScoreStyle(itsFirst)}>
+    <div css={[charScoreStyle(itsFirst)]}>
       <MaterialComponent css={materialStyle} type={MaterialType.Castle}/>
-      <div css={scoreValueStyle}> x {consumed? 3: 0}</div>
+      <div css={scoreValueStyle}> x {consumed ? 3 : 0}</div>
     </div>
   )
 
@@ -59,7 +70,7 @@ export const CardScoring: FC<CardScoringProps> = (props) => {
   const effect = new ThroneRule(rules.game, item.location.player!).getEffectRule(rules.game, card)
   if (!effect || effect.getScore() === undefined) return null
   return (
-    <div css={item.location.type === LocationType.PlayerTitan? titanScoreStyle(itsFirst, item.location.x!): charScoreStyle(itsFirst)}>
+    <div css={item.location.type === LocationType.PlayerTitan ? titanScoreStyle(itsFirst, item.location.x!) : charScoreStyle(itsFirst)}>
       <MaterialComponent css={materialStyle} type={MaterialType.Castle}/>
       <div css={scoreValueStyle}> x {effect?.getScore()}</div>
     </div>
@@ -94,6 +105,7 @@ const titanScoreStyle = (_itsFirst: boolean, x: number) => css`
   bottom: ${1.5 + (x * 3)}em;
 `
 
+
 const scoreValueStyle = css`
   font-size: 1em;
   color: black;
@@ -103,5 +115,19 @@ const scoreValueStyle = css`
 
 const materialStyle = css`
   font-size: 0.5em;
-
 `
+
+const consumedStyle = (itsFirst: boolean) => css`
+  ${scoreStyle};
+  width: auto;
+  padding: 0.5em;
+  background: rgba(0, 128, 0, 1);
+  display: flex;
+  ${itsFirst ? `bottom: 1em;` : ''}
+  ${!itsFirst ? `top: 1em;` : ''}
+  left: 1.1em;
+  align-items: center;
+  justify-content: center;
+`
+
+const consumedIcon = css``
