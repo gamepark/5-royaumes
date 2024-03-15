@@ -39,11 +39,11 @@ export const CardScoring: FC<CardScoringProps> = (props) => {
   if (!item.location.player) return null
   const itsFirst = item.location.player === (playerId ?? rules.players[0])
   const effect = new ThroneRule(rules.game, item.location.player!).getEffectRule(rules.game, card)
-  if (!effect || effect.getScore() === undefined) return null
+  if (!effect || effect.score === undefined) return null
   return (
     <div css={item.location.type === LocationType.PlayerTitan ? titanScoreStyle(itsFirst, item.location.x!) : charScoreStyle(itsFirst)}>
       <MaterialComponent css={materialStyle} type={MaterialType.Castle}/>
-      <div css={scoreValueStyle}> x {effect?.getScore()}</div>
+      <div css={scoreValueStyle}> x {effect?.score}</div>
     </div>
   )
 }

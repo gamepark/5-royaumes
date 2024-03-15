@@ -16,7 +16,7 @@ export class CaptainEffect extends Effect {
     return this.onGameEnd()
   }
 
-  onGameEnd(): MaterialMove[] {
+  get score(): number | undefined {
     const opponent = this.game.players.find((p) => p !== this.player)!
 
     let castles = 0
@@ -26,6 +26,11 @@ export class CaptainEffect extends Effect {
       if (myInfluenceCount > opponentInfluenceCount) castles++
     }
 
+    return castles
+  }
+
+  onGameEnd(): MaterialMove[] {
+    const castles = this.score
     if (castles) {
       return [
         this

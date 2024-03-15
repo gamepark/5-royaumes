@@ -41,7 +41,7 @@ export class Effect extends MaterialRulesPart {
     if (!this.remind<number[]>(Memory.ActivatedCharacters).length) this.forget(Memory.ActivatedCharacters)
   }
 
-  getScore(): number | undefined {
+  get score(): number | undefined {
     return
   }
 }

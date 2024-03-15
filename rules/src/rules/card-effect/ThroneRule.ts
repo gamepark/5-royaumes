@@ -101,13 +101,13 @@ export class ThroneRule extends MaterialRulesPart {
     return moves
   }
 
-  getScore() {
+  get score() {
     let score = 0
     for (const character of this.throneRoom.getIndexes()) {
       const item = this.material(MaterialType.CharacterCard).index(character)
       const effectRule = this.getEffectRule(this.game, item)
       if (effectRule) {
-        score += effectRule.getScore() ?? 0
+        score += effectRule.score ?? 0
       }
     }
 

@@ -6,7 +6,7 @@ import { MaterialMove } from '@gamepark/rules-api'
 export class KingEffect extends Effect {
 
   onGameEnd(): MaterialMove[] {
-    const score = this.getScore()
+    const score = this.score
 
     if (score) {
       return [
@@ -26,7 +26,7 @@ export class KingEffect extends Effect {
     return []
   }
 
-  getScore() {
+  get score() {
     const item = this.card.getItem()!
     const kingdom = item.id.back
     const influenceCards =  this

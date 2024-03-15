@@ -81,7 +81,7 @@ export class FiveKingdomsRules extends SecretMaterialRules<Kingdom, MaterialType
       .getItem()?.quantity ?? 0
 
     const throneRule = new ThroneRule(this.game, playerId)
-    return castle + throneRule.getScore()
+    return castle + throneRule.score
   }
 
   giveTime(_playerId: Kingdom): number {

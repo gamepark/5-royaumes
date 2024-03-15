@@ -19,7 +19,7 @@ export class WarriorMonkEffect extends WarriorEffect {
 
   onGameEnd() {
     const opponent = this.game.players.find((p) => p !== this.player)!
-    const score = this.getScore()
+    const score = this.score
 
     if (score) {
       return [
@@ -37,7 +37,7 @@ export class WarriorMonkEffect extends WarriorEffect {
     return []
   }
 
-  getScore(): number | undefined {
+  get score(): number | undefined {
     const opponent = this.game.players.find((p) => p !== this.player)!
     const warriors = this
       .material(MaterialType.CharacterCard)

@@ -7,7 +7,7 @@ import { Effect } from './Effect'
 export class MarshallEffect extends Effect {
 
   onGameEnd(): MaterialMove[] {
-    const score = this.getScore()
+    const score = this.score
     if (score) {
       return [
         this
@@ -26,7 +26,7 @@ export class MarshallEffect extends Effect {
     return []
   }
 
-  getScore(): number | undefined {
+  get score(): number | undefined {
     const opponent = this.game.players.find((p) => p !== this.player)!
 
     const cards = this

@@ -6,7 +6,7 @@ import { TitanEffect } from './TitanEffect'
 
 export class GaiaEffect extends TitanEffect {
 
-  getScore(): number | undefined {
+  get score(): number | undefined {
     const opponent = this.game.players.find((p) => p !== this.player)!
     const titans = this
       .material(MaterialType.CharacterCard)
@@ -28,7 +28,7 @@ export class GaiaEffect extends TitanEffect {
   }
 
   onGameEnd(): MaterialMove[] {
-    const score = this.getScore()
+    const score = this.score
 
     if (score) {
       return [
