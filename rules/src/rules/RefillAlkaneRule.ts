@@ -15,27 +15,18 @@ export class RefillAlkaneRule extends PlayerTurnRule {
     if (isEnd) return [this.rules().startRule(RuleId.EndGame)]
 
     if (alkaneCards.length > 1) return [this.endRuleMove]
-    if (alkaneCards.length === 1) {
-      const remainingCard = alkaneCards.getItem()!
-      if (remainingCard.location.x !== 1 || remainingCard.location.y !== 0) {
-        moves.push(alkaneCards.moveItem({
-          type: LocationType.AlkaneSquare,
-          x: 1,
-          y: 0
-        }))
-      }
-    } else if (alkaneCards.length === 0) {
+
+    if (alkaneCards.length === 0) {
       moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 0 }))
     }
 
-    if (alkaneCards.length <= 1) {
-      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 0 }))
-      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 1 }))
-      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 2 }))
-      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 2 }))
-      moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 1 }))
-    }
-
+    const x = (alkaneCards.getItem()?.location.x ?? 1) - 1
+    const y = (alkaneCards.getItem()?.location.y ?? 0)
+    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: x + 2, y: y }))
+    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: x + 2, y: y + 1 }))
+    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: x + 1, y: y + 2 }))
+    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: x, y: y + 2 }))
+    moves.push(deck.dealOne({ type: LocationType.AlkaneSquare, x: x, y: y + 1 }))
 
     moves.push(this.endRuleMove)
 

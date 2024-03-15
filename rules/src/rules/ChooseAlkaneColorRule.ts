@@ -53,7 +53,6 @@ export class ChooseAlkaneColorRule extends PlayerTurnRule {
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || this.placedCard === undefined) return []
 
-    this.forget(Memory.PlacedCard)
     const card = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
     const moves: MaterialMove[] = this.alkaneCard
       .filter((item) => item.id.back === card.id.back)

@@ -1,11 +1,13 @@
 import { PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
+import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 import { InfluenceUtils } from './utils/InfluenceUtils'
 
 export class ChooseActionRule extends PlayerTurnRule {
   onRuleStart() {
+    this.forget(Memory.PlacedCard)
     const canInfluence = new InfluenceUtils(this.game, this.hand).influenceMoves.length
     if (canInfluence) return []
 

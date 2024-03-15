@@ -35,9 +35,9 @@ export class DrawBannerCardRule extends PlayerTurnRule {
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location.type !== LocationType.AlkaneSquare) return []
 
     const moves: MaterialMove[] = []
+    this.memorize(Memory.PlacedCard, move.itemIndex)
     const cards = this.getAdjacentCardsOfSameKingdom(move.itemIndex, [move.itemIndex])
     if (cards.length === 1) {
-      this.memorize(Memory.PlacedCard, move.itemIndex)
       moves.push(this.rules().startRule(RuleId.ChooseAlkaneColor))
       return moves
     }

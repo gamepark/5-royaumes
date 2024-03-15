@@ -28,9 +28,9 @@ export class PlayerThroneDescription extends LocationDescription {
 
   getThronePosition(playerId: number, { rules, player }: MaterialContext) {
     if (playerId === (player ?? rules.players[0])) {
-      return { x: -9, y: 9, z: 0 }
+      return { x: -9, y: 8.65, z: 0 }
     }
 
-    return { x: 35, y: -15, z: 0 }
+    return { x: 35, y: -14.65, z: 0 }
   }
 }
