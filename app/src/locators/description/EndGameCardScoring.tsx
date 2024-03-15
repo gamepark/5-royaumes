@@ -1,12 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { faCheck } from '@fortawesome/free-solid-svg-icons/faCheck'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
-import { Memory, ThroneActivationState } from '@gamepark/5-royaumes/rules/Memory'
 import { MaterialComponent, usePlayerId, useRules } from '@gamepark/react-game'
 import { isLocationSubset } from '@gamepark/react-game/dist/components/material/utils'
 import { Location } from '@gamepark/rules-api'
@@ -30,23 +27,6 @@ export const EndGameCardScoring: FC<EndGameCardScoringProps> = (props) => {
       }
     </>
   )
-}
-
-export const EndGameThroneScoring: FC<EndGameCardScoringProps> = (props) => {
-  const { location } = props
-  const playerId = usePlayerId()
-  const rules = useRules<FiveKingdomsRules>()!
-  const player = location.player
-  const itsFirst = player === (playerId ?? rules.players[0])
-  const throneState = rules.remind(Memory.ThroneActivation, location.player)
-  const consumed = throneState === ThroneActivationState.CONSUMED
-  if (consumed) {
-    return (<div css={consumedStyle(itsFirst)}>
-      <FontAwesomeIcon icon={faCheck} css={consumedIcon}/>
-    </div>)
-  }
-
-  return null
 }
 
 type CardScoringProps = { index: number, rules: FiveKingdomsRules } & EndGameCardScoringProps
@@ -107,18 +87,3 @@ const scoreValueStyle = css`
 const materialStyle = css`
   font-size: 0.5em;
 `
-
-const consumedStyle = (itsFirst: boolean) => css`
-  ${scoreStyle};
-  width: auto;
-  padding: 0.5em;
-  background: rgba(0, 128, 0, 1);
-  display: flex;
-  ${itsFirst ? `bottom: 1em;` : ''}
-  ${!itsFirst ? `top: 1em;` : ''}
-  left: 1.1em;
-  align-items: center;
-  justify-content: center;
-`
-
-const consumedIcon = css``

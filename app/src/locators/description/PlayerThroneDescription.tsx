@@ -3,7 +3,6 @@ import { css } from '@emotion/react'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location } from '@gamepark/rules-api'
-import { EndGameThroneScoring } from './EndGameCardScoring'
 
 export class PlayerThroneDescription extends LocationDescription {
   width = 6.35
@@ -34,6 +33,4 @@ export class PlayerThroneDescription extends LocationDescription {
 
     return { x: 35, y: -15, z: 0 }
   }
-
-  content = EndGameThroneScoring
 }
