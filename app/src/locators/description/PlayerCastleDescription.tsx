@@ -10,7 +10,6 @@ import { playerThroneLocator } from '../PlayerThroneLocator'
 export class PlayerCastleDescription extends LocationDescription {
   height = 6
   width = 6
-  alwaysVisible = true
   borderRadius = 5
 
   getLocations(context: MaterialContext) {
