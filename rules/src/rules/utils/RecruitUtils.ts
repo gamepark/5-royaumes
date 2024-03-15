@@ -39,6 +39,8 @@ export class RecruitUtils extends PlayerTurnRule {
   }
 
   recruitCard(card: Material) {
+    const charactersInThroneRoom = this.throneRoom.length
+
     const item = card.getItem()!
     const itemId = item.id.front
     if (!itemId) return []
@@ -49,12 +51,18 @@ export class RecruitUtils extends PlayerTurnRule {
       })
     } else {
       return Array.from(Array(4))
-        .flatMap((_, x) =>
-          card.moveItems({
-            type: LocationType.PlayerThroneRoom,
-            player: this.player,
-            x
-          })
+        .flatMap((_, x) => {
+            if (charactersInThroneRoom < 4) {
+              const existingItem = this.throneRoom.location((location) => location.x === x).length > 0
+              if (existingItem) return []
+            }
+
+            return card.moveItems({
+              type: LocationType.PlayerThroneRoom,
+              player: this.player,
+              x
+            })
+          }
         )
     }
   }

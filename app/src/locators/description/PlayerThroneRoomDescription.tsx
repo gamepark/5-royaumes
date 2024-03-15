@@ -4,7 +4,7 @@ import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
-import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
+import { isLocationSubset, LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialMove, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
 import { playerThroneLocator } from '../PlayerThroneLocator'
@@ -22,6 +22,8 @@ export class PlayerThroneRoomDescription extends LocationDescription {
     const { rules, player } = context
 
     const isMyTurn = this.isMyLocation(rules, location, player)
+    const hasCardOnLocation = rules.material(MaterialType.CharacterCard).location((l) => isLocationSubset(location, l)).length > 0
+    if (hasCardOnLocation) return []
     if (!isMyTurn) return extraCss
 
     const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer
@@ -30,7 +32,6 @@ export class PlayerThroneRoomDescription extends LocationDescription {
 
     return extraCss
   }
-
 
   extraCss = css`
     border: 0.05em solid white;
@@ -55,7 +56,10 @@ export class PlayerThroneRoomDescription extends LocationDescription {
 
     const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer
     const isRecruit = rules.game.rule?.id === RuleId.Recruit
-    if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) position.z += 1
+    if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) {
+      const throneRoomCharacters = rules.material(MaterialType.CharacterCard).location((l) => l.type === LocationType.PlayerThroneRoom && location.player === l.player)
+      if (throneRoomCharacters.length === 4) position.z += 1
+    }
 
     return position
   }
