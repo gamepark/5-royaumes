@@ -6,21 +6,6 @@ import { Effect } from './Effect'
 
 export class CaptainEffect extends Effect {
 
-  onInfluence(): MaterialMove[] {
-    const columns = baseKingdoms
-    const moves: MaterialMove[] = []
-    const columnCards = this.material(MaterialType.CharacterCard).location(LocationType.PlayerInfluenceZone)
-    for (const kingdom of columns) {
-      const kingdomCards = columnCards.locationId(kingdom)
-      const myCount = kingdomCards.player(this.player).length
-      if (myCount > kingdomCards.player((p) => p !== this.player).length) {
-        this.addActivation()
-      }
-    }
-
-    return moves
-  }
-
   get moves() {
     return [
       this.material(MaterialType.Castle).createItem({ location: { type: LocationType.PlayerCastle, player: this.player } })
