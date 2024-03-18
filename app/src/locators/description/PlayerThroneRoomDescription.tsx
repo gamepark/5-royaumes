@@ -21,12 +21,12 @@ export class PlayerThroneRoomDescription extends LocationDescription {
     const extraCss = this.extraCss
     const { rules, player } = context
 
+    const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer
     const isMyTurn = this.isMyLocation(rules, location, player)
     const hasCardOnLocation = rules.material(MaterialType.CharacterCard).location((l) => isLocationSubset(location, l)).length > 0
-    if (hasCardOnLocation) return []
+    if (hasCardOnLocation) return [noPointerEvent]
     if (!isMyTurn) return extraCss
 
-    const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer
     const isRecruit = rules.game.rule?.id === RuleId.Recruit
     if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) return [extraCss, noPointerEvent]
 
@@ -51,6 +51,8 @@ export class PlayerThroneRoomDescription extends LocationDescription {
   getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
     const position = this.getLocationPosition(location, context)
     const { rules, player } = context
+
+
     const isMyTurn = this.isMyLocation(rules, location, player)
     if (!isMyTurn) return position
 

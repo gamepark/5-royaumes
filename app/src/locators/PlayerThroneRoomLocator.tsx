@@ -14,6 +14,7 @@ export class PlayerThroneRoomLocator extends ItemLocator {
     }
   }
 
+
   getRotateZ(item: MaterialItem, { rules, player }: ItemContext): number {
     return item.location.player === (player ?? rules.players[0])? 0: 180
   }

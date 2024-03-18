@@ -11,15 +11,11 @@ export class SorcererRule extends PlayerTurnRule {
 
   getPlayerMoves() {
     const discard = this.discard
-    const selected = discard.selected()
-    const unselected = discard.filter((item) => !item.selected)
     const moves: MaterialMove[] = []
-    if (selected.length) {
-      moves.push(...new RecruitUtils(this.game, selected).recruitMoves)
-      moves.push(...new InfluenceUtils(this.game, selected).influenceMoves)
+    if (discard.length) {
+      moves.push(...new RecruitUtils(this.game, discard).recruitMoves)
+      moves.push(...new InfluenceUtils(this.game, discard).influenceMoves)
     }
-
-    moves.push(...unselected.selectItems())
     return moves
   }
 
