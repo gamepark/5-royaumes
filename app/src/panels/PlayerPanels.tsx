@@ -2,26 +2,36 @@
 import { css } from '@emotion/react'
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
-import { PlayerPanel, usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
+import { usePlayerId, usePlayers, useRules } from '@gamepark/react-game'
 import { FC } from 'react'
+import { createPortal } from 'react-dom'
+import { FiveKingdomPlayerPanel } from './FiveKingdomPlayerPanel'
 
 export const PlayerPanels: FC<any> = () => {
   const playerId = usePlayerId()
   const players = usePlayers({ sortFromMe: true })
   const rules = useRules<FiveKingdomsRules>()!
-  return (
+
+  const root = document.getElementById('root')
+  if (!root) {
+    return null
+  }
+
+  return createPortal(
     <>
       {players.map((player) =>
-        <PlayerPanel key={player.id} playerId={player.id} color={playerColorCode[player.id]} css={[panelPosition, player.id === (playerId ?? rules.players[0])? bottomPosition: topPosition ]}/>
+        <FiveKingdomPlayerPanel key={player.id} player={player} css={[panelPosition, player.id === (playerId ?? rules.players[0])? bottomPosition: topPosition ]}/>
       )}
-    </>
+    </>,
+    root
   )
 }
 const panelPosition = css`
   position: absolute;
   right: 1em;
   width: 28em;
-  height: 14em;
+  height: 8.3em;
+  border: 0;
 `
 
 const topPosition = css`
@@ -29,7 +39,7 @@ const topPosition = css`
 `
 
 const bottomPosition = css`
-  top: 85em;
+  top: 91em;
 `
 
 export const playerColorCode: Partial<Record<Kingdom, string>> = {

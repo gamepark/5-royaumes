@@ -19,7 +19,7 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
       snapToCenter={false}
     >
       <GameTableNavigation css={css`flex-direction: column; left: auto; right: 3em; top: 28em`}/>
+      <PlayerPanels/>
     </GameTable>
-    <PlayerPanels/>
   </>
 }

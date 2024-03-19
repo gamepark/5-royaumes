@@ -3,73 +3,60 @@ import { css } from '@emotion/react'
 import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getValue } from '@gamepark/faraway/cards/Region'
-import { Regions } from '@gamepark/faraway/cards/Regions'
-import { FarawayRules } from '@gamepark/faraway/FarawayRules'
-import { LocationType } from '@gamepark/faraway/material/LocationType'
-import { MaterialType } from '@gamepark/faraway/material/MaterialType'
-import { PlayerId } from '@gamepark/faraway/PlayerId'
-import { ScoreHelper } from '@gamepark/faraway/rules/helper/ScoreHelper'
-import { Memory } from '@gamepark/faraway/rules/Memory'
+import { baseKingdoms, Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
+import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
+import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
+import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { Player, useOptions } from '@gamepark/react-client'
-import { Avatar, Picture, PlayerTimer, SpeechBubbleDirection, useFocusContext, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
+import { Avatar, Picture, PlayerTimer, SpeechBubbleDirection, useFocusContext, usePlayerName, useRules } from '@gamepark/react-game'
 import { GameSpeed } from '@gamepark/rules-api'
-import { FC, HTMLAttributes, useCallback, useEffect } from 'react'
-import Player3 from '../images/region/region_blue_9.jpg'
-import Player1 from '../images/region/region_green_11.jpg'
-import Player4 from '../images/region/region_red_57.jpg'
-import Player2 from '../images/region/region_yellow_27.jpg'
-import Player6 from '../images/region/region_yellow_37.jpg'
-import Player5 from '../images/region/region_yellow_47.jpg'
-import DayMini from '../images/time/day-mini.png'
-import Day from '../images/time/day.png'
-import NightMini from '../images/time/night-mini.png'
-import Night from '../images/time/night.png'
-import { computeBoardIndex } from '../locators/position/PositionOnTable'
+import { FC, HTMLAttributes, useCallback } from 'react'
+import Castle from '../images/castle/castle_token.jpg'
+import FelineThrone from '../images/throne/feline_throne.jpg'
+import RaptorThrone from '../images/throne/raptor_throne.jpg'
+import ReptileThrone from '../images/throne/reptile_throne.jpg'
+import SailorThrone from '../images/throne/sailor_throne.jpg'
+import UrsidsThrone from '../images/throne/ursids_throne.jpg'
 
 type FarawayPlayerPanelProps = {
   player: Player
 } & HTMLAttributes<HTMLDivElement>
 
-export const FarawayPlayerPanel: FC<FarawayPlayerPanelProps> = (props) => {
+export const FiveKingdomPlayerPanel: FC<FarawayPlayerPanelProps> = (props) => {
   const { player, ...rest } = props
   const { setFocus } = useFocusContext()
-  const rules = useRules<FarawayRules>()!
-  const isTutorial = !rules || rules.game.tutorialStep !== undefined
-  const playerId = usePlayerId()
+  const rules = useRules<FiveKingdomsRules>()!
   const playerName = usePlayerName(player.id)
-  const itsMe = playerId && player.id === playerId
-  const turnToPlay = rules.isTurnToPlay(player.id)
   const focusPlayer = useCallback(() => {
     setFocus({
       materials: [
-        ...(itsMe ? [rules.material(MaterialType.Region).location(LocationType.Region)] : []),
-        ...(itsMe ? [rules.material(MaterialType.Region).location(LocationType.RegionDeck).maxBy((item) => item.location.x!)] : []),
-        ...(itsMe ? [rules.material(MaterialType.Region).location(LocationType.PlayerRegionHand).player(playerId)] : []),
+        rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand)
       ],
       staticItems: [],
-      locations:
-        Array.from(Array(8))
-          .map((_, x) => ({
-            type: LocationType.PlayerRegionLine,
+      locations: [
+        ...baseKingdoms
+          .map(id => ({
+            type: LocationType.PlayerInfluenceZone,
             player: player.id,
-            x: x
+            id: id
           })),
-      margin: getMargin(rules, player, playerId),
+        ...Array.from(Array(4))
+          .map((_, x) => ({
+            type: LocationType.PlayerThroneRoom,
+            player: player.id,
+            x
+          }))
+      ],
+      margin: {
+        right: 1,
+        left: 1
+      },
       animationTime: 500
     })
-  }, [rules, player])
-
-  useEffect(() => {
-    if (itsMe && !isTutorial) {
-      setTimeout(focusPlayer, 3000)
-    }
-
-  }, [itsMe, playerId, setFocus, isTutorial])
+  }, [rules, player, setFocus])
   return (
     <>
       <div css={[panelPlayerStyle, panelStyle(player.id)]} onClick={focusPlayer} {...rest}>
-        <div css={turnToPlay ? day : night}></div>
         <Avatar css={avatarStyle} playerId={player.id} speechBubbleProps={{ direction: SpeechBubbleDirection.BOTTOM_LEFT }}/>
         <h2 css={[nameStyle, data]}>{playerName}</h2>
         <Timer {...props} />
@@ -83,46 +70,38 @@ export const FarawayPlayerPanel: FC<FarawayPlayerPanelProps> = (props) => {
 
 const Timer: FC<FarawayPlayerPanelProps> = (props) => {
   const { player } = props
-  const rules = useRules<FarawayRules>()!
+  const rules = useRules<FiveKingdomsRules>()!
 
   if (rules?.isOver()) return null
 
   return <PlayerTimer customStyle={[(playing) => !playing && css`color: lightgray !important;`]} playerId={player.id} css={[timerStyle, data]}/>
 }
 
-const Score: FC<FarawayPlayerPanelProps> = (props => {
-  const { player } = props
-  const rules = useRules<FarawayRules>()!
+const Score: FC<FarawayPlayerPanelProps> = () => {
+  const rules = useRules<FiveKingdomsRules>()!
 
   if (!rules?.isOver()) return null
-
   return (
     <span css={[placedCard, data]}>
       <FontAwesomeIcon icon={faStar} css={scoreStyle} fill="#28B8CE"/>
-      <span>{new ScoreHelper(rules.game, player.id).score}</span>
+      <span>{1111}</span>
     </span>
   )
-})
+}
 
 const PlacedCard: FC<FarawayPlayerPanelProps> = (props) => {
   const { player } = props
-  const rules = useRules<FarawayRules>()!
-  const round = rules.remind(Memory.Round)
+  const rules = useRules<FiveKingdomsRules>()!
+  const castles = rules.material(MaterialType.Castle).player(player.id).getItem()
+  const castleCount = castles !== undefined? (castles.quantity ?? 1): 0
   const options = useOptions()
   const speedDisabled = options?.speed !== GameSpeed.RealTime || !player?.time
-  const card = rules
-    .material(MaterialType.Region)
-    .location((l) => l.type === LocationType.PlayerRegionLine && l.x === (round - 1))
-    .player(player.id)
-    .getItem()
 
 
-  if (!card?.id || !rules?.game.rule) return null
-  const night = Regions[card?.id]?.night === 1
   return (
     <span css={[data, placedCard, speedDisabled && rightAlignment]}>
-      <Picture css={timeMini} src={night ? NightMini : DayMini}/>
-      <span>{getValue(card.id)}</span>
+      <Picture css={timeMini} src={Castle}/>
+      <span>{castleCount}</span>
     </span>
   )
 }
@@ -190,19 +169,18 @@ const nameStyle = css`
 `
 
 const PlayerBackground = [
-  Player1,
-  Player2,
-  Player3,
-  Player4,
-  Player5,
-  Player6
+  ReptileThrone,
+  FelineThrone,
+  RaptorThrone,
+  UrsidsThrone,
+  SailorThrone
 ]
 
-const panelStyle = (playerId: PlayerId) => css`
+const panelStyle = (playerId: Kingdom) => css`
   cursor: pointer;
 
-  background: rgba(0, 0, 0, 0.8) url(${PlayerBackground[playerId - 1]}) no-repeat -8.6em -4.7em;
-  background-size: 150% auto;
+  background: rgba(0, 0, 0, 0.8) url(${PlayerBackground[playerId - 1]}) no-repeat -5em -17em;
+    background-size: 120% auto;
 
   &:after {
     content: '';
@@ -222,80 +200,6 @@ const data = css`
   padding: 0.1em 0.3em;
   border-radius: 0.4em;
   z-index: 2;
-`
-
-const getMargin = (rules: FarawayRules, player: Player, playerId?: PlayerId) => {
-  const index = computeBoardIndex({ player: player.id }, rules, playerId)
-  const margin = {
-    left: 23,
-    right: 2,
-    top: 2,
-    bottom: 3
-  }
-
-  if (index === 0 && rules.players.length > 3) {
-    margin.top = 4
-    margin.bottom = 1
-  }
-
-  if (index === 0 && rules.players.length === 5) {
-    margin.top = 5
-    margin.bottom = 1
-  }
-
-  if (index === 0 && rules.players.length === 6) {
-    margin.top = 5
-    margin.bottom = 4
-  }
-
-  return margin
-}
-
-const day = css`
-  position: absolute;
-  top: -1em;
-  left: -1.55em;
-  height: 7.9em;
-  width: 8.4em;
-  background-size: contain;
-  background-image: url(${Day});
-  background-repeat: no-repeat;
-
-  &:after {
-    content: ' ';
-    position: absolute;
-    top: 36%;
-    left: 0;
-    width: 2.1em;
-    height: 2.1em;
-    background-image: url(${DayMini});
-    background-size: cover;
-    z-index: 2;
-  }
-`
-
-const night = css`
-  position: absolute;
-  top: -1em;
-  left: -0.85em;
-  height: 7.9em;
-  width: 8.4em;
-  background-size: contain;
-  background-image: url(${Night});
-  background-repeat: no-repeat;
-
-  &:after {
-    content: ' ';
-    position: absolute;
-    top: 37%;
-    right: 0;
-    width: 1.8em;
-    height: 1.8em;
-    background-image: url(${NightMini});
-    background-size: cover;
-    z-index: 2;
-  }
-}
 `
 
 const timerStyle = css`
