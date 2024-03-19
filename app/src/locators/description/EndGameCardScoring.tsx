@@ -5,7 +5,7 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
 import { MaterialComponent, usePlayerId, useRules } from '@gamepark/react-game'
-import { isLocationSubset } from '@gamepark/react-game/dist/components/material/utils'
+import { isLocationSubset } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { FC } from 'react'
 

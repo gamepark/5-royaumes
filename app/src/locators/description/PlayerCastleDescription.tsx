@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
-import { LocationDescription } from '@gamepark/react-game/dist/components/material/locations/LocationDescription'
-import { LocationContext, MaterialContext } from '@gamepark/react-game/dist/locators/ItemLocator'
-import { Coordinates, Location } from '@gamepark/rules-api/dist/material/location/Location'
+import { LocationDescription } from '@gamepark/react-game'
+import { LocationContext, MaterialContext } from '@gamepark/react-game'
+import { Coordinates, Location } from '@gamepark/rules-api'
 import { throneCardDescription } from '../../material/descriptions/ThroneCardDescription'
 import { playerThroneLocator } from '../PlayerThroneLocator'
 
