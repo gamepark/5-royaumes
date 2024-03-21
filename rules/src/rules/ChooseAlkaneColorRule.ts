@@ -54,14 +54,22 @@ export class ChooseAlkaneColorRule extends PlayerTurnRule {
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || this.placedCard === undefined) return []
 
     const card = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    const moves: MaterialMove[] = this.alkaneCard
+    const cardWithSameBack = this.alkaneCard
       .filter((item) => item.id.back === card.id.back)
-      .moveItems({
-        type: LocationType.PlayerHand,
-        player: this.player
-      })
 
-    moves.push(this.rules().startRule(RuleId.ChooseAction))
+    const moves: MaterialMove[] = []
+
+    if (cardWithSameBack.length) {
+      moves.push(
+        cardWithSameBack
+          .moveItem({
+            type: LocationType.PlayerHand,
+            player: this.player
+          })
+        )
+    } else {
+      moves.push(this.rules().startRule(RuleId.ChooseAction))
+    }
 
     return moves
   }
