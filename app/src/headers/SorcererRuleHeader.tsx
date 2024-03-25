@@ -1,9 +1,6 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
-import { usePlayerId } from '@gamepark/react-game/dist/hooks/usePlayerId'
-import { usePlayerName } from '@gamepark/react-game/dist/hooks/usePlayerName'
-import { useRules } from '@gamepark/react-game/dist/hooks/useRules'
+import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'
 
 export const SorcererRuleHeader = () => {
@@ -24,15 +21,3 @@ export const SorcererRuleHeader = () => {
     <>{t('header.sorceress.player', { player: name })}</>
   )
 }
-
-export const alignIcon = css`
-  > * {
-    vertical-align: middle;
-  }
-
-  picture, img {
-    vertical-align: middle;
-    height: 1.5em;
-    margin-right: 0.1em;
-  }
-`

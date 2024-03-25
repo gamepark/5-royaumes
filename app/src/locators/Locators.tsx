@@ -10,13 +10,13 @@ import { influenceZoneLocator } from './InfluenceZoneLocator'
 import { playerCastleLocator } from './PlayerCastleLocator'
 import { playerHandLocator } from './PlayerHandLocator'
 import { playerThroneLocator } from './PlayerThroneLocator'
-import { playerThroneRoomLocator } from './PlayerThroneRoomLocator'
+import { playerThroneRoomLocator } from './CouncilLocator'
 import { playerTitanLocator } from './PlayerTitanLocator'
 
 export const Locators: Partial<Record<LocationType, ItemLocator<Kingdom, MaterialType, LocationType>>> = {
   [LocationType.BannerDeck]: bannerDeckLocator,
   [LocationType.PlayerThrone]: playerThroneLocator,
-  [LocationType.PlayerThroneRoom]: playerThroneRoomLocator,
+  [LocationType.Council]: playerThroneRoomLocator,
   [LocationType.AlkaneSquare]: alkaneSquareLocator,
   [LocationType.PlayerInfluenceZone]: influenceZoneLocator,
   [LocationType.PlayerCastle]: playerCastleLocator,

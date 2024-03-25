@@ -5,6 +5,7 @@ import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import TitanIcon from '../../images/icons/titan.png'
+import { PlayerTitanHelp } from '../help/PlayerTitanHelp'
 import { EndGameCardScoring } from './EndGameCardScoring'
 
 export class PlayerTitanDescription extends LocationDescription {
@@ -18,6 +19,7 @@ export class PlayerTitanDescription extends LocationDescription {
     background: no-repeat center 18em / 35% url(${TitanIcon}), linear-gradient(0deg, #ffffff70 0%, #ffffff00 70%);
   `
 
+  help = PlayerTitanHelp
   getLocations({ rules }: MaterialContext) {
     return rules.players.flatMap((player) => ({
       type: LocationType.PlayerTitan,
@@ -25,17 +27,12 @@ export class PlayerTitanDescription extends LocationDescription {
     }))
   }
 
-  canShortClick(move: MaterialMove, location: Location, context: MaterialContext): any {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return false
-    const { rules } = context
-    const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.player === location.player) return true
-
-    return super.canShortClick(move, location, context)
-  }
-
   getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
     return this.getTitanPosition(location, context)
+  }
+
+  canLongClick(): boolean {
+    return false
   }
 
   getTitanPosition(location: Location, { rules, player }: MaterialContext) {

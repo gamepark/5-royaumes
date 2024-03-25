@@ -54,7 +54,7 @@ export class WarriorRule extends PlayerTurnRule {
   }
 
   get opponentCharacter() {
-    return this.material(MaterialType.CharacterCard).location(LocationType.PlayerThroneRoom).player(this.opponent)
+    return this.material(MaterialType.CharacterCard).location(LocationType.Council).player(this.opponent)
   }
 
   get opponent() {

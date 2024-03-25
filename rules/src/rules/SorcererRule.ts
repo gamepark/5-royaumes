@@ -43,7 +43,7 @@ export class SorcererRule extends PlayerTurnRule {
       moves.push(...effectRule.onInfluence(move))
     }
 
-    if (move.location.type === LocationType.PlayerThroneRoom || move.location.type === LocationType.PlayerTitan) {
+    if (move.location.type === LocationType.Council || move.location.type === LocationType.PlayerTitan) {
       moves.push(...effectRule.onRecruit(move))
     }
 

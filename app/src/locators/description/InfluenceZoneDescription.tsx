@@ -12,6 +12,7 @@ import FelineIcon from '../../images/icons/feline.png'
 import RaptorIcon from '../../images/icons/raptor.png'
 import UrsidIcon from '../../images/icons/ursids.png'
 import SailorIcon from '../../images/icons/sailor.png'
+import { InfluenceZoneHelp } from '../help/InfluenceZoneHelp'
 
 export class InfluenceZoneDescription extends LocationDescription {
   width = 6.35 + 0.4
@@ -27,6 +28,8 @@ export class InfluenceZoneDescription extends LocationDescription {
       background: no-repeat center 1em / 30% url(${this.icons[location.id]}), linear-gradient(180deg, ${playerColorCode[kingdom]}70 0%, ${playerColorCode[kingdom]}00 100%);
     `
   }
+
+  help = InfluenceZoneHelp
 
   icons = {
     [Kingdom.Reptile]: ReptileIcon,

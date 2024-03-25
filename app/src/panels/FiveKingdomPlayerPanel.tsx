@@ -42,7 +42,7 @@ export const FiveKingdomPlayerPanel: FC<FarawayPlayerPanelProps> = (props) => {
           })),
         ...Array.from(Array(4))
           .map((_, x) => ({
-            type: LocationType.PlayerThroneRoom,
+            type: LocationType.Council,
             player: player.id,
             x
           }))

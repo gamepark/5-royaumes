@@ -8,6 +8,7 @@ import { AlkaneSquareRule } from '@gamepark/5-royaumes/rules/utils/AlkaneSquareR
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialGame, MaterialMove, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
+import { AlkaneSquareHelp } from '../help/AlkaneSquareHelp'
 
 export class AlkaneSquareDescription extends LocationDescription {
   width = 6.35
@@ -19,6 +20,8 @@ export class AlkaneSquareDescription extends LocationDescription {
   extraCss = css`
     border: 0.05em solid white;
   `
+
+  help = AlkaneSquareHelp
 
   game?: MaterialGame
   deltaX = 0

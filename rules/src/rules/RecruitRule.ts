@@ -40,7 +40,7 @@ export class RecruitRule extends PlayerTurnRule {
     }
 
     const moves: MaterialMove[] = []
-    if (move.location.type === LocationType.PlayerThroneRoom || move.location.type === LocationType.PlayerTitan) {
+    if (move.location.type === LocationType.Council || move.location.type === LocationType.PlayerTitan) {
       const recruitMoves = new ThroneRule(this.game, this.player).onRecruit(move)
       const onRecruit = this.onRecruit(move)
       if (recruitMoves.some(isStartRule)) {

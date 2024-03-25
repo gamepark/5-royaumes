@@ -8,6 +8,7 @@ import { DrawBannerCardRuleHeader } from './DrawBannerCardRuleHeader'
 import { InfluenceRuleHeader } from './InfluenceRuleHeader'
 import { RecruitRuleHeader } from './RecruitRuleHeader'
 import { RefillAlkaneRuleHeader } from './RefillAlkaneRuleHeader'
+import { SorcererRuleHeader } from './SorcererRuleHeader'
 import { WarriorRuleHeader } from './WarriorRuleHeader'
 
 export const Headers: Partial<Record<RuleId, ComponentType>> = {
@@ -18,6 +19,6 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.Recruit]: RecruitRuleHeader,
   [RuleId.RefillAlkane]: RefillAlkaneRuleHeader,
   [RuleId.ActivateCharacter]: ActivateCharacterRuleHeader,
-  [RuleId.Sorcerer]: () => <>Sorcerer</>,
+  [RuleId.Sorcerer]: SorcererRuleHeader,
   [RuleId.Warrior]: WarriorRuleHeader,
 }

@@ -83,7 +83,7 @@ export class ThroneRule extends MaterialRulesPart {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
     const cardOnPosition = this
       .material(MaterialType.CharacterCard)
-      .location((location) => location.type === LocationType.PlayerThroneRoom && location.x === move.location.x)
+      .location((location) => location.type === LocationType.Council && location.x === move.location.x)
       .player(this.player)
       .index((index) => index !== move.itemIndex)
 
@@ -117,7 +117,7 @@ export class ThroneRule extends MaterialRulesPart {
   get throneRoom() {
     return this
       .material(MaterialType.CharacterCard)
-      .location(LocationType.PlayerThroneRoom)
+      .location(LocationType.Council)
       .player(this.player)
   }
 }

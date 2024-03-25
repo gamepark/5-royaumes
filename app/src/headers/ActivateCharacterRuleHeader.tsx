@@ -1,8 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
-import { usePlayerId } from '@gamepark/react-game/dist/hooks/usePlayerId'
-import { usePlayerName } from '@gamepark/react-game/dist/hooks/usePlayerName'
-import { useRules } from '@gamepark/react-game/dist/hooks/useRules'
+import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'
 
 export const ActivateCharacterRuleHeader = () => {

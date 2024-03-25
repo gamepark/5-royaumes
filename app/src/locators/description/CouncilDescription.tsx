@@ -3,33 +3,26 @@ import { css, Interpolation, Theme } from '@emotion/react'
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
-import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { isLocationSubset, LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, isMoveItemType, Location, MaterialMove, MaterialRules } from '@gamepark/rules-api'
+import { Coordinates, Location, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
+import { CouncilHelp } from '../help/CouncilHelp'
 import { playerThroneLocator } from '../PlayerThroneLocator'
 import { EndGameCardScoring } from './EndGameCardScoring'
 
-export class PlayerThroneRoomDescription extends LocationDescription {
+export class CouncilDescription extends LocationDescription {
   width = 6.35
   height = 8.89
   borderRadius = 0.5
-
   alwaysVisible = true
+  help = CouncilHelp
 
   getExtraCss(location: Location, context: LocationContext): Interpolation<Theme> {
     const extraCss = this.extraCss
-    const { rules, player } = context
+    const { rules } = context
 
-    const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer
-    const isMyTurn = this.isMyLocation(rules, location, player)
     const hasCardOnLocation = rules.material(MaterialType.CharacterCard).location((l) => isLocationSubset(location, l)).length > 0
     if (hasCardOnLocation) return [noPointerEvent]
-    if (!isMyTurn) return extraCss
-
-    const isRecruit = rules.game.rule?.id === RuleId.Recruit
-    if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) return [extraCss, noPointerEvent]
-
     return extraCss
   }
 
@@ -41,7 +34,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
     return rules.players.flatMap((player) => {
       return Array.from(Array(4))
         .map((_, x) => ({
-          type: LocationType.PlayerThroneRoom,
+          type: LocationType.Council,
           player,
           x
         }))
@@ -49,21 +42,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
   }
 
   getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
-    const position = this.getLocationPosition(location, context)
-    const { rules, player } = context
-
-
-    const isMyTurn = this.isMyLocation(rules, location, player)
-    if (!isMyTurn) return position
-
-    const isSorcerer = rules.game.rule?.id === RuleId.Sorcerer
-    const isRecruit = rules.game.rule?.id === RuleId.Recruit
-    if ((isRecruit || (isSorcerer && rules.material(MaterialType.CharacterCard).selected().length))) {
-      const throneRoomCharacters = rules.material(MaterialType.CharacterCard).location((l) => l.type === LocationType.PlayerThroneRoom && location.player === l.player)
-      if (throneRoomCharacters.length === 4) position.z += 1
-    }
-
-    return position
+    return this.getLocationPosition(location, context)
   }
 
   content = EndGameCardScoring
@@ -86,7 +65,7 @@ export class PlayerThroneRoomDescription extends LocationDescription {
         break
     }
 
-    baseCoordinates.z = 0
+    baseCoordinates.z = 5
     return baseCoordinates
   }
 
@@ -94,14 +73,8 @@ export class PlayerThroneRoomDescription extends LocationDescription {
     return rules.game.rule?.player === location.player && location.player === player
   }
 
-  canShortClick(move: MaterialMove, location: Location, context: MaterialContext): any {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return false
-    const { rules, player } = context
-    const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if (!this.isMyLocation(rules, location, player)) return super.canShortClick(move, location, context)
-    if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.x === location.x && move.location.player === location.player) return true
-
-    return super.canShortClick(move, location, context)
+  canLongClick(): boolean {
+    return false
   }
 }
 

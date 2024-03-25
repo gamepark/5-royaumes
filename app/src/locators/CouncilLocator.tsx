@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { ItemContext, ItemLocator } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
-import { PlayerThroneRoomDescription } from './description/PlayerThroneRoomDescription'
+import { CouncilDescription } from './description/CouncilDescription'
 
-export class PlayerThroneRoomLocator extends ItemLocator {
+export class CouncilLocator extends ItemLocator {
 
-  locationDescription = new PlayerThroneRoomDescription()
+  locationDescription = new CouncilDescription()
 
   getPosition(item: MaterialItem, context: ItemContext): Coordinates {
     return {
@@ -21,4 +21,4 @@ export class PlayerThroneRoomLocator extends ItemLocator {
 
 }
 
-export const playerThroneRoomLocator = new PlayerThroneRoomLocator()
+export const playerThroneRoomLocator = new CouncilLocator()

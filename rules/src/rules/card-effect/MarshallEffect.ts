@@ -31,7 +31,7 @@ export class MarshallEffect extends Effect {
 
     const cards = this
       .material(MaterialType.CharacterCard)
-      .location((location) => location.type === LocationType.PlayerTitan || location.type === LocationType.PlayerThroneRoom)
+      .location((location) => location.type === LocationType.PlayerTitan || location.type === LocationType.Council)
       .filter((item) => isImperialOrder(item.id.front))
 
     const myCards = cards.player(this.player).length

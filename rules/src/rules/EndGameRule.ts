@@ -9,7 +9,7 @@ export class EndGameRule extends MaterialRulesPart {
 
     const throne = this
       .material(MaterialType.CharacterCard)
-      .location(LocationType.PlayerThroneRoom)
+      .location(LocationType.Council)
 
     for (const player of this.game.players) {
       const throneRule = new ThroneRule(this.game, player)

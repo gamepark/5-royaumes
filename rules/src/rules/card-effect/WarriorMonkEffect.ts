@@ -41,13 +41,13 @@ export class WarriorMonkEffect extends WarriorEffect {
     const opponent = this.game.players.find((p) => p !== this.player)!
     const warriors = this
       .material(MaterialType.CharacterCard)
-      .location(LocationType.PlayerThroneRoom)
+      .location(LocationType.Council)
       .player(this.player)
       .filter((item) => isWarrior(item.id.front))
 
     const opponentWarrior = this
       .material(MaterialType.CharacterCard)
-      .location(LocationType.PlayerThroneRoom)
+      .location(LocationType.Council)
       .player(opponent)
       .filter((item) => isWarrior(item.id.front))
 

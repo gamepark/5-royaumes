@@ -1,6 +1,6 @@
 export enum LocationType {
   PlayerInfluenceZone = 1,
-  PlayerThroneRoom,
+  Council,
   PlayerThrone,
   PlayerCastle,
   CastleStock,

@@ -1,10 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
-import { Picture } from '@gamepark/react-game/dist/components/Picture/Picture'
-import { usePlayerId } from '@gamepark/react-game/dist/hooks/usePlayerId'
-import { usePlayerName } from '@gamepark/react-game/dist/hooks/usePlayerName'
-import { useRules } from '@gamepark/react-game/dist/hooks/useRules'
+import { Picture, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { Trans } from 'react-i18next'
 import Castle1 from '../images/castle/castle_token.jpg'
 
@@ -35,7 +32,7 @@ export const WarriorRuleHeader = () => {
 }
 
 export const alignIcon = css`
-  > * {
+  > picture {
     vertical-align: middle;
   }
 

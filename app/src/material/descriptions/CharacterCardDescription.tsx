@@ -110,16 +110,6 @@ export class CharacterCardDescription extends CardDescription {
     return item.location.type === LocationType.AlkaneSquare && move.location.type === LocationType.PlayerHand
   }
 
-  getLocations(item: MaterialItem, context: ItemContext) {
-    const { player } = context
-    if (item.location.player !== player || item.location.type !== LocationType.PlayerThroneRoom) return []
-    return [{
-      type: LocationType.PlayerThroneRoom,
-      player,
-      x: item.location.x,
-    }]
-  }
-
   help = CharacterCardHelp
 
   getItemExtraCss(item: MaterialItem, { rules }: MaterialContext) {

@@ -35,7 +35,7 @@ export class RecruitUtils extends PlayerTurnRule {
   }
 
   get throneRoom() {
-    return this.material(MaterialType.CharacterCard).location(LocationType.PlayerThroneRoom).player(this.player)
+    return this.material(MaterialType.CharacterCard).location(LocationType.Council).player(this.player)
   }
 
   recruitCard(card: Material) {
@@ -58,7 +58,7 @@ export class RecruitUtils extends PlayerTurnRule {
             }
 
             return card.moveItems({
-              type: LocationType.PlayerThroneRoom,
+              type: LocationType.Council,
               player: this.player,
               x
             })

@@ -35,7 +35,7 @@ export class WarriorEffect extends Effect {
   }
 
   get opponentConsul() {
-    return this.material(MaterialType.CharacterCard).location(LocationType.PlayerThroneRoom).player((p) => p !== this.player)
+    return this.material(MaterialType.CharacterCard).location(LocationType.Council).player((p) => p !== this.player)
   }
 
 }
