@@ -115,9 +115,11 @@ export const RecruitButton: FC<MaterialHelpProps> = ({ closeDialog }) => {
   )
 }
 
-export const RecruitTitan: FC<MaterialHelpProps> = ({ closeDialog, itemIndex }) => {
+export const RecruitTitan: FC<MaterialHelpProps> = ({ closeDialog, item, itemIndex }) => {
   const { t } = useTranslation()
-  const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.itemIndex === itemIndex && move.location.type === LocationType.PlayerTitan)
+  const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location.type === LocationType.PlayerTitan)
+
+  if (item.location?.type === LocationType.Discard && !item.selected) return null
   if (!move) return null
   return (
     <p>
