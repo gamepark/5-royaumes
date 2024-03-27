@@ -61,7 +61,6 @@ export const FiveKingdomPlayerPanel: FC<FarawayPlayerPanelProps> = (props) => {
         <h2 css={[nameStyle, data]}>{playerName}</h2>
         <Timer {...props} />
         <PlacedCard {...props} />
-        <Score {...props} />
       </div>
 
     </>
@@ -75,18 +74,6 @@ const Timer: FC<FarawayPlayerPanelProps> = (props) => {
   if (rules?.isOver()) return null
 
   return <PlayerTimer customStyle={[(playing) => !playing && css`color: lightgray !important;`]} playerId={player.id} css={[timerStyle, data]}/>
-}
-
-const Score: FC<FarawayPlayerPanelProps> = () => {
-  const rules = useRules<FiveKingdomsRules>()!
-
-  if (!rules?.isOver()) return null
-  return (
-    <span css={[placedCard, data]}>
-      <FontAwesomeIcon icon={faStar} css={scoreStyle} fill="#28B8CE"/>
-      <span>{1111}</span>
-    </span>
-  )
 }
 
 const PlacedCard: FC<FarawayPlayerPanelProps> = (props) => {
