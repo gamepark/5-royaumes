@@ -1,16 +1,15 @@
-import { isMoveItemType, MaterialMove, MoveItem } from '@gamepark/rules-api'
+import { isMoveItemType, MoveItem } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Effect } from './Effect'
 
 export class PapesseEffect extends Effect {
-  onInfluence(move: MoveItem): MaterialMove[] {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
+  onInfluence(move: MoveItem) {
+    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return
 
     const influenceCard = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if ((influenceCard.location.x! + 1) !== 4) return []
+    if ((influenceCard.location.x! + 1) !== 4) return
     this.addActivation()
-    return []
   }
 
   get moves() {

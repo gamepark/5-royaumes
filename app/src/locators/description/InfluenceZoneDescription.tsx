@@ -50,7 +50,7 @@ export class InfluenceZoneDescription extends LocationDescription {
     })
   }
 
-  canShortClick(move: MaterialMove, location: Location, context: MaterialContext): any {
+  canShortClick(move: MaterialMove, location: Location, context: MaterialContext): boolean {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return false
     const { rules } = context
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
@@ -58,6 +58,10 @@ export class InfluenceZoneDescription extends LocationDescription {
     if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.id === location.id && move.location.player === location.player) return true
 
     return super.canShortClick(move, location, context)
+  }
+
+  canLongClick(move: MaterialMove, location: Location, context: MaterialContext): boolean {
+    return this.canShortClick(move, location, context)
   }
 
   getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {

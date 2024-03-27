@@ -52,19 +52,16 @@ export class ThroneRule extends MaterialRulesPart {
   }
 
   onInfluence(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
-    const moves: MaterialMove[] = []
+    if (!isMoveItemType(MaterialType.CharacterCard)(move)) return
     this.controlThrone(move)
 
     for (const character of this.throneRoom.getIndexes()) {
       const item = this.material(MaterialType.CharacterCard).index(character)
       const effectRule = this.getEffectRule(this.game, item)
       if (effectRule) {
-        moves.push(...effectRule.onInfluence(move))
+        effectRule.onInfluence(move)
       }
     }
-
-    return moves
   }
 
   controlThrone(move: MoveItem) {

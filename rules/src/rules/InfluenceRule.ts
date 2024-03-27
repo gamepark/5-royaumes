@@ -17,10 +17,9 @@ export class InfluenceRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    const moves: MaterialMove[] = new ThroneRule(this.game, this.player).onInfluence(move)
-    if (this.isImperialOrder) return moves
-    moves.push(...this.placeCardMove)
-    return moves
+    new ThroneRule(this.game, this.player).onInfluence(move)
+    if (this.isImperialOrder) return []
+    return this.placeCardMove
   }
 
   get placeCardMove() {

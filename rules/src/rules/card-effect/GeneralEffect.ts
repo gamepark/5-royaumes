@@ -1,4 +1,4 @@
-import { MaterialMove, MoveItem } from '@gamepark/rules-api'
+import { MoveItem } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Memory } from '../Memory'
@@ -6,7 +6,7 @@ import { Effect } from './Effect'
 
 export class GeneralEffect extends Effect {
 
-  onInfluence(move: MoveItem): MaterialMove[] {
+  onInfluence(move: MoveItem) {
     const influenceCard = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
     const lineSize = this
       .material(MaterialType.CharacterCard)
@@ -14,8 +14,7 @@ export class GeneralEffect extends Effect {
       .player(this.player)
       .length
 
-    if (lineSize !== 5) return []
+    if (lineSize !== 5) return
     this.memorize(Memory.FreeTurns, (turns) => (turns ?? 0) + 1)
-    return []
   }
 }

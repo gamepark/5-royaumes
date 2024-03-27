@@ -1,4 +1,4 @@
-import { MaterialMove, MoveItem } from '@gamepark/rules-api'
+import { MoveItem } from '@gamepark/rules-api'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { RuleId } from '../RuleId'
@@ -6,14 +6,13 @@ import { Effect } from './Effect'
 
 export class WarriorEffect extends Effect {
 
-  onInfluence(move: MoveItem): MaterialMove[] {
+  onInfluence(move: MoveItem) {
     const item = this.card.getItem()!
-    if (item.id.back !== move.location.id) return []
+    if (item.id.back !== move.location.id) return
     const influenceCard = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if ((influenceCard.location.x! + 1) !== 4) return []
-    if (!this.canUseWarrior) return []
+    if ((influenceCard.location.x! + 1) !== 4) return
+    if (!this.canUseWarrior) return
     this.addActivation()
-    return []
   }
 
   get moves() {

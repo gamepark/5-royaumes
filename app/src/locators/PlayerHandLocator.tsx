@@ -1,8 +1,10 @@
 import { HandLocator, ItemContext } from '@gamepark/react-game'
 /** @jsxImportSource @emotion/react */
 import { Location, MaterialItem } from '@gamepark/rules-api'
+import { PlayerHandDescription } from './description/PlayerHandDescription'
 
 export class PlayerHandLocator extends HandLocator {
+  locationDescription = new PlayerHandDescription()
   getCoordinates(location: Location, { rules, player }: ItemContext) {
     if (location.player === (player ?? rules.players[0])) {
       return { x: 10, y: -3, z: 0.05 }

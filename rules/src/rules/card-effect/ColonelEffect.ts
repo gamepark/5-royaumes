@@ -6,7 +6,7 @@ import { Effect } from './Effect'
 
 export class ColonelEffect extends Effect {
 
-  onInfluence(move: MoveItem): MaterialMove[] {
+  onInfluence(move: MoveItem) {
     const influenceCard = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
     const lineSize = this
       .material(MaterialType.CharacterCard)
@@ -14,9 +14,8 @@ export class ColonelEffect extends Effect {
       .player(this.player)
       .length
 
-    if (lineSize !== 5) return []
+    if (lineSize !== 5) return
     this.addActivation()
-    return []
   }
 
   get moves() {

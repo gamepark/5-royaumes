@@ -7,8 +7,7 @@ export class Effect extends MaterialRulesPart {
     super(game)
   }
 
-  onInfluence(_move: MoveItem): MaterialMove[] {
-    return []
+  onInfluence(_move: MoveItem): void {
   }
 
   onRecruit(_move: MoveItem): MaterialMove[] {

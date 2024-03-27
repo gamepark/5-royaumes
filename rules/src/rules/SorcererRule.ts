@@ -40,7 +40,7 @@ export class SorcererRule extends PlayerTurnRule {
     const moves: MaterialMove[] = []
     const effectRule = new ThroneRule(this.game, this.player)
     if (move.location.type === LocationType.PlayerInfluenceZone) {
-      moves.push(...effectRule.onInfluence(move))
+      effectRule.onInfluence(move)
     }
 
     if (move.location.type === LocationType.Council || move.location.type === LocationType.PlayerTitan) {

@@ -13,8 +13,7 @@ export class WarriorMonkEffect extends WarriorEffect {
   }
 
   // Warrior monk do nothing
-  onInfluence(): MaterialMove[] {
-    return []
+  onInfluence() {
   }
 
   onGameEnd() {
