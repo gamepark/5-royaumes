@@ -196,7 +196,7 @@ const getEffectDescription = (id: Card) => {
     <>
       <p css={alignIcon}><Trans defaults="help.card.titan.effect1"><strong/><Picture src={Castle}/></Trans></p>
       <p css={alignIcon}><Trans defaults="help.card.titan.effect2"><strong/></Trans></p>
-      <p css={alignIcon}><Trans defaults="help.card.gaia.effect"><strong/></Trans></p>
+      <p css={alignIcon}><Trans defaults="help.card.gaia.effect"><strong/></Trans><Picture src={Castle}/></p>
     </>
   )
   if (id === Card.Colonel) return (
