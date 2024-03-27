@@ -107,7 +107,7 @@ export class CharacterCardDescription extends CardDescription {
     if (isCustomMoveType(CustomMoveType.ActivateCharacter)(move) && move.data === context.index) return true
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.itemIndex !== context.index) return super.canShortClick(move, context)
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    return item.location.type === LocationType.AlkaneSquare && move.location.type === LocationType.PlayerHand
+    return item.location.type === LocationType.AlkaneSquare && move.location?.type === LocationType.PlayerHand
   }
 
   help = CharacterCardHelp

@@ -54,8 +54,8 @@ export class InfluenceZoneDescription extends LocationDescription {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return false
     const { rules } = context
     const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if (item.location.type === LocationType.PlayerHand && move.location.type === location.type && move.location.id === location.id && move.location.player === location.player) return true
-    if (item.location.type === LocationType.Discard && move.location.type === location.type && move.location.id === location.id && move.location.player === location.player) return true
+    if (item.location?.type === LocationType.PlayerHand && move.location?.type === location.type && move.location?.id === location.id && move.location?.player === location.player) return true
+    if (item.location?.type === LocationType.Discard && move.location?.type === location.type && move.location?.id === location.id && move.location?.player === location.player) return true
 
     return super.canShortClick(move, location, context)
   }

@@ -36,18 +36,18 @@ export class SorcererRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location.type === LocationType.Discard) return []
+    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location?.type === LocationType.Discard) return []
     const moves: MaterialMove[] = []
     const effectRule = new ThroneRule(this.game, this.player)
-    if (move.location.type === LocationType.PlayerInfluenceZone) {
+    if (move.location?.type === LocationType.PlayerInfluenceZone) {
       effectRule.onInfluence(move)
     }
 
-    if (move.location.type === LocationType.Council || move.location.type === LocationType.PlayerTitan) {
+    if (move.location?.type === LocationType.Council || move.location?.type === LocationType.PlayerTitan) {
       moves.push(...effectRule.onRecruit(move))
     }
 
-    if (move.location.type === LocationType.PlayerTitan) {
+    if (move.location?.type === LocationType.PlayerTitan) {
       const titans = this.material(MaterialType.CharacterCard).location(LocationType.PlayerTitan).player(this.player).length
       if (titans === 5) {
         moves.push(this.rules().endGame())

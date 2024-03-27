@@ -27,7 +27,7 @@ export class ChooseActionRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return []
-    if (move.location.type === LocationType.PlayerInfluenceZone) {
+    if (move.location?.type === LocationType.PlayerInfluenceZone) {
       new ThroneRule(this.game, this.player).onInfluence(move)
       return [this.rules().startRule(RuleId.Influence)]
     }

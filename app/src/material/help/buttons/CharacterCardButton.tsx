@@ -13,7 +13,7 @@ export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
   const rules = useRules<FiveKingdomsRules>()!
   const { t } = useTranslation()
   const council = rules.material(MaterialType.CharacterCard).location(LocationType.Council).player(rules.game?.rule?.player ?? item.location?.player)
-  const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location.type === LocationType.Council)
+  const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location?.type === LocationType.Council)
   if (item.location?.type === LocationType.Discard && !item.selected) return null
   if (!moves.length) return null
   if (council.length < 4) {
@@ -59,7 +59,7 @@ export const SelectCardButton: FC<MaterialHelpProps> = ({ item, itemIndex, close
 
 export const TakeColor: FC<MaterialHelpProps> = ({ closeDialog, itemIndex }) => {
   const { t } = useTranslation()
-  const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.type === LocationType.PlayerHand && move.itemIndex === itemIndex)
+  const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location?.type === LocationType.PlayerHand && move.itemIndex === itemIndex)
   if (!move) return null
   return (
     <p>
@@ -74,7 +74,7 @@ export const InfluenceButton: FC<MaterialHelpProps> = ({ closeDialog, item, item
   const { t } = useTranslation()
   const move = useLegalMove((move) =>
     (isStartRule(move) && move.id === RuleId.Influence) ||
-    (isMoveItemType(MaterialType.CharacterCard)(move) && move.location.type === LocationType.PlayerInfluenceZone && move.itemIndex === itemIndex))
+    (isMoveItemType(MaterialType.CharacterCard)(move) && move.location?.type === LocationType.PlayerInfluenceZone && move.itemIndex === itemIndex))
   if (!move) return null
 
   if (item.location?.type === LocationType.Discard && !item.selected) return null
@@ -90,7 +90,7 @@ export const InfluenceButton: FC<MaterialHelpProps> = ({ closeDialog, item, item
 export const DestroyButton: FC<MaterialHelpProps> = ({ closeDialog, item, itemIndex }) => {
   const { t } = useTranslation()
   const move = useLegalMove((move) =>
-    (isMoveItemType(MaterialType.CharacterCard)(move) && move.location.type === LocationType.Discard && move.itemIndex === itemIndex))
+    (isMoveItemType(MaterialType.CharacterCard)(move) && move.location?.type === LocationType.Discard && move.itemIndex === itemIndex))
   if (!move) return null
   if (item.location?.type !== LocationType.PlayerThrone) return null
   return (
@@ -117,7 +117,7 @@ export const RecruitButton: FC<MaterialHelpProps> = ({ closeDialog }) => {
 
 export const RecruitTitan: FC<MaterialHelpProps> = ({ closeDialog, item, itemIndex }) => {
   const { t } = useTranslation()
-  const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location.type === LocationType.PlayerTitan)
+  const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location?.type === LocationType.PlayerTitan)
 
   if (item.location?.type === LocationType.Discard && !item.selected) return null
   if (!move) return null

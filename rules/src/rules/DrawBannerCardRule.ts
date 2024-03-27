@@ -32,7 +32,7 @@ export class DrawBannerCardRule extends PlayerTurnRule {
   }
 
   afterItemMove(move: ItemMove) {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location.type !== LocationType.AlkaneSquare) return []
+    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location?.type !== LocationType.AlkaneSquare) return []
 
     const moves: MaterialMove[] = []
     this.memorize(Memory.PlacedCard, move.itemIndex)

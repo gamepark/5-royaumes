@@ -85,7 +85,7 @@ export class AlkaneSquareDescription extends LocationDescription {
   }
 
   canShortClick(move: MaterialMove, location: Location): boolean {
-    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location.type !== location.type) return false
-    return move.location.x === location.x && move.location.y === location.y
+    if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location?.type !== location.type) return false
+    return move.location?.x === location.x && move.location?.y === location.y
   }
 }
