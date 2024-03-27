@@ -5,9 +5,8 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { CustomMoveType } from '@gamepark/5-royaumes/rules/CustomMoveType'
 import { Memory } from '@gamepark/5-royaumes/rules/Memory'
-import { CardDescription, ItemContext, MaterialContext } from '@gamepark/react-game'
-import { isLocationSubset } from '@gamepark/react-game'
-import { isCustomMoveType, isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { CardDescription, isLocationSubset, ItemContext, MaterialContext } from '@gamepark/react-game'
+import { displayLocationHelp, isCustomMoveType, isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
 import Feline1 from '../../images/card/feline/feline_1.jpg'
 import Feline2 from '../../images/card/feline/feline_2.jpg'
 import Feline3 from '../../images/card/feline/feline_3.jpg'
@@ -120,6 +119,15 @@ export class CharacterCardDescription extends CardDescription {
       border-radius: 0.5em;
       outline: solid 0.2em yellow;
     `
+  }
+
+  displayHelp(item: MaterialItem, context: ItemContext) {
+    if (item.location.type === LocationType.BannerDeck) {
+      return displayLocationHelp({ type: LocationType.BannerDeck })
+    }
+
+    return super.displayHelp(item, context)
+
   }
 }
 

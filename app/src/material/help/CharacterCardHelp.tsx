@@ -3,11 +3,9 @@ import { css } from '@emotion/react'
 import { Card } from '@gamepark/5-royaumes/cards/Card'
 import { isKing, isKingdomTitan, isKingdomWarrior, isQueen, isSorcerer } from '@gamepark/5-royaumes/cards/CardType'
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
-import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
-import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
-import { linkButtonCss, MaterialHelpProps, Picture, PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { displayLocationHelp, displayMaterialHelp } from '@gamepark/rules-api'
+import { linkButtonCss, MaterialHelpProps, Picture, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { displayLocationHelp } from '@gamepark/rules-api'
 import { TFunction } from 'i18next'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -27,49 +25,7 @@ export const CharacterCardHelp: FC<MaterialHelpProps> = (props) => {
 export const HiddenCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item } = props
   const { t } = useTranslation()
-  const rules = useRules<FiveKingdomsRules>()!
   const back = item.id.back
-
-  if (item.location?.type === LocationType.BannerDeck) {
-    const count = rules.material(MaterialType.CharacterCard).location(LocationType.BannerDeck).length
-    return (
-      <>
-        <h2>{t('help.deck')}</h2>
-        <p>{t('help.deck.count', { number: count })}</p>
-        <p>
-          {t('help.list')}
-        </p>
-        <div>
-          {t('help.list.kingdoms')}
-          <ul>
-            <CardCount card={Card.Feline1} name={t('help.card.king')} />
-            <CardCount card={Card.Raptor2} name={t('help.card.queen')} />
-            <CardCount card={Card.Ursid3} name={t('help.card.sorceress')} />
-            <CardCount card={Card.Sailor4} name={t('help.card.warrior')} />
-            <CardCount card={Card.Reptile5} name={t('help.card.titan')} />
-          </ul>
-        </div>
-        <div>
-          {t('help.list.religious')}
-          <ul>
-            <CardCount card={Card.Papesse} name={t('help.card.papess')} />
-            <CardCount card={Card.WarriorMonk} name={t('help.card.monk')} />
-            <CardCount card={Card.Gaia} name={t('help.card.gaia')} />
-            <CardCount card={Card.Ouranos} name={t('help.card.ouranos')} />
-          </ul>
-        </div>
-        <div>
-          {t('help.list.imperial')}
-          <ul>
-            <CardCount card={Card.Colonel} name={t('help.card.colonel')} />
-            <CardCount card={Card.General} name={t('help.card.general')} />
-            <CardCount card={Card.Captain} name={t('help.card.captain')} />
-            <CardCount card={Card.Marshall} name={t('help.card.marshal')} />
-          </ul>
-        </div>
-      </>
-    )
-  }
 
   return (
     <>
@@ -169,15 +125,6 @@ const CouncilLocation: FC<MaterialHelpProps> = ({ item }) => {
       </Trans>
     </p>
   )
-}
-
-const CardCount: FC<{ card: Card, name: string }> = ({ card, name }) => {
-  const { t } = useTranslation()
-  const displayCard = (card: Card) => {
-    return displayMaterialHelp(MaterialType.CharacterCard, { id: { front: card }})
-  }
-
-  return <li>{t('help.list.count', { name: <PlayMoveButton key="display" css={linkButtonCss} move={displayCard(card)} local>{name}</PlayMoveButton> })}</li>
 }
 
 const getEffectDescription = (id: Card) => {

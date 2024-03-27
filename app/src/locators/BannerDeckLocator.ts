@@ -1,7 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { DeckLocator } from '@gamepark/react-game'
+import { BannerDeckDescription } from './description/BannerDeckDescription'
 
 export class BannerDeckLocator extends DeckLocator {
+
+  locationDescription = new BannerDeckDescription()
 
   delta = { x: -0.03, y: -0.04}
 
