@@ -208,7 +208,7 @@ const getEffectDescription = (id: Card) => {
   if (id === Card.Captain) return (
     <>
       <p css={alignIcon}><Trans defaults="help.card.captain.effect1"><strong/><Picture src={Castle}/></Trans></p>
-      <p css={alignIcon}><Trans defaults="help.card.captain.effect2"><strong/></Trans></p>
+      <p css={alignIcon}><Trans defaults="help.card.captain.effect2"><strong/><Picture src={Castle}/></Trans></p>
     </>
   )
   if (id === Card.WarriorMonk) return (
