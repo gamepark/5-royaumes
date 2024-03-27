@@ -46,7 +46,7 @@ export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
 export const SelectCardButton: FC<MaterialHelpProps> = ({ item, itemIndex, closeDialog }) => {
   const rules = useRules<FiveKingdomsRules>()!
   const { t } = useTranslation()
-  const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location.type === LocationType.Council || move.location.type === LocationType.PlayerInfluenceZone)
+  const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location?.type === LocationType.Council || move.location?.type === LocationType.PlayerInfluenceZone)
   if (!moves.length || item.location?.type !== LocationType.Discard || item.selected) return null
   return (
     <p>
