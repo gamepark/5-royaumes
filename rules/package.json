@@ -1,6 +1,6 @@
 {
   "name": "@gamepark/5-royaumes",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "The rules of 5 Royaumes adapted for Game Park",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
