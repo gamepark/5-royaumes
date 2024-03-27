@@ -13,7 +13,8 @@ export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
   const rules = useRules<FiveKingdomsRules>()!
   const { t } = useTranslation()
   const council = rules.material(MaterialType.CharacterCard).location(LocationType.Council).player(item.location?.player)
-  const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.type === LocationType.Council && move.itemIndex === itemIndex)
+  const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location.type === LocationType.Council)
+  if (item.location?.type === LocationType.Discard && !item.selected) return null
   if (!moves.length) return null
   if (council.length < 4) {
     return (
@@ -40,11 +41,22 @@ export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
       })}
     </div>
   )
-
-
-  // TODO: display all cards and allow to choose
-  return null
 }
+
+export const SelectCardButton: FC<MaterialHelpProps> = ({ item, itemIndex, closeDialog }) => {
+  const rules = useRules<FiveKingdomsRules>()!
+  const { t } = useTranslation()
+  const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location.type === LocationType.Council || move.location.type === LocationType.PlayerInfluenceZone)
+  if (!moves.length || item.location?.type !== LocationType.Discard || item.selected) return null
+  return (
+    <p>
+      <PlayMoveButton move={rules.material(MaterialType.CharacterCard).index(itemIndex!).selectItem()} onPlay={closeDialog}>
+        {t('move.card.take')}
+      </PlayMoveButton>
+    </p>
+  )
+}
+
 export const TakeColor: FC<MaterialHelpProps> = ({ closeDialog, itemIndex }) => {
   const { t } = useTranslation()
   const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.type === LocationType.PlayerHand && move.itemIndex === itemIndex)
@@ -61,7 +73,7 @@ export const TakeColor: FC<MaterialHelpProps> = ({ closeDialog, itemIndex }) => 
 export const InfluenceButton: FC<MaterialHelpProps> = ({ closeDialog, item, itemIndex }) => {
   const { t } = useTranslation()
   const move = useLegalMove((move) =>
-    (isStartRule(move) && move.id === RuleId.Recruit) ||
+    (isStartRule(move) && move.id === RuleId.Influence) ||
     (isMoveItemType(MaterialType.CharacterCard)(move) && move.location.type === LocationType.PlayerInfluenceZone && move.itemIndex === itemIndex))
   if (!move) return null
 
