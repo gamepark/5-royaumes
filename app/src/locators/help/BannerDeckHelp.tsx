@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react'
 import { Card } from '@gamepark/5-royaumes/cards/Card'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
@@ -13,7 +14,7 @@ export const BannerDeckHelp = () => {
   const rules = useRules<FiveKingdomsRules>()!
   const count = rules.material(MaterialType.CharacterCard).location(LocationType.BannerDeck).length
   return (
-    <>
+    <div css={css`min-width: 50dvw`}>
       <h2>{t('help.deck')}</h2>
       <p>{t('help.deck.count', { number: count })}</p>
       <p>
@@ -47,7 +48,7 @@ export const BannerDeckHelp = () => {
           <CardCount card={Card.Marshall} name={t('help.card.marshal')} />
         </ul>
       </div>
-    </>
+    </div>
   )
 }
 
