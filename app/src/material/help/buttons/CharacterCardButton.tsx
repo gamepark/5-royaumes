@@ -40,7 +40,7 @@ export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
           const existingItem = rules.material(MaterialType.CharacterCard).location((location) => isLocationSubset(m.location, location)).getItem()!
           return (
             <div key={m.location.x!} css={replaceItemCss}>
-              <MaterialComponent css={clickable} type={MaterialType.CharacterCard} itemId={existingItem.id.front} onClick={() => play(displayMaterialHelp(MaterialType.CharacterCard, { id: existingItem.id}), { local: true })}/>
+              <MaterialComponent css={character} type={MaterialType.CharacterCard} itemId={existingItem.id.front} onClick={() => play(displayMaterialHelp(MaterialType.CharacterCard, { id: existingItem.id}), { local: true })}/>
               <PlayMoveButton move={m} onPlay={closeDialog}>
                 {t('move.card.replace')}
               </PlayMoveButton>
@@ -169,12 +169,11 @@ const replaceItemCss = css`
   flex-direction: column;
   align-items: center;
   gap: 0.5em;
-  margin: 0.5em
+  margin: 0.3em
 `
 
 const replaceGrid = css`
   display: flex;
-  justify-content: space-between;
 `
 
 const recruitmentText = css`
@@ -182,8 +181,9 @@ const recruitmentText = css`
   text-decoration: underline;
 `
 
-const clickable = css`
+const character = css`
   cursor: pointer;
+  font-size: 0.8em;
 `
 
 const influenceButton = css`
