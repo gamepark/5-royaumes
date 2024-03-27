@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDialog }) => {
   const rules = useRules<FiveKingdomsRules>()!
   const { t } = useTranslation()
-  const council = rules.material(MaterialType.CharacterCard).location(LocationType.Council).player(item.location?.player)
+  const council = rules.material(MaterialType.CharacterCard).location(LocationType.Council).player(rules.game?.rule?.player ?? item.location?.player)
   const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location.type === LocationType.Council)
   if (item.location?.type === LocationType.Discard && !item.selected) return null
   if (!moves.length) return null
@@ -50,7 +50,7 @@ export const SelectCardButton: FC<MaterialHelpProps> = ({ item, itemIndex, close
   if (!moves.length || item.location?.type !== LocationType.Discard || item.selected) return null
   return (
     <p>
-      <PlayMoveButton move={rules.material(MaterialType.CharacterCard).index(itemIndex!).selectItem()} onPlay={closeDialog}>
+      <PlayMoveButton move={rules.material(MaterialType.CharacterCard).index(itemIndex!).selectItem()} local onPlay={closeDialog}>
         {t('move.card.take')}
       </PlayMoveButton>
     </p>
