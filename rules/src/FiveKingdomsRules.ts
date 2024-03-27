@@ -75,13 +75,10 @@ export class FiveKingdomsRules extends SecretMaterialRules<Kingdom, MaterialType
   }
 
   getScore(playerId: Kingdom): number {
-    const castle = this.material(MaterialType.Castle)
+    return this.material(MaterialType.Castle)
       .location(LocationType.PlayerCastle)
       .player(playerId)
       .getItem()?.quantity ?? 0
-
-    const throneRule = new ThroneRule(this.game, playerId)
-    return castle + throneRule.score
   }
 
   giveTime(_playerId: Kingdom): number {

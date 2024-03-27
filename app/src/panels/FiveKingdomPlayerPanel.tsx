@@ -1,8 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { faStar } from '@fortawesome/free-solid-svg-icons/faStar'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { baseKingdoms, Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
@@ -120,10 +117,6 @@ const placedCard = css`
     text-align: right;
     width: 1.7em;
   }
-`
-
-const scoreStyle = css`
-  color: #28B8CE
 `
 
 const panelPlayerStyle = css`
