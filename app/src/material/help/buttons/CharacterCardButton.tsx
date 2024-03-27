@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
@@ -8,13 +9,17 @@ import { isLocationSubset, MaterialComponent, MaterialHelpProps, PlayMoveButton,
 import { isMoveItemType, isStartRule, MoveItem } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
+import FelineIcon from '../../../images/icons/feline.png'
+import RaptorIcon from '../../../images/icons/raptor.png'
+import ReptileIcon from '../../../images/icons/reptile.png'
+import SailorIcon from '../../../images/icons/sailor.png'
+import UrsidIcon from '../../../images/icons/ursids.png'
 
 export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDialog }) => {
   const rules = useRules<FiveKingdomsRules>()!
   const { t } = useTranslation()
   const council = rules.material(MaterialType.CharacterCard).location(LocationType.Council).player(rules.game?.rule?.player ?? item.location?.player)
   const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location?.type === LocationType.Council)
-  if (item.location?.type === LocationType.Discard && !item.selected) return null
   if (!moves.length) return null
   if (council.length < 4) {
     return (
@@ -27,33 +32,22 @@ export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
   }
 
   return (
-    <div css={css`display: grid; grid-template-columns: 1fr 1fr`}>
-      {moves.map((m) => {
-        const existingItem = rules.material(MaterialType.CharacterCard).location((location) => isLocationSubset(m.location, location)).getItem()!
-        return (
-          <div key={m.location.x!} css={css`display: flex; flex-direction: column; align-items: center; gap: 0.5em; margin: 0.5em`}>
-            <MaterialComponent type={MaterialType.CharacterCard} itemId={existingItem.id.front}/>
-            <PlayMoveButton move={m} onPlay={closeDialog}>
-              {t('move.card.replace')}
-            </PlayMoveButton>
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
-export const SelectCardButton: FC<MaterialHelpProps> = ({ item, itemIndex, closeDialog }) => {
-  const rules = useRules<FiveKingdomsRules>()!
-  const { t } = useTranslation()
-  const moves = useLegalMoves<MoveItem>((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location?.type === LocationType.Council || move.location?.type === LocationType.PlayerInfluenceZone)
-  if (!moves.length || item.location?.type !== LocationType.Discard || item.selected) return null
-  return (
-    <p>
-      <PlayMoveButton move={rules.material(MaterialType.CharacterCard).index(itemIndex!).selectItem()} local onPlay={closeDialog}>
-        {t('move.card.take')}
-      </PlayMoveButton>
-    </p>
+    <>
+      <span css={recruitmentText}>{t('move.recruitment')}</span>
+      <div css={replaceGrid}>
+        {moves.map((m) => {
+          const existingItem = rules.material(MaterialType.CharacterCard).location((location) => isLocationSubset(m.location, location)).getItem()!
+          return (
+            <div key={m.location.x!} css={replaceItemCss}>
+              <MaterialComponent type={MaterialType.CharacterCard} itemId={existingItem.id.front}/>
+              <PlayMoveButton move={m} onPlay={closeDialog}>
+                {t('move.card.replace')}
+              </PlayMoveButton>
+            </div>
+          )
+        })}
+      </div>
+    </>
   )
 }
 
@@ -70,29 +64,39 @@ export const TakeColor: FC<MaterialHelpProps> = ({ closeDialog, itemIndex }) => 
   )
 }
 
-export const InfluenceButton: FC<MaterialHelpProps> = ({ closeDialog, item, itemIndex }) => {
+export const InfluenceButton: FC<MaterialHelpProps> = ({ closeDialog, itemIndex }) => {
   const { t } = useTranslation()
-  const move = useLegalMove((move) =>
+  const moves = useLegalMoves((move) =>
     (isStartRule(move) && move.id === RuleId.Influence) ||
-    (isMoveItemType(MaterialType.CharacterCard)(move) && move.location?.type === LocationType.PlayerInfluenceZone && move.itemIndex === itemIndex))
-  if (!move) return null
-
-  if (item.location?.type === LocationType.Discard && !item.selected) return null
-  return (
-    <p>
-      <PlayMoveButton move={move} onPlay={closeDialog}>
+    (isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location?.type === LocationType.PlayerInfluenceZone))
+  if (!moves.length) return null
+  if (moves.some((move) => isStartRule(move) && move.id === RuleId.Influence)) {
+    return (
+      <PlayMoveButton move={moves[0]} onPlay={closeDialog}>
         {t('move.card.influence')}
       </PlayMoveButton>
+    )
+  }
+
+  return (
+    <p>
+      {moves
+        .map((move) => {
+          return (
+            <PlayMoveButton key={JSON.stringify(move)} move={move} onPlay={closeDialog}>
+              <div css={iconAndText}><KingdomIcon kingdom={move.location.id}/> {t('move.card.influence')}</div>
+            </PlayMoveButton>
+          )
+        })}
     </p>
   )
 }
 
-export const DestroyButton: FC<MaterialHelpProps> = ({ closeDialog, item, itemIndex }) => {
+export const DestroyButton: FC<MaterialHelpProps> = ({ closeDialog, itemIndex }) => {
   const { t } = useTranslation()
   const move = useLegalMove((move) =>
-    (isMoveItemType(MaterialType.CharacterCard)(move) && move.location?.type === LocationType.Discard && move.itemIndex === itemIndex))
+    (isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location?.type === LocationType.Discard))
   if (!move) return null
-  if (item.location?.type !== LocationType.PlayerThrone) return null
   return (
     <p>
       <PlayMoveButton move={move} onPlay={closeDialog}>
@@ -115,11 +119,9 @@ export const RecruitButton: FC<MaterialHelpProps> = ({ closeDialog }) => {
   )
 }
 
-export const RecruitTitan: FC<MaterialHelpProps> = ({ closeDialog, item, itemIndex }) => {
+export const RecruitTitan: FC<MaterialHelpProps> = ({ closeDialog, itemIndex }) => {
   const { t } = useTranslation()
   const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard, itemIndex)(move) && move.location?.type === LocationType.PlayerTitan)
-
-  if (item.location?.type === LocationType.Discard && !item.selected) return null
   if (!move) return null
   return (
     <p>
@@ -129,3 +131,53 @@ export const RecruitTitan: FC<MaterialHelpProps> = ({ closeDialog, item, itemInd
     </p>
   )
 }
+
+const KingdomIcon: FC<{ kingdom: Kingdom }> = ({ kingdom }) => {
+  return (
+    <div css={iconCss(kingdom)} />
+  )
+}
+
+const iconCss = (kingdom: Kingdom) => css`
+  background-image: url(${icons[kingdom]});
+  background-position: center;
+  background-size: contain;
+  height: 1.2em;
+  width: 1.2em;
+  margin-left: -0.3em;
+  margin-right: 0.2em;
+  background-repeat: no-repeat;
+`
+
+const iconAndText = css`
+  display: flex;
+  align-items: center;
+`
+
+
+const icons = {
+  [Kingdom.Reptile]: ReptileIcon,
+  [Kingdom.Feline]: FelineIcon,
+  [Kingdom.Raptor]: RaptorIcon,
+  [Kingdom.Ursid]: UrsidIcon,
+  [Kingdom.Sailor]: SailorIcon
+}
+
+const replaceItemCss = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  margin: 0.5em
+`
+
+const replaceGrid = css`
+  display: flex;
+  justify-content: space-between;
+`
+
+const recruitmentText = css`
+  font-weight: bold;
+  text-decoration: underline;
+`
+
