@@ -56,7 +56,6 @@ export const VisibleCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
       <CouncilLocation { ...props } />
       <TitanLocation { ...props } />
       <InfluenceLocation { ...props } />
-      {!!item.location}
       <InfluenceButton { ...props } />
       <PlaceInCouncil { ...props } />
       <RecruitTitan { ...props } />
@@ -206,6 +205,7 @@ const alignIcon = css`
     vertical-align: middle;
     height: 1.5em;
     margin-right: 0.1em;
+    border-radius: 5em;
   }
 `
 

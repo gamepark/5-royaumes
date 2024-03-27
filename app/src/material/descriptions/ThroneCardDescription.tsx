@@ -14,6 +14,7 @@ import FelineIcon from '../../images/icons/feline.png'
 import RaptorIcon from '../../images/icons/raptor.png'
 import UrsidIcon from '../../images/icons/ursids.png'
 import SailorIcon from '../../images/icons/sailor.png'
+import { ThroneCardHelp } from '../help/ThroneCardHelp'
 
 export class ThroneCardDescription extends CardDescription {
   borderRadius = 0.5
@@ -51,6 +52,8 @@ export class ThroneCardDescription extends CardDescription {
     images.push(SailorIcon)
     return images
   }
+
+  help = ThroneCardHelp
 
 }
 
