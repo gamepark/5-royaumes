@@ -68,8 +68,13 @@ export class InfluenceZoneDescription extends LocationDescription {
   getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
     const position = this.getInfluenceZonePosition(location, context)
     const { rules, player } = context
-    if (rules.game.rule?.id === RuleId.Influence && this.isMyLocation(rules, location, player) && this.hasImperialOrderInHand(rules, player)) position.z += 10
     if (rules.game.rule?.id === RuleId.Sorcerer && this.isMyLocation(rules, location, player) && rules.material(MaterialType.CharacterCard).selected().length) position.z += 10
+    if (rules.game.rule?.id === RuleId.ChooseAction) {
+      const handColor = context.rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(location.player).getItem()?.id?.back
+      if (location.player === context.player && location.id === handColor) position.z += 10
+    }
+
+
     return position
   }
 
