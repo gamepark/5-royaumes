@@ -224,6 +224,8 @@
       "move.card.replace": "Remplacer",
       "move.card.take": "Prendre la carte en main",
       "move.recruitment": "Recrutement",
+      "game.over.titan": "Vous remportez la partie avec 5 titans",
+      "game.over.titan.player": "{player} remporte la partie avec 5 titans",
       "Menu": "Menu",
       "OK": "OK",
       "Validate": "Valider",

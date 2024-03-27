@@ -74,6 +74,11 @@ export class FiveKingdomsRules extends SecretMaterialRules<Kingdom, MaterialType
   }
 
   getScore(playerId: Kingdom): number {
+    const playerTitans = this.material(MaterialType.CharacterCard).location(LocationType.PlayerTitan).player(playerId).length
+    const otherPlayerTitans = this.material(MaterialType.CharacterCard).location(LocationType.PlayerTitan).player((p) => p !== playerId).length
+    if (playerTitans === 5) return 5
+    if (otherPlayerTitans === 5) return playerTitans
+
     return this.material(MaterialType.Castle)
       .location(LocationType.PlayerCastle)
       .player(playerId)
