@@ -5,7 +5,7 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, isMoveItemType, Location, MaterialMove, MaterialRules } from '@gamepark/rules-api'
+import { Coordinates, isMoveItemType, isStartRule, Location, MaterialMove, MaterialRules } from '@gamepark/rules-api'
 import { playerColorCode } from '../../panels/PlayerPanels'
 import ReptileIcon from '../../images/icons/reptile.png'
 import FelineIcon from '../../images/icons/feline.png'
@@ -51,11 +51,12 @@ export class InfluenceZoneDescription extends LocationDescription {
   }
 
   canShortClick(move: MaterialMove, location: Location, context: MaterialContext): boolean {
+    if (isStartRule(move) && move.id === RuleId.Influence) {
+      const handColor = context.rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(location.player).getItem()?.id?.back
+      return location.player === context.player && location.id === handColor
+    }
+
     if (!isMoveItemType(MaterialType.CharacterCard)(move)) return false
-    const { rules } = context
-    const item = rules.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if (item.location?.type === LocationType.PlayerHand && move.location?.type === location.type && move.location?.id === location.id && move.location?.player === location.player) return true
-    if (item.location?.type === LocationType.Discard && item.selected &&  move.location?.type === location.type && move.location?.id === location.id && move.location?.player === location.player) return true
 
     return super.canShortClick(move, location, context)
   }
