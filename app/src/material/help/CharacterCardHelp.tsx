@@ -100,6 +100,7 @@ export const VisibleCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
       <CouncilLocation { ...props } />
       <TitanLocation { ...props } />
       <InfluenceLocation { ...props } />
+      {!!item.location}
       <InfluenceButton { ...props } />
       <PlaceInCouncil { ...props } />
       <RecruitTitan { ...props } />
