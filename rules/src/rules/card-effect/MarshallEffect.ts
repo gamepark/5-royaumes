@@ -38,7 +38,7 @@ export class MarshallEffect extends Effect {
     const opponentCards = cards.player(opponent).length
 
     if (myCards > opponentCards) {
-      return 2
+      return 3
     }
 
     return 0
