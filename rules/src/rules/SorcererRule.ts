@@ -1,4 +1,4 @@
-import { isMoveItemType, isSelectItemType, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
+import { isMoveItemType, isSelectItemType, isStartRule, ItemMove, MaterialMove, PlayerTurnRule } from '@gamepark/rules-api'
 import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { ThroneRule } from './card-effect/ThroneRule'
@@ -37,14 +37,19 @@ export class SorcererRule extends PlayerTurnRule {
 
   afterItemMove(move: ItemMove) {
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location?.type === LocationType.Discard) return []
-    const moves: MaterialMove[] = []
     const effectRule = new ThroneRule(this.game, this.player)
     if (move.location?.type === LocationType.PlayerInfluenceZone) {
       effectRule.onInfluence(move)
     }
 
+    const moves: MaterialMove[] = []
     if (move.location?.type === LocationType.Council || move.location?.type === LocationType.PlayerTitan) {
-      moves.push(...effectRule.onRecruit(move))
+      const afterRecruitMoves = effectRule.onRecruit(move)
+      if (afterRecruitMoves.some(isStartRule)) {
+        return afterRecruitMoves
+      }
+
+      moves.push(...afterRecruitMoves)
     }
 
     if (move.location?.type === LocationType.PlayerTitan) {
