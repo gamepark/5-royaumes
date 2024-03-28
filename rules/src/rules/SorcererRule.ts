@@ -46,6 +46,7 @@ export class SorcererRule extends PlayerTurnRule {
     if (move.location?.type === LocationType.Council || move.location?.type === LocationType.PlayerTitan) {
       const afterRecruitMoves = effectRule.onRecruit(move)
       if (afterRecruitMoves.some(isStartRule)) {
+        this.forget(Memory.CurrentCharacter)
         return afterRecruitMoves
       }
 
