@@ -5,6 +5,7 @@ import { ActivateCharacterRuleHeader } from './ActivateCharacterRuleHeader'
 import { ChooseActionRuleHeader } from './ChooseActionRuleHeader'
 import { ChooseAlkaneColorRuleHeader } from './ChooseAlkaneColorRuleHeader'
 import { DrawBannerCardRuleHeader } from './DrawBannerCardRuleHeader'
+import { EndGameHeader } from './EndGameHeader'
 import { InfluenceRuleHeader } from './InfluenceRuleHeader'
 import { RecruitRuleHeader } from './RecruitRuleHeader'
 import { RefillAlkaneRuleHeader } from './RefillAlkaneRuleHeader'
@@ -21,4 +22,5 @@ export const Headers: Partial<Record<RuleId, ComponentType>> = {
   [RuleId.ActivateCharacter]: ActivateCharacterRuleHeader,
   [RuleId.Sorcerer]: SorcererRuleHeader,
   [RuleId.Warrior]: WarriorRuleHeader,
+  [RuleId.EndGame]: EndGameHeader
 }
