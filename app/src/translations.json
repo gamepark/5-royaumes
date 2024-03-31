@@ -317,7 +317,7 @@
       "tuto.alkane": "Voici le <0>carré d'Alkane</0>.\nÀ votre tour, vous devez prendre la première carte de la pioche et l'ajouter, face cachée, dans ce carré.",
       "tuto.place": "Prenez la première carte de la pioche et placez-là ici.",
       "tuto.adjacency": "Lorsque la carte que vous placez est adjacente à une carte de la même Bannière, <0>vous récupérez toutes les cartes adjacentes entre elles de cette Bannière</0>.",
-      "code": "Avec les cartes récupérées face cachées, vous avez 2 actions possibles : <0>Recruter</0> ou <0>Influencer</0>.",
+      "tuto.actions": "Avec les cartes récupérées face cachées, vous avez 2 actions possibles : <0>Recruter</0> ou <0>Influencer</0>.",
       "tuto.recruit": "Commençons par recruter un personnage.\n<0>Cliquez sur « Recruter » dans l'en-tête.</0>",
       "tuto.recruit.reveal": "Lorsque vous recrutez, les cartes sont révélées. Ensuite, vous choisir l'un des personnages révélés, et le placer à côté de votre trône.\n<1>Attention : vous ne pouvez pas recruter un personnage que vous avez déjà.</1>",
       "tuto.recruit.reptile": "Recrutez le Roi Reptile <2/> en le plaçant ici, à côté de votre trône.\n<1>Chaque personnage a un ou plusieurs effets. À tout moment, vous pouvez cliquer sur une carte pour connaître ses effets.</1>",
@@ -467,7 +467,6 @@
   },
   "de": {
     "translation": {
-      "tuto.place": "Met 1 rouge au milieu. Il récupère milieu gauche et millieu bas rouge",
       "Menu": "Menü",
       "OK": "OK",
       "Validate": "Bestätigen",

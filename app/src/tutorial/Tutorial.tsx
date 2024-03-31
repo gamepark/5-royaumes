@@ -76,7 +76,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
                 <strong/>
               </Trans>
             </p>
-            <div css={iconCss}>
+            <div css={gridCss}>
               {baseKingdoms.map((k) => (
                 <Fragment key={k}>
                   <div><Picture src={icons[k]}/></div>
@@ -97,7 +97,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
                 <strong/>
               </Trans>
             </p>
-            <div css={iconCss}>
+            <div css={gridCss}>
               <div><Picture src={icons[Kingdom.ReligiousOrder]}/></div>
               <div>{t(`kingdom.religious`)}</div>
               <div><Picture src={icons[Kingdom.ImperialOrder]}/></div>
@@ -235,6 +235,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
         text: () => (
           <Trans defaults="tuto.recruit.reveal">
             <strong/>
+            <i/>
           </Trans>
         ),
         position: { x: 15, y: 20 }
@@ -255,9 +256,13 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.recruit.reptile">
-            <strong/>
-          </Trans>
+          <span css={iconCss}>
+            <Trans defaults="tuto.recruit.reptile">
+              <strong/>
+              <i/>
+              <Picture src={icons[Kingdom.Reptile]}/>
+            </Trans>
+          </span>
         ),
         position: { x: 0, y: 20 }
       },
@@ -374,7 +379,16 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.feline"><strong/></Trans>,
+        text: () => (
+
+          <span css={iconCss}>
+          <Trans defaults="tuto.feline">
+            <strong/>
+            <i/>
+            <Picture src={FelineIcon} />
+          </Trans>
+          </span>
+        ),
         position: { x: 0, y: -10 }
       },
       focus: (game) => ({
@@ -416,9 +430,14 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
+
+          <span css={iconCss}>
           <Trans defaults="tuto.influence">
             <strong/>
+            <i/>
+            <Picture src={FelineIcon} />
           </Trans>
+          </span>
         ),
         position: { x: 0, y: 20 }
       },
@@ -462,9 +481,15 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
+          <span css={iconCss}>
           <Trans defaults="tuto.throne">
             <strong/>
+            <i />
+            <Picture src={CastleIcon} />
+            <Picture src={FelineIcon} />
+            <Picture src={RaptorIcon} />
           </Trans>
+          </span>
         ),
         position: { x: 0, y: 23 }
       },
@@ -645,12 +670,12 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <div css={castleCss}>
+          <span css={iconCss}>
             <Trans defaults="tuto.effect">
               <strong/>
               <Picture src={CastleIcon}/>
             </Trans>
-          </div>
+          </span>
         ),
         position: {
           x: 15, y: 20
@@ -735,7 +760,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
         filter: (move) => {
           console.log(move)
           return isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 2
-        },
+        }
       }
     },
     {
@@ -768,7 +793,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
             <strong/>
           </Trans>
         )
-      },
+      }
     },
     {
       popup: {
@@ -777,8 +802,8 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
             <strong/>
           </Trans>
         )
-      },
-    },
+      }
+    }
   ]
 }
 
@@ -794,7 +819,7 @@ const icons: Partial<Record<Kingdom, string>> = {
 
 }
 
-const iconCss = css`
+const gridCss = css`
   display: grid;
   grid-template-columns: 1fr 9fr;
 
@@ -808,9 +833,9 @@ const iconCss = css`
   }
 `
 
-const castleCss = css`
+const iconCss = css`
   display: inline-block;
-  
+
   > picture, img {
     margin-bottom: -0.4em;
     height: 1.5em;
