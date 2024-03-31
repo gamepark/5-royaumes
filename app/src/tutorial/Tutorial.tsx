@@ -70,40 +70,40 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: (t) => (
-          <div>
-            <p>
+          <>
+            <span>
               <Trans defaults="tuto.banner">
                 <strong/>
               </Trans>
-            </p>
-            <div css={gridCss}>
+            </span>
+            <span css={gridCss}>
               {baseKingdoms.map((k) => (
                 <Fragment key={k}>
-                  <div><Picture src={icons[k]}/></div>
-                  <div>{t(`player.${k}`)}</div>
+                  <span><Picture src={icons[k]}/></span>
+                  <span>{t(`player.${k}`)}</span>
                 </Fragment>
               ))}
-            </div>
-          </div>
+            </span>
+          </>
         )
       }
     },
     {
       popup: {
         text: (t) => (
-          <div>
-            <p>
+          <>
+            <span>
               <Trans defaults="tuto.other.banner">
                 <strong/>
               </Trans>
-            </p>
-            <div css={gridCss}>
-              <div><Picture src={icons[Kingdom.ReligiousOrder]}/></div>
-              <div>{t(`kingdom.religious`)}</div>
-              <div><Picture src={icons[Kingdom.ImperialOrder]}/></div>
-              <div>{t(`kingdom.imperial`)}</div>
-            </div>
-          </div>
+            </span>
+            <span css={gridCss}>
+              <span><Picture src={icons[Kingdom.ReligiousOrder]}/></span>
+              <span>{t(`kingdom.religious`)}</span>
+              <span><Picture src={icons[Kingdom.ImperialOrder]}/></span>
+              <span>{t(`kingdom.imperial`)}</span>
+            </span>
+          </>
         )
       }
     },
@@ -343,7 +343,6 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
             <strong/>
           </Trans>
         ),
-        position: { x: 10, y: 20 }
       },
       focus: (game) => ({
         materials: [
@@ -822,12 +821,13 @@ const icons: Partial<Record<Kingdom, string>> = {
 const gridCss = css`
   display: grid;
   grid-template-columns: 1fr 9fr;
+  margin-top: 1em;
 
   > picture, img {
     height: 2em;
   }
 
-  > div {
+  > span {
     display: flex;
     align-items: center;
   }
@@ -839,10 +839,5 @@ const iconCss = css`
   > picture, img {
     margin-bottom: -0.4em;
     height: 1.5em;
-  }
-
-  > div {
-    display: flex;
-    align-items: center;
   }
 `
