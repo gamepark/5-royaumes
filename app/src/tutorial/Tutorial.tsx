@@ -26,7 +26,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
   options = { players: [{ id: me }, { id: opponent }] }
   setup = new TutorialSetup()
 
-  players = [{ id: me, name: 'Feline'}, { id: opponent, name: 'Rapace' }]
+  players = [{ id: me }, { id: opponent }]
 
   steps: TutorialStep[] = [
     {
