@@ -756,10 +756,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       }),
       move: {
         player: me,
-        filter: (move) => {
-          console.log(move)
-          return isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 2
-        }
+        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 2
       }
     },
     {
