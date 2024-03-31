@@ -14,6 +14,8 @@ import FelineIcon from '../../images/icons/feline.png'
 import RaptorIcon from '../../images/icons/raptor.png'
 import UrsidIcon from '../../images/icons/ursids.png'
 import SailorIcon from '../../images/icons/sailor.png'
+import ReligiousIcon from '../../images/icons/religious.png'
+import ImperialIcon from '../../images/icons/imperial.png'
 import { ThroneCardHelp } from '../help/ThroneCardHelp'
 
 export class ThroneCardDescription extends CardDescription {
@@ -50,6 +52,8 @@ export class ThroneCardDescription extends CardDescription {
     images.push(RaptorIcon)
     images.push(UrsidIcon)
     images.push(SailorIcon)
+    images.push(ReligiousIcon)
+    images.push(ImperialIcon)
     return images
   }
 

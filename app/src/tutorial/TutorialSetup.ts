@@ -1,62 +1,65 @@
-import { AwimbaweSetup } from '@gamepark/awimbawe/AwimbaweSetup'
-import Animal, { animals } from '@gamepark/awimbawe/material/Animal'
-import Heir, { heirs } from '@gamepark/awimbawe/material/Heir'
-import { LocationType } from '@gamepark/awimbawe/material/LocationType'
-import { MaterialType } from '@gamepark/awimbawe/material/MaterialType'
-import { MaterialItem } from '@gamepark/rules-api'
-import shuffle from 'lodash/shuffle'
+import { Card } from '@gamepark/5-royaumes/cards/Card'
+import { isKing, isQueen, isSorcerer, isTitan } from '@gamepark/5-royaumes/cards/CardType'
+import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
+import { FiveKingdomsOptions } from '@gamepark/5-royaumes/FiveKingdomsOptions'
+import { FiveKingdomsSetup } from '@gamepark/5-royaumes/FiveKingdomsSetup'
+import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
+import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 
-const _ = undefined
-const me = Heir.WhiteTiger
-const meHand = [Animal.GrasslandSnake, Animal.DesertCheetah, Animal.Eagle10, Animal.GrasslandMouse]
-const meColumns = [
-  [_, Animal.GrasslandElephant],
-  [_, Animal.MountainSnake],
-  [Animal.Eagle8, Animal.MountainCheetah],
-  [_, Animal.PlainElephant]
-]
-const opponent = Heir.BlackPanther
-const opponentHand = [Animal.GrasslandRhinoceros, Animal.Eagle7]
-const opponentColumns = [
-  [Animal.GrasslandCheetah, Animal.MountainHyena],
-  [Animal.GrasslandHyena, Animal.PlainMouse],
-  [_, Animal.DesertElephant],
-  [_, Animal.Eagle9]
-]
-export class TutorialSetup extends AwimbaweSetup {
+export class TutorialSetup extends FiveKingdomsSetup {
+  setupMaterial(options: FiveKingdomsOptions) {
+    super.setupMaterial(options)
+    this.putCardOnTop()
+  }
 
-  setupAnimalCards() {
-    const shuffledAnimal = shuffle(
-      animals
-        .filter((a) => !meHand.includes(a) && !meColumns.some((c) => c.includes(a)))
-        .filter((a) => !opponentHand.includes(a) && !opponentColumns.some((c) => c.includes(a)))
-    )
+  setupAlkane() {
+    const deck = this.material(MaterialType.CharacterCard)
+    const raptorDeck = deck.id((id: any) => id.back === Kingdom.Raptor && !isTitan(id.front)).deck()
+    const reptileDeck = deck.id((id: any) => id.back === Kingdom.Reptile && !isTitan(id.front) && !isKing(id.front)).deck()
+    const felineDeck = deck.id((id: any) => id.back === Kingdom.Feline && !isTitan(id.front)).deck()
+    const ursidDeck = deck.id((id: any) => id.back === Kingdom.Ursid && !isTitan(id.front)).deck()
+    ursidDeck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 0})
+    felineDeck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 0})
+    felineDeck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 1})
+    raptorDeck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 2})
 
-    const shuffledPlayer1 = shuffle([...shuffledAnimal.splice(0, 2), ...meHand])
-    const player1Items = shuffledPlayer1.map((animal) => ({ id: animal, location: { type: LocationType.Hand, player: me } }))
-    this.material(MaterialType.AnimalCard).createItems(player1Items)
+    reptileDeck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 2})
+    reptileDeck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 1})
+  }
 
-    const shuffledPlayer2 = shuffle([...shuffledAnimal.splice(0, 4), ...opponentHand])
-    const player2Items = shuffledPlayer2.map((animal) => ({ id: animal, location: { type: LocationType.Hand, player: opponent } }))
-    this.material(MaterialType.AnimalCard).createItems(player2Items)
-
-    for (const heir of heirs) {
-      // Do it for 4 columns
-      const tutoColumns = heir === me? meColumns: opponentColumns
-      for (let i = 0; i < 8; i++) {
-        const column = (i % 4) + 1
-        const tutoAnimal = tutoColumns[column - 1][i < 4? 0: 1]
-        const item: MaterialItem = {
-          id: tutoAnimal === _? shuffledAnimal.shift(): tutoAnimal,
-          location: { type: LocationType.PlayerColumns, player: heir, id: column }
-        }
-
-        if (i < 4) {
-          item.location.rotation = { y: 1 }
-        }
-
-        this.material(MaterialType.AnimalCard).createItem(item)
-      }
-    }
+  putCardOnTop() {
+    const bannerDeck = this.material(MaterialType.CharacterCard).location(LocationType.BannerDeck)
+    this.material(MaterialType.CharacterCard)
+      .location(LocationType.BannerDeck)
+      .id((id: any) => id.back === Kingdom.Sailor && isSorcerer(id.front))
+      .moveItem({ type: LocationType.BannerDeck, x: bannerDeck.length - 1 })
+    this.material(MaterialType.CharacterCard)
+      .location(LocationType.BannerDeck)
+      .id((id: any) => id.back === Kingdom.Sailor && isQueen(id.front))
+      .moveItem({ type: LocationType.BannerDeck, x: bannerDeck.length - 1 })
+    this.material(MaterialType.CharacterCard)
+      .location(LocationType.BannerDeck)
+      .id((id: any) => id.back === Kingdom.Ursid && isQueen(id.front))
+      .moveItem({ type: LocationType.BannerDeck, x: bannerDeck.length - 1 })
+    this.material(MaterialType.CharacterCard)
+      .location(LocationType.BannerDeck)
+      .id((id: any) => id.back === Kingdom.ReligiousOrder && id.front === Card.Gaia)
+      .moveItem({ type: LocationType.BannerDeck, x: bannerDeck.length - 1 })
+    this.material(MaterialType.CharacterCard)
+      .location(LocationType.BannerDeck)
+      .id((id: any) => id.back === Kingdom.Raptor && !isQueen(id.front))
+      .moveItem({ type: LocationType.BannerDeck, x: bannerDeck.length - 1 })
+    this.material(MaterialType.CharacterCard)
+      .location(LocationType.BannerDeck)
+      .id((id: any) => id.back === Kingdom.Reptile && isKing(id.front))
+      .moveItem({ type: LocationType.BannerDeck, x: bannerDeck.length - 1 })
+    this.material(MaterialType.CharacterCard)
+      .location(LocationType.BannerDeck)
+      .id((id: any) => id.back === Kingdom.ImperialOrder && Card.Colonel === id.front)
+      .moveItem({ type: LocationType.BannerDeck, x: bannerDeck.length - 11 })
+    this.material(MaterialType.CharacterCard)
+      .location(LocationType.BannerDeck)
+      .id((id: any) => id.back === Kingdom.ImperialOrder && Card.General === id.front)
+      .moveItem({ type: LocationType.BannerDeck, x: bannerDeck.length - 12 })
   }
 }
