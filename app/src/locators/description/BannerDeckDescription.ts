@@ -3,7 +3,7 @@ import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { isLocationSubset, LocationContext, LocationDescription } from '@gamepark/react-game'
-import { Location } from '@gamepark/rules-api/dist/material/location/Location'
+import { Location } from '@gamepark/rules-api'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
 import { BannerDeckHelp } from '../help/BannerDeckHelp'
 

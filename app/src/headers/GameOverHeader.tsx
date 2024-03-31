@@ -1,10 +1,7 @@
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
-import { usePlayerId } from '@gamepark/react-game/dist/hooks/usePlayerId'
-import { usePlayerName } from '@gamepark/react-game/dist/hooks/usePlayerName'
-import { useResultText } from '@gamepark/react-game/dist/hooks/useResultText'
-import { useRules } from '@gamepark/react-game/dist/hooks/useRules'
+import { usePlayerId, usePlayerName, useResultText, useRules } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'
 
 
