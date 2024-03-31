@@ -15,6 +15,7 @@ import { EndGameHistory } from './entry/EndGameHistory'
 import { InfluenceHistory } from './entry/InfluenceHistory'
 import { PlaceBannerCardHistory } from './entry/PlaceBannerCardHistory'
 import { RecruitCardHistory } from './entry/RecruitCardHistory'
+import { RefillAlkaneHistory } from './entry/RefillAlkaneHistory'
 import { StealCastleHistory } from './entry/StealCastleHistory'
 import { TakeBannerCardsHistory } from './entry/TakeBannerCardsHistory'
 import { WinCastleHistory } from './entry/WinCastleHistory'
@@ -108,6 +109,10 @@ export const FiveKingdomHistory: FC<MaterialHistoryProps<MaterialGame, MaterialM
     return (
       <EndGameHistory />
     )
+  }
+
+  if (isStartRule(move) && move.id === RuleId.RefillAlkane) {
+    return <RefillAlkaneHistory context={context} />
   }
 
   return <></>
