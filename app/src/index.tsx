@@ -6,6 +6,7 @@ import { GameProvider, MaterialGameAnimations, setupTranslation } from '@gamepar
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import { FiveKingdomHistory } from './history/FiveKingdomHistory'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { theme } from './theme'
@@ -22,6 +23,7 @@ ReactDOM.render(
       optionsSpec={FiveKingdomsOptionsSpec}
       GameSetup={FiveKingdomsSetup}
       material={Material}
+      MaterialHistory={FiveKingdomHistory}
       locators={Locators}
       tutorial={new Tutorial()}
       animations={new MaterialGameAnimations()}

@@ -26,7 +26,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
   options = { players: [{ id: me }, { id: opponent }] }
   setup = new TutorialSetup()
 
-  players = [{ id: me }, { id: opponent }]
+  players = [{ id: me, name: 'Feline'}, { id: opponent, name: 'Rapace' }]
 
   steps: TutorialStep[] = [
     {
@@ -80,7 +80,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
               {baseKingdoms.map((k) => (
                 <Fragment key={k}>
                   <span><Picture src={icons[k]}/></span>
-                  <span>{t(`player.${k}`)}</span>
+                  <span>{t(`kingdom.${k}`)}</span>
                 </Fragment>
               ))}
             </span>
@@ -99,9 +99,9 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
             </span>
             <span css={gridCss}>
               <span><Picture src={icons[Kingdom.ReligiousOrder]}/></span>
-              <span>{t(`kingdom.religious`)}</span>
+              <span>{t(`kingdom.${Kingdom.ReligiousOrder}`)}</span>
               <span><Picture src={icons[Kingdom.ImperialOrder]}/></span>
-              <span>{t(`kingdom.imperial`)}</span>
+              <span>{t(`kingdom.${Kingdom.ImperialOrder}`)}</span>
             </span>
           </>
         )

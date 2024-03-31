@@ -23,7 +23,7 @@ export const FiveKingdomsOptionsSpec: OptionsSpec<FiveKingdomsOptions> = {
     id: {
       label: (t: TFunction) => t('kingdom.choice'),
       values: baseKingdoms,
-      valueSpec: kingdom => ({ label: t => t(`player.${kingdom}`) })
+      valueSpec: kingdom => ({ label: t => t(`kingdom.${kingdom}`) })
     }
   }
 }

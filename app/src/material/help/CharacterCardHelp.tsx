@@ -79,7 +79,7 @@ const InfluenceLocation: FC<MaterialHelpProps> = ({ item }) => {
   const name = usePlayerName(item.location?.player)
   if (item.location?.type !== LocationType.PlayerInfluenceZone) return null
   return (
-    <p css={italic}>{t(itsMe? 'help.card.influence.you': 'help.card.influence.player', { player: name, kingdom: t(`player.${item.location.id}`) })}</p>
+    <p css={italic}>{t(itsMe? 'help.card.influence.you': 'help.card.influence.player', { player: name, kingdom: t(`kingdom.${item.location.id}`) })}</p>
   )
 }
 
@@ -168,12 +168,12 @@ const getEffectDescription = (id: Card) => {
   return ''
 }
 
-const getCardName = (id: Card, kingdom: Kingdom, t: TFunction) => {
-  if (isKing(id)) return t('help.card.figure', { kingdom: t(`player.${kingdom}`), figure: t('help.card.king') })
-  if (isQueen(id)) return t('help.card.figure', { kingdom: t(`player.${kingdom}`), figure: t('help.card.queen') })
-  if (isSorcerer(id)) return t('help.card.figure', { kingdom: t(`player.${kingdom}`), figure: t('help.card.sorceress') })
-  if (isKingdomWarrior(id)) return t('help.card.figure', { kingdom: t(`player.${kingdom}`), figure: t('help.card.warrior') })
-  if (isKingdomTitan(id)) return t('help.card.figure', { kingdom: t(`player.${kingdom}`), figure: t('help.card.titan') })
+export const getCardName = (id: Card, kingdom: Kingdom, t: TFunction) => {
+  if (isKing(id)) return t('help.card.figure', { kingdom: t(`kingdom.${kingdom}`), figure: t('help.card.king') })
+  if (isQueen(id)) return t('help.card.figure', { kingdom: t(`kingdom.${kingdom}`), figure: t('help.card.queen') })
+  if (isSorcerer(id)) return t('help.card.figure', { kingdom: t(`kingdom.${kingdom}`), figure: t('help.card.sorceress') })
+  if (isKingdomWarrior(id)) return t('help.card.figure', { kingdom: t(`kingdom.${kingdom}`), figure: t('help.card.warrior') })
+  if (isKingdomTitan(id)) return t('help.card.figure', { kingdom: t(`kingdom.${kingdom}`), figure: t('help.card.titan') })
   if (id === Card.Ouranos) return t('help.card.religious.visible', { figure: t('help.card.ouranos')})
   if (id === Card.Papesse) return t('help.card.religious.visible', { figure: t('help.card.papess')})
   if (id === Card.Gaia) return t('help.card.religious.visible', { figure: t('help.card.titan')})
@@ -192,7 +192,7 @@ const getHiddenTitle = (kingdom: Kingdom, t: TFunction) => {
     case Kingdom.ReligiousOrder:
       return t('help.card.religious')
     default:
-      return t('help.card.kingdom', { kingdom: t(`player.${kingdom}`) })
+      return t('help.card.kingdom', { kingdom: t(`kingdom.${kingdom}`) })
   }
 }
 

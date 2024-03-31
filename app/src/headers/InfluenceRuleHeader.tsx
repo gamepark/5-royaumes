@@ -18,7 +18,7 @@ export const InfluenceRuleHeader = () => {
 
   if (!hasImperial) {
     return (
-      <>{t(itsMe? 'header.influence.you': 'header.influence.player', { player: name, kingdom: t(`player.${hand.getItem()!.id.back}`) })}</>
+      <>{t(itsMe? 'header.influence.you': 'header.influence.player', { player: name, kingdom: t(`kingdom.${hand.getItem()!.id.back}`) })}</>
     )
   }
 

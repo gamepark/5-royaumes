@@ -24,13 +24,22 @@ export class ColonelEffect extends Effect {
     ]
   }
 
-  onGameEnd(): MaterialMove[] {
+  get score() {
     const opponent = this.game.players.find((p) => p !== this.player)!
 
     const myInfluenceLines = this.getInfluenceLines(this.player)
     const opponentInfluenceLines = this.getInfluenceLines(opponent)
 
     if (myInfluenceLines > opponentInfluenceLines) {
+      return 2
+    }
+
+    return 0
+  }
+
+  onGameEnd(): MaterialMove[] {
+    const castles = this.score
+    if (castles) {
       return [
         this
           .material(MaterialType.Castle)
@@ -40,12 +49,13 @@ export class ColonelEffect extends Effect {
               type: LocationType.PlayerCastle,
               player: this.player
             },
-            quantity: 2
+            quantity: castles
           })
       ]
     }
 
-    return []
+
+    return super.onGameEnd()
   }
 
   getInfluenceLines(playerId: Kingdom) {

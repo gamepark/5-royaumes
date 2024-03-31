@@ -16,7 +16,7 @@ export const InfluenceZoneHelp: FC<LocationHelpProps> = ({ location }) => {
   return <>
     <h2>{t('help.influence')}</h2>
     <p>
-      {t(itsMe ? 'help.influence.you' : 'help.influence.player', { player: name, kingdom: t(`player.${kingdom}`), number: count })}
+      {t(itsMe ? 'help.influence.you' : 'help.influence.player', { player: name, kingdom: t(`kingdom.${kingdom}`), number: count })}
     </p>
   </>
 }

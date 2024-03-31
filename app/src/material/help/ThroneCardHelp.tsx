@@ -12,7 +12,7 @@ export const ThroneCardHelp: FC<MaterialHelpProps> = (props) => {
     <>
       <h2>{t('help.throne')}</h2>
       <p css={[alignIcon]}>
-        <Trans defaults="help.throne.effect" values={{ kingdom: t(`player.${item.id}`)}}>
+        <Trans defaults="help.throne.effect" values={{ kingdom: t(`kingdom.${item.id}`)}}>
           <Picture src={Castle} />
         </Trans>
       </p>
