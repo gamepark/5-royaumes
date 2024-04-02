@@ -16,6 +16,7 @@ import ReligiousIcon from '../images/icons/religious.png'
 import ReptileIcon from '../images/icons/reptile.png'
 import SailorIcon from '../images/icons/sailor.png'
 import UrsidIcon from '../images/icons/ursids.png'
+import { castleDescription } from '../material/descriptions/CastleDescription'
 import { TutorialSetup } from './TutorialSetup'
 
 const me = Kingdom.Feline
@@ -46,6 +47,19 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           </Trans>
         )
       }
+    },
+    {
+      popup: {
+        text: () => (
+          <Trans defaults="tuto.castle">
+            <strong/>
+          </Trans>
+        )
+      },
+      focus: game => ({
+        materials: [this.material(game, MaterialType.Castle).player(me)],
+        staticItems: [{ type: MaterialType.Castle, item: castleDescription.staticItem }]
+      })
     },
     {
       popup: {
@@ -165,7 +179,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
             <strong/>
           </Trans>
         ),
-        position: { x: 25, y: 0 }
+        position: { x: 0, y: 0 }
       },
       focus: (game) => ({
         materials: [
@@ -177,9 +191,8 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
             .location((location) => location.type === LocationType.AlkaneSquare && location.x === 1 && location.y === 2)
         ],
         margin: {
-          top: 1,
-          bottom: 1,
-          right: 17
+          left: 1,
+          right: 50
         }
       }),
       move: {}
@@ -342,7 +355,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           <Trans defaults="tuto.place">
             <strong/>
           </Trans>
-        ),
+        )
       },
       focus: (game) => ({
         materials: [
@@ -384,7 +397,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           <Trans defaults="tuto.feline">
             <strong/>
             <i/>
-            <Picture src={FelineIcon} />
+            <Picture src={FelineIcon}/>
           </Trans>
           </span>
         ),
@@ -434,7 +447,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           <Trans defaults="tuto.influence">
             <strong/>
             <i/>
-            <Picture src={FelineIcon} />
+            <Picture src={FelineIcon}/>
           </Trans>
           </span>
         ),
@@ -483,10 +496,10 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           <span css={iconCss}>
           <Trans defaults="tuto.throne">
             <strong/>
-            <i />
-            <Picture src={CastleIcon} />
-            <Picture src={FelineIcon} />
-            <Picture src={RaptorIcon} />
+            <i/>
+            <Picture src={CastleIcon}/>
+            <Picture src={FelineIcon}/>
+            <Picture src={RaptorIcon}/>
           </Trans>
           </span>
         ),
@@ -795,6 +808,15 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       popup: {
         text: () => (
           <Trans defaults="tuto.help">
+            <strong/>
+          </Trans>
+        )
+      }
+    },
+    {
+      popup: {
+        text: () => (
+          <Trans defaults="tuto.go">
             <strong/>
           </Trans>
         )
