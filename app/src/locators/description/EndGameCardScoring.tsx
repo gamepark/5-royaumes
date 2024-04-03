@@ -78,7 +78,7 @@ const counter = css`
   display: flex;
   padding: 1em 0.5em;
   height: 2.3em;
-  border: 0.2em solid lightgray;
+  border: 0.2em solid gold;
   box-shadow: 0 0 0.5em black,0 0 0.5em black;
 `
 
