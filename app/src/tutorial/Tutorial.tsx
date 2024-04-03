@@ -22,7 +22,7 @@ const me = Kingdom.Feline
 const opponent = Kingdom.Raptor
 
 export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationType> {
-  version = 4
+  version = 5
   options = { players: [{ id: me }, { id: opponent }] }
   setup = new TutorialSetup()
 
@@ -137,9 +137,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare)
         ],
         locations: [
-          this.location(LocationType.AlkaneSquare).x(0).y(0).location,
-          this.location(LocationType.AlkaneSquare).x(1).y(1).location,
-          this.location(LocationType.AlkaneSquare).x(2).y(2).location
+          this.location(LocationType.AlkaneSquare).location
         ],
         margin: {
           right: 25,
@@ -155,22 +153,23 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           <Trans defaults="tuto.place">
             <strong/>
           </Trans>
-        )
+        ),
+        position: { y: 10 }
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.CharacterCard).location(LocationType.BannerDeck).maxBy((item) => item.location.x!)
         ],
         locations: [
-          this.location(LocationType.AlkaneSquare).x(1).y(1).location
+          this.location(LocationType.AlkaneSquare).x(2).y(2).location
         ],
         margin: {
-          bottom: 5
+          bottom: 5,
         }
       }),
       move: {
         player: me,
-        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 1 && move.location.y === 1,
+        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 2 && move.location.y === 2,
         interrupt: () => true
       }
     },
@@ -181,20 +180,21 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
             <strong/>
           </Trans>
         ),
-        position: { x: 0, y: 0 }
+        position: { x: 20, y: 0 }
       },
       focus: (game) => ({
         materials: [
           this.material(game, MaterialType.CharacterCard)
-            .location((location) => location.type === LocationType.AlkaneSquare && location.x === 0 && location.y === 1),
+            .location((location) => location.type === LocationType.AlkaneSquare && location.x === 2 && location.y === 0),
           this.material(game, MaterialType.CharacterCard)
-            .location((location) => location.type === LocationType.AlkaneSquare && location.x === 1 && location.y === 1),
+            .location((location) => location.type === LocationType.AlkaneSquare && location.x === 2 && location.y === 2),
           this.material(game, MaterialType.CharacterCard)
-            .location((location) => location.type === LocationType.AlkaneSquare && location.x === 1 && location.y === 2)
+            .location((location) => location.type === LocationType.AlkaneSquare && location.x === 2  && location.y === 1)
         ],
         margin: {
-          left: 1,
-          right: 50
+          top: 2,
+          bottom: 2,
+          right: 20
         }
       }),
       move: {}
@@ -317,7 +317,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       move: {
         player: opponent,
         filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move)
-          && move.location.x === 1 && move.location.y === 1
+          && move.location.x === 0 && move.location.y === 0
       }
     }, {
       move: {
@@ -364,7 +364,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           this.material(game, MaterialType.CharacterCard).location(LocationType.BannerDeck).maxBy((item) => item.location.x!)
         ],
         locations: [
-          this.location(LocationType.AlkaneSquare).x(1).y(0).location
+          this.location(LocationType.AlkaneSquare).x(1).y(1).location
         ],
         margin: {
           bottom: 5,
@@ -373,7 +373,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       }),
       move: {
         player: me,
-        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 1 && move.location.y === 0
+        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 1 && move.location.y === 1
       }
     },
     {
@@ -383,11 +383,13 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare).location((l) => l.y === 0 && l.x === 2),
-          this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare).location((l) => l.y === 1 && l.x === 1)
+          this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare).location((l) => l.y === 1 && l.x === 0),
+          this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare).location((l) => l.y === 2 && l.x === 1)
         ],
         margin: {
-          right: 15
+          top: 2,
+          bottom: 2,
+          right: 20
         }
       })
     },
@@ -407,7 +409,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare).location((l) => l.x === 2 && (l.y === 0 || l.y === 1))
+          this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare).location((l) => l.x === 0 && l.y! > 0)
         ],
         locations: [
           this.location(LocationType.PlayerHand).player(me).location
@@ -539,7 +541,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       move: {
         player: opponent,
         filter: (move) => {
-          return isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 1
+          return isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 2
         }
       }
     },
@@ -572,7 +574,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           this.material(game, MaterialType.CharacterCard).location(LocationType.BannerDeck).maxBy((item) => item.location.x!)
         ],
         locations: [
-          this.location(LocationType.AlkaneSquare).x(0).y(0).location
+          this.location(LocationType.AlkaneSquare).x(0).y(1).location
         ],
         margin: {
           bottom: 5
@@ -580,7 +582,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       }),
       move: {
         player: me,
-        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 0
+        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 1
       }
     },
     {
@@ -594,7 +596,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       },
       focus: (game) => ({
         materials: [
-          this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare).location((l) => l.x === 1 && l.y === 0)
+          this.material(game, MaterialType.CharacterCard).location(LocationType.AlkaneSquare).location((l) => l.x === 1 && l.y === 1)
         ],
         margin: {
           bottom: 10
@@ -604,7 +606,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
         player: me,
         filter: (move, game) => isMoveItemType(MaterialType.CharacterCard)(move)
           && game.items[move.itemType]![move.itemIndex].location.x === 1
-          && game.items[move.itemType]![move.itemIndex].location.y === 0,
+          && game.items[move.itemType]![move.itemIndex].location.y === 1,
         interrupt: (move) => isStartRule(move) && move.id === RuleId.Recruit
       }
     },
@@ -724,7 +726,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       move: {
         player: opponent,
-        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 1 && move.location.y === 0
+        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 1 && move.location.y === 1
       }
     },
     {
@@ -763,7 +765,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           this.material(game, MaterialType.CharacterCard).location(LocationType.BannerDeck).maxBy((item) => item.location.x!)
         ],
         locations: [
-          this.location(LocationType.AlkaneSquare).x(0).y(2).location
+          this.location(LocationType.AlkaneSquare).x(0).y(3).location
         ],
         margin: {
           bottom: 5
@@ -771,7 +773,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       }),
       move: {
         player: me,
-        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 2
+        filter: (move) => isMoveItemType(MaterialType.CharacterCard)(move) && move.location.x === 0 && move.location.y === 3
       }
     },
     {

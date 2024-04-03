@@ -19,12 +19,12 @@ export class TutorialSetup extends FiveKingdomsSetup {
     const felineDeck = deck.id((id: any) => id.back === Kingdom.Feline && !isTitan(id.front)).deck()
     const ursidDeck = deck.id((id: any) => id.back === Kingdom.Ursid && !isTitan(id.front)).deck()
     ursidDeck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 0})
-    felineDeck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 0})
-    felineDeck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 1})
-    raptorDeck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 2})
+    reptileDeck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 0}) // REPTILE
+    reptileDeck.dealOne({ type: LocationType.AlkaneSquare, x: 2, y: 1}) // REPTILE
+    felineDeck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 2}) // RAPTOR
 
-    reptileDeck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 2})
-    reptileDeck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 1})
+    raptorDeck.dealOne({ type: LocationType.AlkaneSquare, x: 1, y: 2}) // FELINE
+    felineDeck.dealOne({ type: LocationType.AlkaneSquare, x: 0, y: 1}) // FELINE
   }
 
   putCardOnTop() {

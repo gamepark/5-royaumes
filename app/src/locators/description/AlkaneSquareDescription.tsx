@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
+import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { Memory } from '@gamepark/5-royaumes/rules/Memory'
 import { RefillAlkaneRule } from '@gamepark/5-royaumes/rules/RefillAlkaneRule'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { AlkaneSquareRule } from '@gamepark/5-royaumes/rules/utils/AlkaneSquareRule'
-import { LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
+import { ComponentSize, LocationContext, LocationDescription, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, isMoveItemType, Location, MaterialGame, MaterialMove, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
 import { AlkaneSquareHelp } from '../help/AlkaneSquareHelp'
@@ -15,7 +16,24 @@ export class AlkaneSquareDescription extends LocationDescription {
   height = 8.89
   borderRadius = 0.5
 
-  alwaysVisible = true
+  getSize(location: Location, context: MaterialContext): ComponentSize {
+    if (location.x !== undefined && location.y !== undefined) return super.getSize(location, context)
+    return {
+      width: this.width * 3.4,
+      height: this.height * 3.3
+    }
+  }
+
+  isAlwaysVisible(location: Location, _context: MaterialContext) {
+    return location.x !== undefined && location.y !== undefined
+
+  }
+
+  getExtraCss(location: Location, context: MaterialContext) {
+    const extra = super.getExtraCss(location, context)
+    if (location.x === undefined && location.y === undefined) return [alkaneSquareCss]
+    return extra
+  }
 
   extraCss = css`
     border: 0.05em solid white;
@@ -32,10 +50,14 @@ export class AlkaneSquareDescription extends LocationDescription {
   }
 
   getLocations({ rules }: MaterialContext) {
-    return this.isPlaceBannerCard(rules) ? new AlkaneSquareRule(rules.game).validAlkaneSquare : []
+    return [
+      { type: LocationType.AlkaneSquare },
+      ...(this.isPlaceBannerCard(rules) ? new AlkaneSquareRule(rules.game).validAlkaneSquare : [])
+    ]
   }
 
   getCoordinates(location: Location, context: LocationContext): Coordinates | undefined {
+    if (location.x === undefined && location.y === undefined) return { x: -34.5, y: -10, z: 0 }
     return this.getSquarePosition(location, context)
   }
 
@@ -89,3 +111,8 @@ export class AlkaneSquareDescription extends LocationDescription {
     return move.location?.x === location.x && move.location?.y === location.y
   }
 }
+
+const alkaneSquareCss = css`
+  background-color: rgba(255, 255, 255, 0.4);
+  pointer-events: none
+`
