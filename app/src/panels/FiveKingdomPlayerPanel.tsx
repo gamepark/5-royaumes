@@ -83,7 +83,7 @@ const PlacedCard: FC<FarawayPlayerPanelProps> = (props) => {
 
 
   return (
-    <span css={[data, placedCard, speedDisabled && rightAlignment]}>
+    <span css={[data, counter, speedDisabled && rightAlignment]}>
       <Picture css={timeMini} src={Castle}/>
       <span>{castleCount}</span>
     </span>
@@ -103,7 +103,7 @@ const timeMini = css`
   border-radius: 5em;
 `
 
-const placedCard = css`
+const counter = css`
   position: absolute;
   width: 3.5em;
   font-size: 2.5em;

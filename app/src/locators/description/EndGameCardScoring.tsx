@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { css, keyframes } from '@emotion/react'
+import { css } from '@emotion/react'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
-import { isLocationSubset, MaterialComponent, usePlayerId, useRules } from '@gamepark/react-game'
+import { isLocationSubset, Picture, usePlayerId, useRules } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { FC } from 'react'
+import Castle from '../../images/castle/castle_token.jpg'
 
 type EndGameCardScoringProps = {
   location: Location
@@ -40,34 +41,60 @@ export const CardScoring: FC<CardScoringProps> = (props) => {
   const effect = new ThroneRule(rules.game, item.location.player!).getEffectRule(rules.game, card)
   if (!effect || effect.score === undefined) return null
   return (
-    <div css={item.location.type === LocationType.PlayerTitan ? titanScoreStyle(itsFirst, item.location.x!) : charScoreStyle(itsFirst)}>
-      <MaterialComponent css={materialStyle} type={MaterialType.Castle}/>
-      <div css={scoreValueStyle}> x {effect?.score}</div>
-    </div>
+    <span css={[data, counter, item.location.type === LocationType.PlayerTitan ? titanScoreStyle(itsFirst, item.location.x!) : charScoreStyle(itsFirst)]}>
+      <span css={shine} />
+      <span css={contentCss}>
+        <Picture css={timeMini} src={Castle}/>
+        <span>{effect?.score}</span>
+      </span>
+    </span>
   )
 }
 
-const slideKeyframes = keyframes`
-  0% {
-    transform: translate(-33%, -33%);
-  }
-  50%, 100% {
-    transform: translate(33%, 33%);
-  }
+const charScoreStyle = (itsFirst: boolean) => css`
+  ${itsFirst ? `bottom: 2em;` : ''}
+  ${!itsFirst ? `top: 2em;` : ''}
 `
 
-const shineEffect = css`
+const titanScoreStyle = (_itsFirst: boolean, x: number) => css`
+  bottom: ${1.5 + (x * 3)}em;
+`
+
+const timeMini = css`
+  height: 1.05em; 
+  margin-bottom: -0.17em;
+  border: 0.03em solid black;
+  border-radius: 5em;
+`
+
+const counter = css`
+  position: absolute;
   overflow: hidden;
+  width: 4.5em;
+  bottom: 0.2em;
+  left: 0.9em;
+  align-items: center;
+  right: 0.25em;
+  display: flex;
+  padding: 1em 0.5em;
+  height: 2.3em;
+  border: 0.2em solid lightgray;
+  box-shadow: 0 0 0.5em black,0 0 0.5em black;
+`
+
+const shine = css`
+  //position: absolute;
+  border-radius: 0.1em;
+  left: 0;
+  top: 0;
 
   &:after {
     content: '';
     position: absolute;
-    pointer-events: none;
     left: -100%;
     right: -100%;
     top: -100%;
     bottom: -100%;
-    animation: ${slideKeyframes} 2s linear infinite;
     z-index: 1;
     transform-style: preserve-3d;
     background: linear-gradient(to bottom right,
@@ -79,43 +106,19 @@ const shineEffect = css`
   }
 `
 
-const scoreStyle = css`
-  background: white;
-  border-radius: 5em;
-  height: 2.4em;
-  display: flex;
-  width: 4.4em;
-  align-items: center;
-  padding-left: 0.25em;
-  padding-right: 0.4em;
-  position: absolute;
-  margin-left: 1.1em;
-  border: 0.05em solid black;
-  box-shadow: 0 0 0.1em black, 0 0 0.1em black;
-  ${shineEffect};
-  transform: translateZ(10em);
-  pointer-events: none;
-`
-
-const charScoreStyle = (itsFirst: boolean) => css`
-  ${scoreStyle};
-  ${itsFirst ? `bottom: 2em;` : ''}
-  ${!itsFirst ? `top: 2em;` : ''}
-`
-
-const titanScoreStyle = (_itsFirst: boolean, x: number) => css`
-  ${scoreStyle};
-  bottom: ${1.5 + (x * 3)}em;
-`
-
-
-const scoreValueStyle = css`
-  font-size: 1em;
+const data = css`
   color: black;
-  flex: 1;
-  text-align: right;
+  background-color: gray;
+  padding: 0.1em 0.3em;
+  border-radius: 0.4em;
+  z-index: 2;
 `
 
-const materialStyle = css`
-  font-size: 0.5em;
+const contentCss = css`
+  width: 100%;
+  font-size: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  transform: translateZ(10em);
+  z-index: 1;
 `
