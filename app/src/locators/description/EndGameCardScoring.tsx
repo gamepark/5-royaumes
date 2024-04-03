@@ -44,7 +44,7 @@ export const CardScoring: FC<CardScoringProps> = (props) => {
     <span css={[data, counter, item.location.type === LocationType.PlayerTitan ? titanScoreStyle(itsFirst, item.location.x!) : charScoreStyle(itsFirst)]}>
       <span css={shine} />
       <span css={contentCss}>
-        <Picture css={timeMini} src={Castle}/>
+        <Picture css={mini} src={Castle}/>
         <span>{effect?.score}</span>
       </span>
     </span>
@@ -60,7 +60,7 @@ const titanScoreStyle = (_itsFirst: boolean, x: number) => css`
   bottom: ${1.5 + (x * 3)}em;
 `
 
-const timeMini = css`
+const mini = css`
   height: 1.05em; 
   margin-bottom: -0.17em;
   border: 0.03em solid black;
@@ -79,15 +79,11 @@ const counter = css`
   padding: 1em 0.5em;
   height: 2.3em;
   border: 0.2em solid gold;
+  transform: translateZ(10em);
   box-shadow: 0 0 0.5em black,0 0 0.5em black;
 `
 
 const shine = css`
-  //position: absolute;
-  border-radius: 0.1em;
-  left: 0;
-  top: 0;
-
   &:after {
     content: '';
     position: absolute;
