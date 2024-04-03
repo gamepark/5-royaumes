@@ -154,7 +154,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
             <strong/>
           </Trans>
         ),
-        position: { y: 10 }
+        position: { y: 10, x: 0 }
       },
       focus: (game) => ({
         materials: [

@@ -31,7 +31,6 @@ const panelPosition = css`
   right: 1em;
   width: 28em;
   height: 8.3em;
-  border: 0;
 `
 
 const topPosition = css`
