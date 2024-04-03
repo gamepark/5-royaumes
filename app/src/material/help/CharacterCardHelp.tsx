@@ -3,8 +3,11 @@ import { css } from '@emotion/react'
 import { Card } from '@gamepark/5-royaumes/cards/Card'
 import { isKing, isKingdomTitan, isKingdomWarrior, isQueen, isSorcerer } from '@gamepark/5-royaumes/cards/CardType'
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
+import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
-import { linkButtonCss, MaterialHelpProps, Picture, PlayMoveButton, usePlayerId, usePlayerName } from '@gamepark/react-game'
+import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
+import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
+import { linkButtonCss, MaterialHelpProps, Picture, PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { displayLocationHelp } from '@gamepark/rules-api'
 import { TFunction } from 'i18next'
 import { FC } from 'react'
@@ -60,6 +63,42 @@ export const VisibleCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
       <PlaceInCouncil { ...props } />
       <RecruitTitan { ...props } />
       <DestroyButton { ...props } />
+      <Scoring { ...props} />
+    </>
+  )
+}
+
+const Scoring: FC<MaterialHelpProps> = ({ item, itemIndex}) => {
+  const rules = useRules<FiveKingdomsRules>()!
+  const playerId = usePlayerId()
+  const name = usePlayerName(item.location?.player)
+  if (!item.location?.player) return null
+  const itsMe = playerId && item.location?.player === playerId
+  const card = rules.material(MaterialType.CharacterCard).index(itemIndex!)
+  const effect = new ThroneRule(rules.game, item.location.player!).getEffectRule(rules.game, card)
+  const score = effect?.score
+  if (score === undefined) return null
+  if (itsMe) {
+    return (
+      <>
+        <hr />
+        <p css={italic}>
+          <Trans defaults="help.score.card" values={{ score: score }}>
+            <strong/>
+          </Trans>
+        </p>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <hr/>
+      <p css={italic}>
+        <Trans defaults="help.score.card.other" values={{ score: score, player: name }}>
+          <strong/>
+        </Trans>
+      </p>
     </>
   )
 }

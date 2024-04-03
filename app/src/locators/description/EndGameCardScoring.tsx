@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+import { css, keyframes } from '@emotion/react'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
-import { MaterialComponent, usePlayerId, useRules } from '@gamepark/react-game'
-import { isLocationSubset } from '@gamepark/react-game'
+import { isLocationSubset, MaterialComponent, usePlayerId, useRules } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { FC } from 'react'
 
@@ -48,12 +47,44 @@ export const CardScoring: FC<CardScoringProps> = (props) => {
   )
 }
 
+const slideKeyframes = keyframes`
+  0% {
+    transform: translate(-33%, -33%);
+  }
+  50%, 100% {
+    transform: translate(33%, 33%);
+  }
+`
+
+const shineEffect = css`
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+    animation: ${slideKeyframes} 2s linear infinite;
+    z-index: 1;
+    transform-style: preserve-3d;
+    background: linear-gradient(to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 34%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 66%,
+    rgba(255, 255, 255, 0) 100%);
+  }
+`
+
 const scoreStyle = css`
   background: white;
   border-radius: 5em;
-  height: 2em;
+  height: 2.4em;
   display: flex;
-  width: 4em;
+  width: 4.4em;
   align-items: center;
   padding-left: 0.25em;
   padding-right: 0.4em;
@@ -61,6 +92,7 @@ const scoreStyle = css`
   margin-left: 1.1em;
   border: 0.05em solid black;
   box-shadow: 0 0 0.1em black, 0 0 0.1em black;
+  ${shineEffect};
   transform: translateZ(10em);
   pointer-events: none;
 `
