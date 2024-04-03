@@ -15,11 +15,11 @@ import ReptileThrone from '../images/throne/reptile_throne.jpg'
 import SailorThrone from '../images/throne/sailor_throne.jpg'
 import UrsidsThrone from '../images/throne/ursids_throne.jpg'
 
-type FarawayPlayerPanelProps = {
+type FiveKingdomPlayerPanelProps = {
   player: Player
 } & HTMLAttributes<HTMLDivElement>
 
-export const FiveKingdomPlayerPanel: FC<FarawayPlayerPanelProps> = (props) => {
+export const FiveKingdomPlayerPanel: FC<FiveKingdomPlayerPanelProps> = (props) => {
   const { player, ...rest } = props
   const { setFocus } = useFocusContext()
   const rules = useRules<FiveKingdomsRules>()!
@@ -64,7 +64,7 @@ export const FiveKingdomPlayerPanel: FC<FarawayPlayerPanelProps> = (props) => {
   )
 }
 
-const Timer: FC<FarawayPlayerPanelProps> = (props) => {
+const Timer: FC<FiveKingdomPlayerPanelProps> = (props) => {
   const { player } = props
   const rules = useRules<FiveKingdomsRules>()!
 
@@ -73,7 +73,7 @@ const Timer: FC<FarawayPlayerPanelProps> = (props) => {
   return <PlayerTimer customStyle={[(playing) => !playing && css`color: lightgray !important;`]} playerId={player.id} css={[timerStyle, data]}/>
 }
 
-const PlacedCard: FC<FarawayPlayerPanelProps> = (props) => {
+const PlacedCard: FC<FiveKingdomPlayerPanelProps> = (props) => {
   const { player } = props
   const rules = useRules<FiveKingdomsRules>()!
   const castles = rules.material(MaterialType.Castle).player(player.id).getItem()
