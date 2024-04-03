@@ -16,7 +16,6 @@ import ReligiousIcon from '../images/icons/religious.png'
 import ReptileIcon from '../images/icons/reptile.png'
 import SailorIcon from '../images/icons/sailor.png'
 import UrsidIcon from '../images/icons/ursids.png'
-import { castleDescription } from '../material/descriptions/CastleDescription'
 import { TutorialSetup } from './TutorialSetup'
 
 const me = Kingdom.Feline
@@ -54,11 +53,14 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
           <Trans defaults="tuto.castle">
             <strong/>
           </Trans>
-        )
+        ),
+        position: { x: 20, y: 0}
       },
       focus: game => ({
         materials: [this.material(game, MaterialType.Castle).player(me)],
-        staticItems: [{ type: MaterialType.Castle, item: castleDescription.staticItem }]
+        margin: {
+          right: 15
+        }
       })
     },
     {
