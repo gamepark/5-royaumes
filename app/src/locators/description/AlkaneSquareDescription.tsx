@@ -110,6 +110,11 @@ export class AlkaneSquareDescription extends LocationDescription {
     if (!isMoveItemType(MaterialType.CharacterCard)(move) || move.location?.type !== location.type) return false
     return move.location?.x === location.x && move.location?.y === location.y
   }
+
+  isMoveToLocation(move: MaterialMove, location: Location, context: MaterialContext): any {
+    if (location.x === undefined && location.y === undefined) return false
+    return super.isMoveToLocation(move, location, context)
+  }
 }
 
 const alkaneSquareCss = css`
