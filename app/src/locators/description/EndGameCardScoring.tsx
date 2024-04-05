@@ -52,11 +52,13 @@ export const CardScoring: FC<CardScoringProps> = (props) => {
 }
 
 const charScoreStyle = (itsFirst: boolean) => css`
+  left: 1em;
   ${itsFirst ? `bottom: 2em;` : ''}
   ${!itsFirst ? `top: 2em;` : ''}
 `
 
 const titanScoreStyle = (_itsFirst: boolean, x: number) => css`
+  left: 1.15em;
   bottom: ${1.5 + (x * 3)}em;
 `
 
@@ -68,14 +70,13 @@ const mini = css`
 `
 
 const counter = css`
+  display: flex;
   position: absolute;
   overflow: hidden;
   width: 4.5em;
   bottom: 0.2em;
-  left: 0.9em;
+  left: 1.15em;
   align-items: center;
-  right: 0.25em;
-  display: flex;
   padding: 1em 0.5em;
   height: 2.3em;
   border: 0.2em solid gold;

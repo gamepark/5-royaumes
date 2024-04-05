@@ -20,17 +20,6 @@ import { StealCastleHistory } from './entry/StealCastleHistory'
 import { TakeBannerCardsHistory } from './entry/TakeBannerCardsHistory'
 import { WinCastleHistory } from './entry/WinCastleHistory'
 
-/**
- * history.place		FALSE	FALSE		{player} place une carte {banner} dans le carré d'Alkane
- * history.take		FALSE	FALSE		{player} récupère {number, plural, one{# carte} other{# cartes}} {banner}
- * history.recruit		FALSE	FALSE		{player} recrute {card}
- * history.influence		FALSE	FALSE		{player} gagne {number, plural, one{# influence} other{# influences}} auprès du Royaume {kingdom}
- * history.discard		FALSE	FALSE		{player} défausse {card}
- * history.effect		FALSE	FALSE		{player} active l'effet de {card}
- * history.castle		FALSE	FALSE		{player} gagne {number, plural, one{# Château} other{# Châteaux}}
- * history.refill		FALSE	FALSE		Le carré d'Alkane est reconstitué
- * history.game.end		FALSE	FALSE		La partie est terminée
- */
 export const FiveKingdomHistory: FC<MaterialHistoryProps<MaterialGame, MaterialMove, Kingdom>> = (props) => {
   const { move, context } = props
   const game = context.game
@@ -72,10 +61,8 @@ export const FiveKingdomHistory: FC<MaterialHistoryProps<MaterialGame, MaterialM
 
   if (
     context.consequenceIndex === undefined
-    && (
-      isStartRule(move) && move.id === RuleId.Influence
-      || (isMoveItemType(MaterialType.CharacterCard)(move) && move.location?.type === LocationType.PlayerInfluenceZone)
-    )) {
+    && ((isStartRule(move) && move.id === RuleId.Influence)
+      || (isMoveItemType(MaterialType.CharacterCard)(move) && move.location?.type === LocationType.PlayerInfluenceZone))) {
     return (
       <InfluenceHistory context={context}/>
     )
