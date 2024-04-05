@@ -29,8 +29,6 @@ export const PlayerPanels: FC<any> = () => {
 const panelPosition = css`
   position: absolute;
   right: 1em;
-  width: 28em;
-  height: 8.3em;
 `
 
 const topPosition = css`

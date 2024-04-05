@@ -71,8 +71,8 @@ export class AlkaneSquareDescription extends LocationDescription {
     const computedX = location.x! - (this.deltaX ?? 0)
     const computedY = location.y! - (this.deltaY ?? 0)
     return {
-      x: baseX + (computedX! * (characterCardDescription.width + 0.2)),
-      y: baseY + (computedY! * (characterCardDescription.height + 0.2)),
+      x: baseX + (computedX * (characterCardDescription.width + 0.2)),
+      y: baseY + (computedY * (characterCardDescription.height + 0.2)),
       z: 0
     }
   }
