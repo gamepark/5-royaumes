@@ -67,7 +67,7 @@ export class ThroneRule extends MaterialRulesPart {
   controlThrone(move: MoveItem) {
     const throneState = this.throneState
     const movesItem = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
-    if (!throneState && movesItem.id.back === this.player && (movesItem.location.x! + 1) === 3) {
+    if (!throneState && movesItem.location.id === this.player && (movesItem.location.x! + 1) === 3) {
       this.memorize(Memory.ThroneActivation, ThroneActivationState.ACTIVATED, this.player)
     }
   }
