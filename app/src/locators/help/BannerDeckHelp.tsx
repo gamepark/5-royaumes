@@ -55,5 +55,5 @@ export const BannerDeckHelp = () => {
 
 const CardCount: FC<{ card: Card, kingdom: Kingdom, name: string }> = ({ card, kingdom, name }) => {
   const { t } = useTranslation()
-  return <li>{t('help.list.count', { name: <PlayMoveButton key="display" css={linkButtonCss} move={displayMaterialHelp(MaterialType.CharacterCard, { id: { front: card, back: kingdom }})} local>{name}</PlayMoveButton> })}</li>
+  return <li>{t('help.list.count', { name: <PlayMoveButton key="display" css={linkButtonCss} move={displayMaterialHelp(MaterialType.CharacterCard, { id: { front: card, back: kingdom }, location: { type: LocationType.Help }})} local>{name}</PlayMoveButton> })}</li>
 }

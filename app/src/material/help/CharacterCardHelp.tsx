@@ -13,7 +13,7 @@ import { TFunction } from 'i18next'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import Castle from '../../images/castle/castle_token.jpg'
-import { DestroyButton, InfluenceButton, PlaceInCouncil, RecruitButton, RecruitTitan, TakeColor } from './buttons/CharacterCardButton'
+import { DestroyButton, GoBackToBannerDeckButton, InfluenceButton, PlaceInCouncil, RecruitButton, RecruitTitan, TakeColor } from './buttons/CharacterCardButton'
 
 export const CharacterCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item } = props
@@ -64,6 +64,7 @@ export const VisibleCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
       <RecruitTitan { ...props } />
       <DestroyButton { ...props } />
       <Scoring { ...props} />
+      <GoBackToBannerDeckButton { ...props } />
     </>
   )
 }

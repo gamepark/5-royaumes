@@ -6,7 +6,7 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { isLocationSubset, MaterialComponent, MaterialHelpProps, PlayMoveButton, useLegalMove, useLegalMoves, usePlay, useRules } from '@gamepark/react-game'
-import { displayMaterialHelp, isMoveItemType, isStartRule, MoveItem } from '@gamepark/rules-api'
+import { displayLocationHelp, displayMaterialHelp, isMoveItemType, isStartRule, MoveItem } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import FelineIcon from '../../../images/icons/feline.png'
@@ -115,6 +115,19 @@ export const RecruitButton: FC<MaterialHelpProps> = ({ closeDialog }) => {
     <p>
       <PlayMoveButton move={move} onPlay={closeDialog}>
         {t('move.card.recruit')}
+      </PlayMoveButton>
+    </p>
+  )
+}
+
+export const GoBackToBannerDeckButton: FC<MaterialHelpProps> = ({ item }) => {
+  const { t } = useTranslation()
+  const { location } = item
+  if (location?.type !== LocationType.Help) return null
+  return (
+    <p>
+      <PlayMoveButton move={displayLocationHelp({ type: LocationType.BannerDeck })}>
+        {t('move.return.banner')}
       </PlayMoveButton>
     </p>
   )

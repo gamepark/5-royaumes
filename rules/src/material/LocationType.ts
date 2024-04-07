@@ -8,5 +8,6 @@ export enum LocationType {
   Discard,
   AlkaneSquare,
   PlayerHand,
-  PlayerTitan
+  PlayerTitan,
+  Help
 }
