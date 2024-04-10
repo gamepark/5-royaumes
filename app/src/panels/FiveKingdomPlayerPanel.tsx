@@ -54,7 +54,7 @@ export const FiveKingdomPlayerPanel: FC<FiveKingdomPlayerPanelProps> = (props) =
       playerFocus={playerFocus}
       backgroundImage={PlayerBackground[player.id - 1]}
       css={[backgroundPosition]}
-      mainCounter={{ image: Castle, value: castleCount }}
+      mainCounter={{ image: Castle, value: castleCount, imageCss: css`border-radius: 5em;` }}
       { ...rest }
     />
   )
