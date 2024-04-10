@@ -23,6 +23,12 @@ export class InfluenceZoneLocator extends LineLocator {
     }
   }
 
+  getRotations(item: MaterialItem, context: ItemContext): string[] {
+    const rotateZ = this.getRotateZ(item, context)
+    const rotations = ['rotateY(180deg)']
+    return rotateZ ? [`rotateZ(${rotateZ}${this.rotationUnit})`, ...rotations] : rotations
+  }
+
   getRotateZ(item: MaterialItem, context: LocationContext): number {
     return this.locationDescription.getRotateZ(item.location, context)
   }
