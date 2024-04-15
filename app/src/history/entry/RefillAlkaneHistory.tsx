@@ -2,7 +2,7 @@
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { HistoryEntry, HistoryEntryContext } from '@gamepark/react-game'
-import { isMoveItemType } from '@gamepark/rules-api/dist/material/moves/items/MoveItem'
+import { isMoveItemType } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
