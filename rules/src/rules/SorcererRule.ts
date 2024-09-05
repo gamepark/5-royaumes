@@ -21,7 +21,7 @@ export class SorcererRule extends PlayerTurnRule {
 
   beforeItemMove(move: ItemMove) {
     if (isMoveItemType(MaterialType.CharacterCard)(move)) {
-      delete this.discard.getItem(move.itemIndex)?.selected
+      delete this.material(MaterialType.CharacterCard).getItem(move.itemIndex)?.selected
     }
 
     if (isSelectItemType(MaterialType.CharacterCard)(move)) {
