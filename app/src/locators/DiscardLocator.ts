@@ -10,7 +10,12 @@ export class DiscardLocator extends DeckLocator {
   locationDescription = new DiscardDescription()
   location = { type: LocationType.Discard }
 
-  delta = { x: -0.03, y: -0.04 }
+  gap = { x: -0.03, y: -0.04 }
+
+  getGap(_location: Location, context: MaterialContext) {
+    if (!isItemContext(context)) return {}
+    return this.gap
+  }
 
   getCoordinates(_location: Location, context: MaterialContext) {
 
@@ -27,8 +32,8 @@ export class DiscardLocator extends DeckLocator {
       const x = topDiscardCard.getItem()?.location.x
       if (!x) return coordinates
       return {
-        x: coordinates.x + (Math.min(x, 19) * -0.03) + (0.015 * Math.min(x, 19)),
-        y: coordinates.y + (Math.min(x, 19) * -0.04) + (0.02 * Math.min(x, 19)),
+        x: coordinates.x + (Math.min(x + 1, 20) * -0.03) + (0.015 * Math.min(x + 1, 20)),
+        y: coordinates.y + (Math.min(x + 1, 20) * -0.04) + (0.02 * Math.min(x + 1, 20)),
         z: 10
       }
     }

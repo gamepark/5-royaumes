@@ -10,7 +10,7 @@ export class BannerDeckLocator extends DeckLocator {
 
   locationDescription = new BannerDeckDescription(characterCardDescription)
 
-  delta = { x: -0.03, y: -0.04}
+  gap = { x: -0.03, y: -0.04}
 
   coordinates = { x: -36, y: 18, z: 0 }
 

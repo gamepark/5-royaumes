@@ -23,9 +23,10 @@ export class DiscardDescription extends DropAreaDescription {
     }
 
     if (!x) return size
+    console.log(x)
     return {
-      width: characterCardDescription.width + (0.03 * Math.min(x, 19)),
-      height: characterCardDescription.height + (0.04 * Math.min(x, 19))
+      width: characterCardDescription.width + (0.03 * Math.min(x + 2, 20)),
+      height: characterCardDescription.height + (0.04 * Math.min(x + 2, 20))
     }
   }
 
