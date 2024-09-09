@@ -7,23 +7,30 @@ import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { ThroneRule } from '@gamepark/5-royaumes/rules/card-effect/ThroneRule'
-import { linkButtonCss, MaterialHelpProps, Picture, PlayMoveButton, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
-import { displayLocationHelp } from '@gamepark/rules-api'
+import { linkButtonCss, MaterialHelpProps, Picture, PlayMoveButton, usePlayerId, usePlayerName, useRules, useUndo } from '@gamepark/react-game'
+import { LocalMoveType, MaterialMove, MaterialMoveBuilder, MoveKind } from '@gamepark/rules-api'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TFunction } from 'i18next'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import Castle from '../../images/castle/castle_token.jpg'
 import { DestroyButton, GoBackToBannerDeckButton, InfluenceButton, PlaceInCouncil, RecruitButton, RecruitTitan, TakeColor } from './buttons/CharacterCardButton'
+const displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
 
 export const CharacterCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item } = props
+  const [undo, canUndo] = useUndo()
+  const undoModalPredicate = (move: MaterialMove) => move.kind === MoveKind.LocalMove && move.type === LocalMoveType.DisplayHelp
+  const canUndoDialog = canUndo(undoModalPredicate)
 
-  if (item.id.front === undefined) {
-    return <HiddenCharacterCardHelp {...props} />
+  return (
+    <>
+      {canUndoDialog && <FontAwesomeIcon icon={faArrowLeft} css={goBackCss} onClick={() => undo(undoModalPredicate)} />}
+      { item.id.front === undefined ? <HiddenCharacterCardHelp {...props} />: <VisibleCharacterCardHelp {...props} />}
+    </>
+  )
   }
-
-  return <VisibleCharacterCardHelp {...props} />
-}
 
 export const HiddenCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item } = props
@@ -73,7 +80,7 @@ const Scoring: FC<MaterialHelpProps> = ({ item, itemIndex}) => {
   const rules = useRules<FiveKingdomsRules>()!
   const playerId = usePlayerId()
   const name = usePlayerName(item.location?.player)
-  if (!item.location?.player) return null
+  if (!item.location?.player || rules.game.rule !== undefined) return null
   const itsMe = playerId && item.location?.player === playerId
   const card = rules.material(MaterialType.CharacterCard).index(itemIndex!)
   const effect = new ThroneRule(rules.game, item.location.player!).getEffectRule(rules.game, card)
@@ -251,4 +258,13 @@ const alignIcon = css`
 
 const italic = css`
   font-style: italic;
+`
+
+const goBackCss = css`
+  position: absolute;
+  right: 2em;
+  top: 0.4em;
+  cursor: pointer;
+  font-size: 1.2em;
+  z-index: 100;
 `

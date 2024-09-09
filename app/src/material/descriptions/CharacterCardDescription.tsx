@@ -6,7 +6,7 @@ import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { CustomMoveType } from '@gamepark/5-royaumes/rules/CustomMoveType'
 import { Memory } from '@gamepark/5-royaumes/rules/Memory'
 import { CardDescription, isLocationSubset, ItemContext, MaterialContext } from '@gamepark/react-game'
-import { displayLocationHelp, isCustomMoveType, isMoveItemType, MaterialItem, MaterialMove } from '@gamepark/rules-api'
+import { isCustomMoveType, isMoveItemType, MaterialItem, MaterialMove, MaterialMoveBuilder } from '@gamepark/rules-api'
 import Feline1 from '../../images/card/feline/feline_1.jpg'
 import Feline2 from '../../images/card/feline/feline_2.jpg'
 import Feline3 from '../../images/card/feline/feline_3.jpg'
@@ -49,6 +49,7 @@ import Ursid5 from '../../images/card/ursid/ursid_5.jpg'
 /** @jsxImportSource @emotion/react */
 import UrsidBack from '../../images/card/ursid/ursid_back.jpg'
 import { CharacterCardHelp } from '../help/CharacterCardHelp'
+const displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
 
 export class CharacterCardDescription extends CardDescription {
   borderRadius = 0.5

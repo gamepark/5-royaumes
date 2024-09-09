@@ -6,9 +6,11 @@ import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { linkButtonCss, PlayMoveButton, useRules } from '@gamepark/react-game'
-import { displayMaterialHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
+
+const displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
 export const BannerDeckHelp = () => {
   const { t } = useTranslation()

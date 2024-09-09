@@ -6,7 +6,7 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { isLocationSubset, MaterialComponent, MaterialHelpProps, PlayMoveButton, useLegalMove, useLegalMoves, usePlay, useRules } from '@gamepark/react-game'
-import { displayLocationHelp, displayMaterialHelp, isMoveItemType, isStartRule, MoveItem } from '@gamepark/rules-api'
+import { isMoveItemType, isStartRule, MaterialMoveBuilder, MoveItem } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import FelineIcon from '../../../images/icons/feline.png'
@@ -14,6 +14,8 @@ import RaptorIcon from '../../../images/icons/raptor.png'
 import ReptileIcon from '../../../images/icons/reptile.png'
 import SailorIcon from '../../../images/icons/sailor.png'
 import UrsidIcon from '../../../images/icons/ursids.png'
+const displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
+const displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
 export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDialog }) => {
   const rules = useRules<FiveKingdomsRules>()!

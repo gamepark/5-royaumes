@@ -1,7 +1,7 @@
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
-import { ItemLocator } from '@gamepark/react-game'
+import { Locator } from '@gamepark/react-game'
 import { alkaneSquareLocator } from './AlkaneSquareLocator'
 import { bannerDeckLocator } from './BannerDeckLocator'
 import { castleStockLocator } from './CastleStockLocator'
@@ -13,7 +13,7 @@ import { playerThroneLocator } from './PlayerThroneLocator'
 import { playerThroneRoomLocator } from './CouncilLocator'
 import { playerTitanLocator } from './PlayerTitanLocator'
 
-export const Locators: Partial<Record<LocationType, ItemLocator<Kingdom, MaterialType, LocationType>>> = {
+export const Locators: Partial<Record<LocationType, Locator<Kingdom, MaterialType, LocationType>>> = {
   [LocationType.BannerDeck]: bannerDeckLocator,
   [LocationType.PlayerThrone]: playerThroneLocator,
   [LocationType.Council]: playerThroneRoomLocator,

@@ -1,36 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
-import { LocationDescription } from '@gamepark/react-game'
-import { LocationContext, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location } from '@gamepark/rules-api'
-import { throneCardDescription } from '../../material/descriptions/ThroneCardDescription'
-import { playerThroneLocator } from '../PlayerThroneLocator'
+import { DropAreaDescription } from '@gamepark/react-game'
 
-export class PlayerCastleDescription extends LocationDescription {
+export class PlayerCastleDescription extends DropAreaDescription {
   height = 6
   width = 6
   borderRadius = 5
-
-  getLocations(context: MaterialContext) {
-    const { player } = context
-    if (!player) return []
-    return [{ type: LocationType.PlayerCastle, player }]
-  }
-
-  getCoordinates(location: Location, context: LocationContext): Coordinates {
-    const playerId = location.player!
-    const position = playerThroneLocator.locationDescription.getThronePosition(playerId, context)
-    const { rules, player } = context
-    if (playerId === (player ?? rules.players[0])) {
-      position.x -= 0.8 + throneCardDescription.width
-      position.y -= 0.8 + 1.5 * throneCardDescription.width
-    } else {
-      position.x += 0.8 + throneCardDescription.width
-      position.y += 0.8 + 1.5 * throneCardDescription.width
-    }
-
-    return position
-  }
-
 }

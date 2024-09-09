@@ -1,9 +1,7 @@
-import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
-import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
-import { LocationDescription } from '@gamepark/react-game'
+import { DropAreaDescription } from '@gamepark/react-game'
 
-export class CastleStockDescription extends LocationDescription<Kingdom, MaterialType, LocationType> {
+export class CastleStockDescription extends DropAreaDescription {
   location = castleStockLocation
   width = 9
   ratio = 1

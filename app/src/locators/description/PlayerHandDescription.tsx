@@ -1,17 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
-import { LocationDescription, MaterialContext } from '@gamepark/react-game'
-import { Location } from '@gamepark/rules-api'
+import { DropAreaDescription } from '@gamepark/react-game'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
 
-export class PlayerHandDescription extends LocationDescription {
+export class PlayerHandDescription extends DropAreaDescription {
   width = characterCardDescription.width * 4
   height = characterCardDescription.height + 2
   borderRadius = characterCardDescription.borderRadius
-
-  getLocations({ player }: MaterialContext): Location[] {
-    return player ? [{ type: LocationType.PlayerHand, player }] : []
-  }
-
-  coordinates = { x: 10, y: -3, z: 0.05 }
 }

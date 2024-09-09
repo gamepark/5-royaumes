@@ -1,8 +1,9 @@
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { linkButtonCss, LocationHelpProps, PlayMoveButton } from '@gamepark/react-game'
-import { displayMaterialHelp } from '@gamepark/rules-api'
+import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
+const displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
 export const CouncilHelp: FC<LocationHelpProps> = (props) => {
   const { location } = props

@@ -27,7 +27,8 @@ export class ThroneCardDescription extends CardDescription {
       items.push({
         id: player,
         location: {
-          type: LocationType.PlayerThrone
+          type: LocationType.PlayerThrone,
+          player: player
         }
       })
     }

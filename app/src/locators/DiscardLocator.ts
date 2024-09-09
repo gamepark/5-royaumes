@@ -1,21 +1,36 @@
 /** @jsxImportSource @emotion/react */
-import { DeckLocator } from '@gamepark/react-game'
-import { MaterialItem } from '@gamepark/rules-api'
+import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
+import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
+import { DeckLocator, isItemContext, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { DiscardDescription } from './description/DiscardDescription'
 
 export class DiscardLocator extends DeckLocator {
 
   locationDescription = new DiscardDescription()
-
+  location = { type: LocationType.Discard }
 
   delta = { x: -0.03, y: -0.04 }
 
-  getCoordinates(item: MaterialItem) {
-    const coordinates = { ...this.locationDescription.coordinates, z: 0.05 }
-    if (item.selected) {
-      coordinates.x = 10
-      coordinates.y = -3
-      coordinates.z += 0
+  getCoordinates(_location: Location, context: MaterialContext) {
+
+    const { rules } = context
+    const coordinates = { x: -28, y: 18, z: 0.05 }
+    if (isItemContext(context)) {
+      if (rules.material(context.type).getItem(context.index).selected) {
+        coordinates.x = 10
+        coordinates.y = -3
+        coordinates.z += 0
+      }
+    } else {
+      const topDiscardCard = rules.material(MaterialType.CharacterCard).location(LocationType.Discard).maxBy((item) => item.location.x!)
+      const x = topDiscardCard.getItem()?.location.x
+      if (!x) return coordinates
+      return {
+        x: coordinates.x + (Math.min(x, 19) * -0.03) + (0.015 * Math.min(x, 19)),
+        y: coordinates.y + (Math.min(x, 19) * -0.04) + (0.02 * Math.min(x, 19)),
+        z: 10
+      }
     }
 
     return coordinates
