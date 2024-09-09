@@ -3,7 +3,7 @@ import { Memory } from '@gamepark/5-royaumes/rules/Memory'
 import { RefillAlkaneRule } from '@gamepark/5-royaumes/rules/RefillAlkaneRule'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { AlkaneSquareRule } from '@gamepark/5-royaumes/rules/utils/AlkaneSquareRule'
-import { Locator, LocationContext, MaterialContext } from '@gamepark/react-game'
+import { LocationContext, Locator, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialGame, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../material/descriptions/CharacterCardDescription'
 import { AlkaneSquareDescription } from './description/AlkaneSquareDescription'
@@ -67,6 +67,14 @@ export class AlkaneSquareLocator extends Locator {
         }
       }
     }
+  }
+
+  getLocations({ rules }: MaterialContext) {
+    if (this.isPlaceBannerCard(rules)) {
+      return new AlkaneSquareRule(rules.game).validAlkaneSquare
+    }
+
+    return []
   }
 
   isPlaceBannerCard(rules: MaterialRules) {
