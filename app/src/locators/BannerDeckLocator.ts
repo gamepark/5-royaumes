@@ -16,7 +16,7 @@ export class BannerDeckLocator extends DeckLocator {
 
   location = { type: LocationType.BannerDeck }
 
-  protected getAreaCoordinates(_location: Location, context: MaterialContext): Partial<Coordinates> {
+  getAreaCoordinates(_location: Location, context: MaterialContext): Partial<Coordinates> {
     const { rules } = context
     const deckSize = Math.min(rules.material(MaterialType.CharacterCard).location(LocationType.BannerDeck).length, 20)
     return {

@@ -5,7 +5,7 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { DropAreaDescription, MaterialContext } from '@gamepark/react-game'
-import { isMoveItemType, isStartRule, Location, MaterialMove, MaterialRules } from '@gamepark/rules-api'
+import { isMoveItemType, isStartRule, Location, MaterialMove } from '@gamepark/rules-api'
 import FelineIcon from '../../images/icons/feline.png'
 import RaptorIcon from '../../images/icons/raptor.png'
 import ReptileIcon from '../../images/icons/reptile.png'
@@ -50,14 +50,5 @@ export class InfluenceZoneDescription extends DropAreaDescription {
 
   canLongClick(move: MaterialMove, location: Location, context: MaterialContext): boolean {
     return this.canShortClick(move, location, context)
-  }
-
-  isMyLocation(rules: MaterialRules, location: Location, player?: Kingdom) {
-    return rules.game.rule?.player === location.player && location.player === player
-  }
-
-  hasImperialOrderInHand(rules: MaterialRules, player?: Kingdom) {
-    if (!player) return false
-    return rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(player).filter((item) => item.id.back === Kingdom.ImperialOrder).length > 0
   }
 }

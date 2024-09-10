@@ -3,7 +3,7 @@ import { baseKingdoms, Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
-import { isItemContext, ListLocator, LocationContext, MaterialContext } from '@gamepark/react-game'
+import { ListLocator, LocationContext, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../material/descriptions/CharacterCardDescription'
 import { InfluenceZoneDescription } from './description/InfluenceZoneDescription'
@@ -13,7 +13,6 @@ export class InfluenceZoneLocator extends ListLocator {
   locationDescription = new InfluenceZoneDescription()
 
   getGap(location: Location, context: MaterialContext) {
-    if (!isItemContext(context)) return {}
     const { rules, player } = context
     const y = (location.player === (player ?? rules.players[0]))? 1.5 : -1.5
     return { y }
@@ -31,7 +30,7 @@ export class InfluenceZoneLocator extends ListLocator {
   }
 
   getCoordinates(location: Location, context: MaterialContext): Coordinates {
-    const baseCoordinates = this.getInfluenceZonePosition(location, context)
+      const baseCoordinates = this.getInfluenceZonePosition(location, context)
     const { rules, player } = context
     const deltaY = (location.player === (player ?? rules.players[0]))? -4.25 : 4.25
     return {
@@ -73,7 +72,7 @@ export class InfluenceZoneLocator extends ListLocator {
   }
 
   isMyLocation(rules: MaterialRules, location: Location, player?: Kingdom) {
-    return rules.game.rule?.player === location.player && location.player === player
+    return rules.getActivePlayer() === location.player && location.player === player
   }
 
 }

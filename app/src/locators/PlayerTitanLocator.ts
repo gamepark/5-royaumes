@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
-import { isItemContext, ListLocator, LocationContext, MaterialContext } from '@gamepark/react-game'
+import { ListLocator, LocationContext, MaterialContext } from '@gamepark/react-game'
 import { Coordinates, Location } from '@gamepark/rules-api'
 import { PlayerTitanDescription } from './description/PlayerTitanDescription'
 
@@ -10,7 +10,6 @@ export class PlayerTitanLocator extends ListLocator {
 
   getGap(location: Location, context: MaterialContext): Partial<Coordinates> {
     const { rules, player } = context
-    if (!isItemContext(context)) return {}
     const y = (location.player === (player ?? rules.players[0]))? -3 : 3
     return { y }
   }

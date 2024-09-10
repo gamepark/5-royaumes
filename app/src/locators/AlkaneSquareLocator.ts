@@ -63,8 +63,8 @@ export class AlkaneSquareLocator extends Locator {
     }
   }
 
-  getLocations({ rules }: MaterialContext) {
-    if (this.isPlaceBannerCard(rules)) {
+  getLocations({ rules, player }: MaterialContext) {
+    if (this.isPlaceBannerCard(rules) && player === rules.getActivePlayer()) {
       return new AlkaneSquareRule(rules.game).validAlkaneSquare
     }
 

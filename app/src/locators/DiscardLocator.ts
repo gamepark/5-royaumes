@@ -12,11 +12,6 @@ export class DiscardLocator extends DeckLocator {
 
   gap = { x: -0.03, y: -0.04 }
 
-  getGap(_location: Location, context: MaterialContext) {
-    if (!isItemContext(context)) return {}
-    return this.gap
-  }
-
   getAreaCoordinates(_location: Location, context: MaterialContext): Partial<Coordinates> {
     const { rules } = context
     const coordinates = { x: -28, y: 18, z: 0.05 }
