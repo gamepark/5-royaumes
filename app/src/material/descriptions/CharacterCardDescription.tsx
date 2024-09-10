@@ -49,7 +49,7 @@ import Ursid5 from '../../images/card/ursid/ursid_5.jpg'
 /** @jsxImportSource @emotion/react */
 import UrsidBack from '../../images/card/ursid/ursid_back.jpg'
 import { CharacterCardHelp } from '../help/CharacterCardHelp'
-const displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
+import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
 
 export class CharacterCardDescription extends CardDescription {
   borderRadius = 0.5
@@ -123,10 +123,8 @@ export class CharacterCardDescription extends CardDescription {
   }
 
   displayHelp(item: MaterialItem, context: ItemContext) {
-    if (item.location.type === LocationType.BannerDeck) {
-      return displayLocationHelp({ type: LocationType.BannerDeck })
-    }
-
+    if (item.location.type === LocationType.BannerDeck) return displayLocationHelp({ type: LocationType.BannerDeck })
+    if (item.location.type === LocationType.Discard) return displayLocationHelp({ type: LocationType.Discard })
     return super.displayHelp(item, context)
 
   }
