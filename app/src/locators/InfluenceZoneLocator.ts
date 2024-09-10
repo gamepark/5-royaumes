@@ -19,18 +19,18 @@ export class InfluenceZoneLocator extends ListLocator {
     return { y }
   }
 
-  getCoordinates(location: Location, context: MaterialContext): Coordinates {
-    if (!isItemContext(context)) {
-      const position = this.getInfluenceZonePosition(location, context)
-      const { rules, player } = context
-      if (rules.game.rule?.id === RuleId.Sorcerer && this.isMyLocation(rules, location, player) && rules.material(MaterialType.CharacterCard).selected().length) position.z += 10
-      if (rules.game.rule?.id === RuleId.ChooseAction) {
-        const handColor = context.rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(location.player).getItem()?.id?.back
-        if (location.player === context.player && location.id === handColor) position.z += 10
-      }
-      return position
+  getAreaCoordinates(location: Location, context: MaterialContext) {
+    const position = this.getInfluenceZonePosition(location, context)
+    const { rules, player } = context
+    if (rules.game.rule?.id === RuleId.Sorcerer && this.isMyLocation(rules, location, player) && rules.material(MaterialType.CharacterCard).selected().length) position.z += 10
+    if (rules.game.rule?.id === RuleId.ChooseAction) {
+      const handColor = context.rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(location.player).getItem()?.id?.back
+      if (location.player === context.player && location.id === handColor) position.z += 10
     }
+    return position
+  }
 
+  getCoordinates(location: Location, context: MaterialContext): Coordinates {
     const baseCoordinates = this.getInfluenceZonePosition(location, context)
     const { rules, player } = context
     const deltaY = (location.player === (player ?? rules.players[0]))? -4.25 : 4.25

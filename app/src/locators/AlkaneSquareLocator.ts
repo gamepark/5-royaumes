@@ -18,13 +18,7 @@ export class AlkaneSquareLocator extends Locator {
 
   getCoordinates(location: Location, context: LocationContext): Coordinates {
     if (location.x === undefined && location.y === undefined) return { x: -34.5, y: -10, z: 0 }
-    return {
-      ...this.getSquarePosition(location, context),
-      z: 0.05
-    }
-  }
-
-  getSquarePosition(location: Location, { rules }: MaterialContext) {
+    const { rules } = context
     if (rules.game !== this.game) {
       this.refreshDeltaPosition(rules)
       this.game = rules.game
@@ -36,7 +30,7 @@ export class AlkaneSquareLocator extends Locator {
     return {
       x: baseX + (computedX * (characterCardDescription.width + 0.2)),
       y: baseY + (computedY * (characterCardDescription.height + 0.2)),
-      z: 0
+      z: 0.05
     }
   }
 

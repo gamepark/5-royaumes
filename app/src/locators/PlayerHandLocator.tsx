@@ -17,10 +17,6 @@ export class PlayerHandLocator extends HandLocator {
     const { player, rules } = context
     return location.player === (player ?? rules.players[0]) ? 0 : 180
   }
-
-  /*getLocations({ player }: MaterialContext): Location[] {
-    return player ? [{ type: LocationType.PlayerHand, player }] : []
-  }*/
 }
 
 export const playerHandLocator = new PlayerHandLocator()

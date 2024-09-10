@@ -15,9 +15,12 @@ export class PlayerTitanLocator extends ListLocator {
     return { y }
   }
 
+  getAreaCoordinates(location: Location, context: MaterialContext) {
+    return this.getTitanPosition(location, context)
+  }
+
   getCoordinates(location: Location, context: MaterialContext): Coordinates {
     const baseCoordinates = this.getTitanPosition(location, context)
-    if (!isItemContext(context)) return baseCoordinates
     const { rules, player } = context
     const deltaY = (location.player === (player ?? rules.players[0]))? 5.8 : -5.8
     return {
