@@ -2,7 +2,7 @@
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { DeckLocator, MaterialContext } from '@gamepark/react-game'
-import { Location } from '@gamepark/rules-api'
+import { Coordinates, Location } from '@gamepark/rules-api'
 import { characterCardDescription } from '../material/descriptions/CharacterCardDescription'
 import { BannerDeckDescription } from './description/BannerDeckDescription'
 
@@ -16,18 +16,18 @@ export class BannerDeckLocator extends DeckLocator {
 
   location = { type: LocationType.BannerDeck }
 
-  getAreaCoordinates() {
-    return { ...this.coordinates, z: 50 }
-  }
-
-  getCoordinates(_location: Location, context: MaterialContext) {
+  protected getAreaCoordinates(_location: Location, context: MaterialContext): Partial<Coordinates> {
     const { rules } = context
     const deckSize = Math.min(rules.material(MaterialType.CharacterCard).location(LocationType.BannerDeck).length, 20)
     return {
       x: -36 + (-0.03 * (deckSize - 1)),
       y: 18 + (-0.04 * (deckSize - 1)),
-      z: 0.05
+      z: 50
     }
+  }
+
+  getCoordinates(_location: Location) {
+    return this.coordinates
   }
 
 }
