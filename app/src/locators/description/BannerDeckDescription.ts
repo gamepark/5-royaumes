@@ -1,13 +1,10 @@
 import { css } from '@emotion/react'
-import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { DropAreaDescription, isLocationSubset, LocationContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { BannerDeckHelp } from '../help/BannerDeckHelp'
 
 export class BannerDeckDescription extends DropAreaDescription {
-
-  location = { type: LocationType.BannerDeck }
 
   getExtraCss(location: Location, context: LocationContext) {
     const deckSize = context.rules.material(MaterialType.CharacterCard).location((l) => isLocationSubset(l, location)).length

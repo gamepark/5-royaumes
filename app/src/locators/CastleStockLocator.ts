@@ -1,10 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { PileLocator } from '@gamepark/react-game'
-import { CastleStockDescription } from './description/CastleStockDescription'
 
-export class CastleStockLocator extends PileLocator {
-  locationDescription = new CastleStockDescription()
-  coordinates = { x: -44, y: 18, z: 0 }
+class CastleStockLocator extends PileLocator {
+  coordinates = { x: -44, y: 18 }
   radius = 2
 }
 

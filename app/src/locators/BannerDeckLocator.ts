@@ -6,15 +6,12 @@ import { Coordinates, Location } from '@gamepark/rules-api'
 import { characterCardDescription } from '../material/descriptions/CharacterCardDescription'
 import { BannerDeckDescription } from './description/BannerDeckDescription'
 
-export class BannerDeckLocator extends DeckLocator {
-
-  locationDescription = new BannerDeckDescription(characterCardDescription)
-
-  gap = { x: -0.03, y: -0.04}
-
-  coordinates = { x: -36, y: 18, z: 0 }
+class BannerDeckLocator extends DeckLocator {
 
   location = { type: LocationType.BannerDeck }
+  locationDescription = new BannerDeckDescription(characterCardDescription)
+
+  coordinates = { x: -36, y: 18 }
 
   getAreaCoordinates(_location: Location, context: MaterialContext): Partial<Coordinates> {
     const { rules } = context
@@ -22,14 +19,9 @@ export class BannerDeckLocator extends DeckLocator {
     return {
       x: -36 + (-0.03 * (deckSize - 1)),
       y: 18 + (-0.04 * (deckSize - 1)),
-      z: 50
+      z: 5
     }
   }
-
-  getCoordinates(_location: Location) {
-    return this.coordinates
-  }
-
 }
 
 export const bannerDeckLocator = new BannerDeckLocator()

@@ -4,18 +4,16 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { ListLocator, LocationContext, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location, MaterialRules } from '@gamepark/rules-api'
+import { Location, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../material/descriptions/CharacterCardDescription'
 import { InfluenceZoneDescription } from './description/InfluenceZoneDescription'
 
-export class InfluenceZoneLocator extends ListLocator {
+class InfluenceZoneLocator extends ListLocator {
 
   locationDescription = new InfluenceZoneDescription()
 
-  getGap(location: Location, context: MaterialContext) {
-    const { rules, player } = context
-    const y = (location.player === (player ?? rules.players[0]))? 1.5 : -1.5
-    return { y }
+  getGap(location: Location, { rules, player = rules.players[0] }: MaterialContext) {
+    return { y: location.player === player ? 1.5 : -1.5 }
   }
 
   getAreaCoordinates(location: Location, context: MaterialContext) {
@@ -29,20 +27,19 @@ export class InfluenceZoneLocator extends ListLocator {
     return position
   }
 
-  getCoordinates(location: Location, context: MaterialContext): Coordinates {
-      const baseCoordinates = this.getInfluenceZonePosition(location, context)
+  getCoordinates(location: Location, context: MaterialContext) {
+    const baseCoordinates = this.getInfluenceZonePosition(location, context)
     const { rules, player } = context
-    const deltaY = (location.player === (player ?? rules.players[0]))? -4.25 : 4.25
+    const deltaY = (location.player === (player ?? rules.players[0])) ? -4.25 : 4.25
     return {
       x: baseCoordinates.x,
-      y: baseCoordinates.y + deltaY,
-      z: 0.05
+      y: baseCoordinates.y + deltaY
     }
   }
 
   getRotateZ(location: Location, context: LocationContext): number {
     const { player, rules } = context
-    return location.player === (player ?? rules.players[0])? 0: 180
+    return location.player === (player ?? rules.players[0]) ? 0 : 180
   }
 
   getLocations({ rules }: MaterialContext) {
@@ -62,13 +59,15 @@ export class InfluenceZoneLocator extends ListLocator {
       return {
         x: 13 + (xIndex * (characterCardDescription.width + 0.4)),
         y: 13.4,
-        z: 0 }
+        z: 0
+      }
     }
 
     return {
       x: 13 - (xIndex * (characterCardDescription.width + 0.4)),
       y: -19.4,
-      z: 0 }
+      z: 0
+    }
   }
 
   isMyLocation(rules: MaterialRules, location: Location, player?: Kingdom) {

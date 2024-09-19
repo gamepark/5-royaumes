@@ -1,24 +1,22 @@
 /** @jsxImportSource @emotion/react */
-import { ItemContext, MaterialContext, PileLocator } from '@gamepark/react-game'
+import { DropAreaDescription, MaterialContext, PileLocator } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { throneCardDescription } from '../material/descriptions/ThroneCardDescription'
-import { PlayerCastleDescription } from './description/PlayerCastleDescription'
 import { playerThroneLocator } from './PlayerThroneLocator'
 
-export class PlayerCastleLocator extends PileLocator {
+class PlayerCastleLocator extends PileLocator {
 
   radius = 1.8
 
-  locationDescription = new PlayerCastleDescription()
+  locationDescription = new DropAreaDescription({ width: 6, height: 6, borderRadius: 3 })
 
-  getRotateZ(location: Location, context: ItemContext): number {
-    const { player, rules } = context
-    return location.player === (player ?? rules.players[0]) ? 0 : 180
+  getRotateZ(location: Location, { rules, player = rules.players[0] }: MaterialContext): number {
+    return location.player === player ? 0 : 180
   }
 
   getCoordinates(location: Location, context: MaterialContext) {
     const playerId = location.player!
-    const position = playerThroneLocator.getThronePosition(playerId, context)
+    const position = playerThroneLocator.getCoordinates(location, context)
     const { rules, player } = context
     if (playerId === (player ?? rules.players[0])) {
       position.x -= 0.8 + throneCardDescription.width

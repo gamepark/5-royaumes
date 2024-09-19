@@ -1,20 +1,19 @@
 /** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
-import { ItemContext, Locator, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location } from '@gamepark/rules-api'
+import { Locator, MaterialContext } from '@gamepark/react-game'
+import { Location } from '@gamepark/rules-api'
 import { characterCardDescription } from '../material/descriptions/CharacterCardDescription'
 import { CouncilDescription } from './description/CouncilDescription'
 import { playerThroneLocator } from './PlayerThroneLocator'
 
-export class CouncilLocator extends Locator {
+class CouncilLocator extends Locator {
 
   locationDescription = new CouncilDescription(characterCardDescription)
 
-  getCoordinates(location: Location, context: ItemContext): Coordinates {
-    const { rules, player } = context
-    const playerId = location.player!
-    const baseCoordinates = playerThroneLocator.getThronePosition(playerId, context)
-    const itsFirst = playerId === (player ?? rules.players[0])
+  getCoordinates(location: Location, context: MaterialContext) {
+    const player = context.player ?? context.rules.players[0]
+    const baseCoordinates = playerThroneLocator.getCoordinates(location, context)
+    const itsFirst = location.player === player
     switch (location.x) {
       case 1:
         if (itsFirst) {
@@ -45,25 +44,21 @@ export class CouncilLocator extends Locator {
         }
         break
     }
-
-    baseCoordinates.z = 5
     return baseCoordinates
   }
 
-
-  getRotateZ(location: Location, { rules, player }: ItemContext): number {
-    return location.player === (player ?? rules.players[0])? 0: 180
+  getRotateZ(location: Location, { rules, player = rules.players[0] }: MaterialContext) {
+    return location.player === player ? 0 : 180
   }
 
-  getLocations({ rules }: MaterialContext) {
-    return rules.players.flatMap((player) => {
-      return Array.from(Array(4))
-        .map((_, x) => ({
-          type: LocationType.Council,
-          player,
-          x
-        }))
-    })
+  getLocations({ player }: MaterialContext) {
+    if (player === undefined) return []
+    return Array.from(Array(4))
+      .map((_, x) => ({
+        type: LocationType.Council,
+        player,
+        x
+      }))
   }
 
 }

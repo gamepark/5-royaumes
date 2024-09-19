@@ -3,34 +3,32 @@ import { Memory } from '@gamepark/5-royaumes/rules/Memory'
 import { RefillAlkaneRule } from '@gamepark/5-royaumes/rules/RefillAlkaneRule'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { AlkaneSquareRule } from '@gamepark/5-royaumes/rules/utils/AlkaneSquareRule'
-import { LocationContext, Locator, MaterialContext } from '@gamepark/react-game'
-import { Coordinates, Location, MaterialGame, MaterialRules } from '@gamepark/rules-api'
+import { Locator, MaterialContext } from '@gamepark/react-game'
+import { Location, MaterialGame, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../material/descriptions/CharacterCardDescription'
 import { AlkaneSquareDescription } from './description/AlkaneSquareDescription'
 
-export class AlkaneSquareLocator extends Locator {
+class AlkaneSquareLocator extends Locator {
 
-  locationDescription = new AlkaneSquareDescription()
+  locationDescription = new AlkaneSquareDescription(characterCardDescription)
 
   game?: MaterialGame
   deltaX = 0
   deltaY = 0
 
-  getCoordinates(location: Location, context: LocationContext): Coordinates {
-    if (location.x === undefined && location.y === undefined) return { x: -34.5, y: -10, z: 0 }
-    const { rules } = context
+  getCoordinates(location: Location, { rules }: MaterialContext) {
+    if (location.x === undefined && location.y === undefined) return { x: -34.5, y: -10 }
     if (rules.game !== this.game) {
       this.refreshDeltaPosition(rules)
       this.game = rules.game
     }
     const baseX = -41
     const baseY = -19
-    const computedX = location.x! - (this.deltaX ?? 0)
-    const computedY = location.y! - (this.deltaY ?? 0)
+    const computedX = location.x! - this.deltaX
+    const computedY = location.y! - this.deltaY
     return {
       x: baseX + (computedX * (characterCardDescription.width + 0.2)),
-      y: baseY + (computedY * (characterCardDescription.height + 0.2)),
-      z: 0.05
+      y: baseY + (computedY * (characterCardDescription.height + 0.2))
     }
   }
 

@@ -5,11 +5,12 @@ import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { DropAreaDescription, MaterialContext } from '@gamepark/react-game'
 import { isMoveItemType, Location, MaterialMove } from '@gamepark/rules-api'
 import TitanIcon from '../../images/icons/titan.png'
+import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
 import { PlayerTitanHelp } from '../help/PlayerTitanHelp'
 import { EndGameCardScoring } from './EndGameCardScoring'
 
 export class PlayerTitanDescription extends DropAreaDescription {
-  width = 6.35 + 0.4
+  width = characterCardDescription.width + 0.4
   height = 21
   borderRadius = 0.7
 
