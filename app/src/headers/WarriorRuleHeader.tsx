@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+﻿import { css } from '@emotion/react'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { FC } from 'react'
@@ -16,7 +15,7 @@ export const WarriorRuleHeader = () => {
   if (itsMe) {
     return (
       <div css={[alignIcon, centerCss]}>
-        <Trans defaults="header.warrior.you">
+        <Trans i18nKey="header.warrior.you">
           <CastleIcon />
         </Trans>
       </div>
@@ -25,7 +24,7 @@ export const WarriorRuleHeader = () => {
 
   return (
     <div css={[alignIcon, centerCss]}>
-      <Trans defaults="header.warrior.player" values={{ player: name }}>
+      <Trans i18nKey="header.warrior.player" values={{ player: name }}>
         <CastleIcon />
       </Trans>
     </div>

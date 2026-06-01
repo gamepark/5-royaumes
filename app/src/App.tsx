@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { FailuresDialog, FullscreenDialog, LoadingScreen, MaterialHeader, MaterialImageLoader, Menu, useGame } from '@gamepark/react-game'
 import { MaterialGame } from '@gamepark/rules-api'
 import { useEffect, useState } from 'react'
@@ -17,7 +16,7 @@ export default function App() {
   return (
     <>
       { !!game && <GameDisplay players={game.players.length} /> }
-      <LoadingScreen display={loading} author="Florian Grenier" artist="Jean-Marie Minguez" publisher="GRRRE GAMES" developer="Game Park"/>
+      <LoadingScreen display={loading}/>
       <MaterialHeader rulesStepsHeaders={Headers} loading={loading} GameOver={GameOverHeader}/>
       <MaterialImageLoader onImagesLoad={() => setImagesLoading(false)} />
       <Menu/>

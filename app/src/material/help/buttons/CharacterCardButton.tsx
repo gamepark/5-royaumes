@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
@@ -6,7 +5,7 @@ import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { isLocationSubset, MaterialComponent, MaterialHelpProps, PlayMoveButton, useLegalMove, useLegalMoves, usePlay, useRules } from '@gamepark/react-game'
-import { isMoveItemType, isStartRule, MaterialMoveBuilder, MoveItem } from '@gamepark/rules-api'
+import { isMoveItemType, isStartRule, Location, MaterialMoveBuilder, MoveItem } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import FelineIcon from '../../../images/icons/feline.png'
@@ -14,6 +13,7 @@ import RaptorIcon from '../../../images/icons/raptor.png'
 import ReptileIcon from '../../../images/icons/reptile.png'
 import SailorIcon from '../../../images/icons/sailor.png'
 import UrsidIcon from '../../../images/icons/ursids.png'
+import { CardId } from '@gamepark/5-royaumes/cards/Card'
 const displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
 const displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
@@ -39,10 +39,10 @@ export const PlaceInCouncil: FC<MaterialHelpProps> = ({ item, itemIndex, closeDi
       <span css={recruitmentText}>{t('move.recruitment')}</span>
       <div css={replaceGrid}>
         {moves.map((m) => {
-          const existingItem = rules.material(MaterialType.CharacterCard).location((location) => isLocationSubset(m.location, location)).getItem()!
+          const existingItem = rules.material(MaterialType.CharacterCard).location((location) => isLocationSubset(m.location as Location, location)).getItem()!
           return (
             <div key={m.location.x!} css={replaceItemCss}>
-              <MaterialComponent css={character} type={MaterialType.CharacterCard} itemId={existingItem.id.front} onClick={() => play(displayMaterialHelp(MaterialType.CharacterCard, { id: existingItem.id}), { local: true })}/>
+              <MaterialComponent css={character} type={MaterialType.CharacterCard} itemId={(existingItem.id as CardId).front} onClick={() => play(displayMaterialHelp(MaterialType.CharacterCard, { id: existingItem.id}), { local: true })}/>
               <PlayMoveButton move={m} onPlay={closeDialog}>
                 {t('move.card.replace')}
               </PlayMoveButton>
@@ -171,7 +171,7 @@ const iconAndText = css`
 `
 
 
-const icons = {
+const icons: Partial<Record<Kingdom, string>> = {
   [Kingdom.Reptile]: ReptileIcon,
   [Kingdom.Feline]: FelineIcon,
   [Kingdom.Raptor]: RaptorIcon,

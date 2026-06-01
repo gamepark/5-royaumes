@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'

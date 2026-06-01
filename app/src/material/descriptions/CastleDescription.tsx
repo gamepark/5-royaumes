@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { RoundTokenDescription } from '@gamepark/react-game'
 import { MaterialItem } from '@gamepark/rules-api'
@@ -8,6 +7,7 @@ import { CastleHelp } from '../help/CastleHelp'
 export class CastleDescription extends RoundTokenDescription {
   diameter = 3
   image = Castle1
+  transparency = true
 
   stockLocation = { type: LocationType.CastleStock }
   staticItem = { quantity: 10, location: this.stockLocation }

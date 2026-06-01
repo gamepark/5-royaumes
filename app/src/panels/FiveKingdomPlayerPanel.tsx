@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
 import { baseKingdoms } from '@gamepark/5-royaumes/cards/Kingdom'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'

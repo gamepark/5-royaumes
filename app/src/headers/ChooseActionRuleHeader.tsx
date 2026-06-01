@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
+﻿import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { PlayMoveButton, useLegalMoves, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { isStartRule, StartRule } from '@gamepark/rules-api'
 import { Trans, useTranslation } from 'react-i18next'
@@ -16,7 +15,7 @@ export const ChooseActionRuleHeader = () => {
 
   if (activePlayer === playerId) {
     return (
-      <Trans defaults="header.action.you">
+      <Trans i18nKey="header.action.you">
         <PlayMoveButton move={recruit} />
         <PlayMoveButton move={influence} />
       </Trans>

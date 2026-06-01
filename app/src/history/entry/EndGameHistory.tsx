@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { HistoryEntry } from '@gamepark/react-game'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Memory } from '@gamepark/5-royaumes/rules/Memory'
 import { RefillAlkaneRule } from '@gamepark/5-royaumes/rules/RefillAlkaneRule'
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'

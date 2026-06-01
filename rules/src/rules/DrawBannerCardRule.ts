@@ -4,6 +4,7 @@ import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
 import { AlkaneSquareRule } from './utils/AlkaneSquareRule'
+import { CardId } from '../cards/Card'
 
 export class DrawBannerCardRule extends PlayerTurnRule {
   getPlayerMoves() {
@@ -72,7 +73,7 @@ export class DrawBannerCardRule extends PlayerTurnRule {
   }
 
   private isAdjacentAndSameColor(card: MaterialItem, item: MaterialItem) {
-    return card.id.back === item.id.back && getDistanceBetweenSquares(
+    return (card.id as CardId).back === (item.id as CardId).back && getDistanceBetweenSquares(
       { x: card.location.x!, y: card.location.y! },
       { x: item.location.x!, y: item.location.y! }
     ) === 1

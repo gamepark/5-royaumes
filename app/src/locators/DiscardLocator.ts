@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { DeckLocator, ItemContext } from '@gamepark/react-game'
 import { Coordinates, MaterialItem } from '@gamepark/rules-api'
 import { DiscardDescription } from './description/DiscardDescription'

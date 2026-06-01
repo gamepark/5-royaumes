@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { HandLocator, MaterialContext } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { PlayerHandDescription } from './description/PlayerHandDescription'

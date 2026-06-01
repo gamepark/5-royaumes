@@ -1,6 +1,6 @@
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { isLocationSubset, LocationHelpProps, PlayMoveButton, useLegalMove } from '@gamepark/react-game'
-import { isMoveItemType } from '@gamepark/rules-api'
+import { isMoveItemType, Location } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -20,7 +20,7 @@ export const AlkaneSquareHelp: FC<LocationHelpProps> = (props) => {
 export const PlaceBannerCard: FC<LocationHelpProps> = (props) => {
   const { closeDialog, location } = props
   const { t } = useTranslation()
-  const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard)(move) && isLocationSubset(move.location, location))
+  const move = useLegalMove((move) => isMoveItemType(MaterialType.CharacterCard)(move) && isLocationSubset(move.location as Location, location))
   if (!move) return null
   return (
     <p>

@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+﻿import { css } from '@emotion/react'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { MaterialHelpProps, Picture, PlayMoveButton, useLegalMove, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
@@ -25,7 +24,7 @@ export const CastleHelp: FC<MaterialHelpProps> = (props) => {
 
       {!!player && (
         <p css={[alignIcon]}>
-          <Trans defaults={itsMe ? 'help.token.count.you' : 'help.token.count.player'} values={{ player: name, number: castleCount }}>
+          <Trans i18nKey={itsMe ? 'help.token.count.you' : 'help.token.count.player'} values={{ player: name, number: castleCount }}>
             <Picture src={Castle}/>
           </Trans>
         </p>

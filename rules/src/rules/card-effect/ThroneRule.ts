@@ -1,5 +1,5 @@
 import { isMoveItemType, ItemMove, Material, MaterialGame, MaterialMove, MaterialRulesPart, MoveItem } from '@gamepark/rules-api'
-import { Card } from '../../cards/Card'
+import { Card, CardId } from '../../cards/Card'
 import { isKing, isQueen, isKingdomTitan, isKingdomWarrior, isSorcerer } from '../../cards/CardType'
 import { Kingdom } from '../../cards/Kingdom'
 import { LocationType } from '../../material/LocationType'
@@ -27,7 +27,7 @@ export class ThroneRule extends MaterialRulesPart {
   }
 
   getEffectRule(game: MaterialGame, card: Material): Effect | undefined {
-    const id = card.getItem()!.id.front
+    const id = (card.getItem()!.id as CardId).front!
     if (isKing(id)) return new KingEffect(game, this.player, card)
     if (isQueen(id)) return new QueenEffect(game, this.player, card)
     if (isSorcerer(id)) return new SorcererEffect(game, this.player, card)

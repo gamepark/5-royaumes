@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { PileLocator } from '@gamepark/react-game'
 
 class CastleStockLocator extends PileLocator {

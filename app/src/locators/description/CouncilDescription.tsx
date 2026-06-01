@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { css, Interpolation, Theme } from '@emotion/react'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { DropAreaDescription, isLocationSubset, LocationContext } from '@gamepark/react-game'

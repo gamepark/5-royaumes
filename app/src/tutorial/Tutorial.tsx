@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+﻿import { css } from '@emotion/react'
 import { baseKingdoms, Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
@@ -17,6 +16,7 @@ import ReptileIcon from '../images/icons/reptile.png'
 import SailorIcon from '../images/icons/sailor.png'
 import UrsidIcon from '../images/icons/ursids.png'
 import { TutorialSetup } from './TutorialSetup'
+import { CardId } from '@gamepark/5-royaumes/cards/Card'
 
 const me = Kingdom.Feline
 const opponent = Kingdom.Raptor
@@ -32,7 +32,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.welcome">
+          <Trans i18nKey="tuto.welcome">
             <strong/>
           </Trans>
         )
@@ -41,7 +41,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.goal">
+          <Trans i18nKey="tuto.goal">
             <strong/>
           </Trans>
         )
@@ -50,7 +50,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.castle">
+          <Trans i18nKey="tuto.castle">
             <strong/>
           </Trans>
         ),
@@ -66,7 +66,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.bannerdeck">
+          <Trans i18nKey="tuto.bannerdeck">
             <strong/>
           </Trans>
         ),
@@ -88,7 +88,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
         text: (t) => (
           <>
             <span>
-              <Trans defaults="tuto.banner">
+              <Trans i18nKey="tuto.banner">
                 <strong/>
               </Trans>
             </span>
@@ -109,7 +109,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
         text: (t) => (
           <>
             <span>
-              <Trans defaults="tuto.other.banner">
+              <Trans i18nKey="tuto.other.banner">
                 <strong/>
               </Trans>
             </span>
@@ -126,7 +126,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.alkane">
+          <Trans i18nKey="tuto.alkane">
             <strong/>
           </Trans>
         ),
@@ -150,7 +150,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.place">
+          <Trans i18nKey="tuto.place">
             <strong/>
           </Trans>
         ),
@@ -176,7 +176,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.adjacency">
+          <Trans i18nKey="tuto.adjacency">
             <strong/>
           </Trans>
         ),
@@ -202,7 +202,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.actions">
+          <Trans i18nKey="tuto.actions">
             <strong/>
           </Trans>
         ),
@@ -223,7 +223,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.recruit">
+          <Trans i18nKey="tuto.recruit">
             <strong/>
           </Trans>
         ),
@@ -248,7 +248,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.recruit.reveal">
+          <Trans i18nKey="tuto.recruit.reveal">
             <strong/>
             <i/>
           </Trans>
@@ -272,7 +272,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       popup: {
         text: () => (
           <span css={iconCss}>
-            <Trans defaults="tuto.recruit.reptile">
+            <Trans i18nKey="tuto.recruit.reptile">
               <strong/>
               <i/>
               <Picture src={icons[Kingdom.Reptile]}/>
@@ -307,7 +307,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.opponent">
+          <Trans i18nKey="tuto.opponent">
             <strong/>
           </Trans>
         )
@@ -339,7 +339,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       }
     }, {
       popup: {
-        text: () => <Trans defaults="tuto.opponent.recruit"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.opponent.recruit"><strong/></Trans>,
         position: { x: -25, y: 0 }
       },
       focus: (game) => ({
@@ -354,7 +354,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.place">
+          <Trans i18nKey="tuto.place">
             <strong/>
           </Trans>
         )
@@ -378,7 +378,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     },
     {
       popup: {
-        text: () => <Trans defaults="tuto.non-adjacent"><strong/></Trans>,
+        text: () => <Trans i18nKey="tuto.non-adjacent"><strong/></Trans>,
         position: { x: 25, y: 0 }
       },
       focus: (game) => ({
@@ -398,7 +398,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
         text: () => (
 
           <span css={iconCss}>
-          <Trans defaults="tuto.feline">
+          <Trans i18nKey="tuto.feline">
             <strong/>
             <i/>
             <Picture src={FelineIcon}/>
@@ -419,13 +419,13 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
         }
       }),
       move: {
-        filter: (move, game) => isMoveItemType(MaterialType.CharacterCard)(move) && game.items[move.itemType]![move.itemIndex].id.back === Kingdom.Feline
+        filter: (move, game) => isMoveItemType(MaterialType.CharacterCard)(move) && (game.items[move.itemType]![move.itemIndex].id as CardId).back === Kingdom.Feline
       }
     },
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.actions">
+          <Trans i18nKey="tuto.actions">
             <strong/>
           </Trans>
         ),
@@ -448,7 +448,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
         text: () => (
 
           <span css={iconCss}>
-          <Trans defaults="tuto.influence">
+          <Trans i18nKey="tuto.influence">
             <strong/>
             <i/>
             <Picture src={FelineIcon}/>
@@ -476,7 +476,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.influence.purpose">
+          <Trans i18nKey="tuto.influence.purpose">
             <strong/>
           </Trans>
         ),
@@ -498,7 +498,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       popup: {
         text: () => (
           <span css={iconCss}>
-          <Trans defaults="tuto.throne">
+          <Trans i18nKey="tuto.throne">
             <strong/>
             <i/>
             <Picture src={CastleIcon}/>
@@ -530,7 +530,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.opponent">
+          <Trans i18nKey="tuto.opponent">
             <strong/>
           </Trans>
         ),
@@ -554,7 +554,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.opponent.influence">
+          <Trans i18nKey="tuto.opponent.influence">
             <strong/>
           </Trans>
         ),
@@ -564,7 +564,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.place">
+          <Trans i18nKey="tuto.place">
             <strong/>
           </Trans>
         )
@@ -588,7 +588,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.religious">
+          <Trans i18nKey="tuto.religious">
             <strong/>
           </Trans>
         ),
@@ -613,7 +613,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.religious.recruit">
+          <Trans i18nKey="tuto.religious.recruit">
             <strong/>
           </Trans>
         ),
@@ -635,7 +635,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.titan">
+          <Trans i18nKey="tuto.titan">
             <strong/>
           </Trans>
         ),
@@ -656,7 +656,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.titan.recruit">
+          <Trans i18nKey="tuto.titan.recruit">
             <strong/>
           </Trans>
         ),
@@ -687,7 +687,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
       popup: {
         text: () => (
           <span css={iconCss}>
-            <Trans defaults="tuto.effect">
+            <Trans i18nKey="tuto.effect">
               <strong/>
               <Picture src={CastleIcon}/>
             </Trans>
@@ -717,7 +717,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.opponent">
+          <Trans i18nKey="tuto.opponent">
             <strong/>
           </Trans>
         )
@@ -745,7 +745,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.alkane.refill">
+          <Trans i18nKey="tuto.alkane.refill">
             <strong/>
           </Trans>
         )
@@ -755,7 +755,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.place">
+          <Trans i18nKey="tuto.place">
             <strong/>
           </Trans>
         )
@@ -779,7 +779,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.imperial">
+          <Trans i18nKey="tuto.imperial">
             <strong/>
           </Trans>
         ),
@@ -802,7 +802,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.win">
+          <Trans i18nKey="tuto.win">
             <strong/>
           </Trans>
         )
@@ -811,7 +811,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.help">
+          <Trans i18nKey="tuto.help">
             <strong/>
           </Trans>
         )
@@ -820,7 +820,7 @@ export class Tutorial extends MaterialTutorial<Kingdom, MaterialType, LocationTy
     {
       popup: {
         text: () => (
-          <Trans defaults="tuto.go">
+          <Trans i18nKey="tuto.go">
             <strong/>
           </Trans>
         )

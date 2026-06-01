@@ -1,4 +1,4 @@
-import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
+﻿import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { linkButtonCss, LocationHelpProps, PlayMoveButton } from '@gamepark/react-game'
 import { MaterialMoveBuilder } from '@gamepark/rules-api'
 import { FC } from 'react'
@@ -12,7 +12,7 @@ export const CouncilHelp: FC<LocationHelpProps> = (props) => {
     <>
       <h2>{t('help.concile')}</h2>
       <p>
-        <Trans defaults="help.concile.purpose">
+        <Trans i18nKey="help.concile.purpose">
           <PlayMoveButton css={linkButtonCss} move={displayMaterialHelp(MaterialType.ThroneCard, { id: location.player })} local />
         </Trans>
       </p>

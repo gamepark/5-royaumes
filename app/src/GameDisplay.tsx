@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { GameTable, GameTableNavigation } from '@gamepark/react-game'
+import { DevToolsHub, GameTable, GameTableNavigation } from '@gamepark/react-game'
 import { FC } from 'react'
 import { PlayerPanels } from './panels/PlayerPanels'
 
@@ -20,6 +19,7 @@ export const GameDisplay: FC<GameDisplayProps> = () => {
     >
       <GameTableNavigation css={css`flex-direction: column; left: auto; right: 3em; top: 28em`}/>
       <PlayerPanels/>
+      {process.env.NODE_ENV === 'development' && <DevToolsHub fabBottom="calc(5em)"/>}
     </GameTable>
   </>
 }

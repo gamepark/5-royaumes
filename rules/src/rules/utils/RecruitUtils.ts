@@ -2,6 +2,7 @@ import { Material, MaterialGame, MaterialItem, MaterialMove, PlayerTurnRule } fr
 import { isTitan } from '../../cards/CardType'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { CardId } from '../../cards/Card'
 
 export class RecruitUtils extends PlayerTurnRule {
 
@@ -27,7 +28,7 @@ export class RecruitUtils extends PlayerTurnRule {
   }
 
   hasCharacter(characters: Material, item: MaterialItem): boolean {
-    return !!characters.id((id: any) => id.front === item.id.front).length
+    return !!characters.id((id: any) => id.front === (item.id as CardId).front).length
   }
 
   get titans() {
@@ -42,7 +43,7 @@ export class RecruitUtils extends PlayerTurnRule {
     const charactersInThroneRoom = this.throneRoom.length
 
     const item = card.getItem()!
-    const itemId = item.id.front
+    const itemId = (item.id as CardId).front!
     if (!itemId) return []
     if (isTitan(itemId)) {
       return card.moveItems({

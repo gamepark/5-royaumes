@@ -1,14 +1,14 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
-import { HistoryEntry, HistoryEntryContext, usePlayerName } from '@gamepark/react-game'
-import { isMoveItemType, MoveItem } from '@gamepark/rules-api'
+import { HistoryEntry, usePlayerName, MoveComponentContext } from '@gamepark/react-game'
+import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
+import { isMoveItemType, MoveItem, MaterialMove } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ThroneColors } from '../../style/style'
 
 type InfluenceHistoryProps = {
-  context: HistoryEntryContext
+  context: MoveComponentContext<MaterialMove, Kingdom>
 }
 
 export const InfluenceHistory: FC<InfluenceHistoryProps> = (props) => {

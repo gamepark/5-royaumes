@@ -1,10 +1,10 @@
-/** @jsxImportSource @emotion/react */
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'
 import { useTranslation } from 'react-i18next'
+import { CardId } from '@gamepark/5-royaumes/cards/Card'
 
 export const InfluenceRuleHeader = () => {
   const { t } = useTranslation()
@@ -12,13 +12,13 @@ export const InfluenceRuleHeader = () => {
   const playerId = usePlayerId()
   const activePlayer = rules.getActivePlayer()
   const hand = rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(activePlayer)
-  const hasImperial = hand.getItems().some((item) => item.id.back === Kingdom.ImperialOrder)
+  const hasImperial = hand.getItems().some((item) => (item.id as CardId).back === Kingdom.ImperialOrder)
   const name = usePlayerName(activePlayer)
   const itsMe = activePlayer === playerId
 
   if (!hasImperial) {
     return (
-      <>{t(itsMe? 'header.influence.you': 'header.influence.player', { player: name, kingdom: t(`kingdom.${hand.getItem()!.id.back}`) })}</>
+      <>{t(itsMe? 'header.influence.you': 'header.influence.player', { player: name, kingdom: t(`kingdom.${(hand.getItem()!.id as CardId).back}`) })}</>
     )
   }
 

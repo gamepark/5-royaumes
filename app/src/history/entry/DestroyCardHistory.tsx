@@ -1,8 +1,7 @@
-/** @jsxImportSource @emotion/react */
-import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
+﻿import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
-import { HistoryEntry, HistoryEntryContext, PlayMoveButton, usePlayerName } from '@gamepark/react-game'
-import { MaterialMoveBuilder, MoveItem } from '@gamepark/rules-api'
+import { HistoryEntry, PlayMoveButton, usePlayerName, MoveComponentContext } from '@gamepark/react-game'
+import { MaterialMoveBuilder, MoveItem, MaterialMove } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { getCardName } from '../../material/help/CharacterCardHelp'
@@ -12,7 +11,7 @@ const displayMaterialHelp = MaterialMoveBuilder.displayMaterialHelp
 
 type DestroyCardHistoryProps = {
   move: MoveItem
-  context: HistoryEntryContext
+  context: MoveComponentContext<MaterialMove, Kingdom>
 }
 
 export const DestroyCardHistory: FC<DestroyCardHistoryProps> = (props) => {
@@ -27,7 +26,7 @@ export const DestroyCardHistory: FC<DestroyCardHistoryProps> = (props) => {
   const back = itemId.back
   return (
     <HistoryEntry depth={1} backgroundColor={ThroneColors[playerId]}>
-      <Trans defaults="history.destroy" values={{ player: name, opponent: opponent, card: getCardName(front, back, t)}}>
+      <Trans i18nKey="history.destroy" values={{ player: name, opponent: opponent, card: getCardName(front, back, t)}}>
         <PlayMoveButton move={displayMaterialHelp(MaterialType.CharacterCard, { id: itemId })} local />
       </Trans>
     </HistoryEntry>

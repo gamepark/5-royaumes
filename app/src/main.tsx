@@ -1,21 +1,17 @@
-/** @jsxImportSource @emotion/react */
 import { FiveKingdomsOptionsSpec } from '@gamepark/5-royaumes/FiveKingdomsOptions'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { FiveKingdomsSetup } from '@gamepark/5-royaumes/FiveKingdomsSetup'
-import { GameProvider, MaterialGameAnimations, setupTranslation } from '@gamepark/react-game'
+import { GameProvider, MaterialGameAnimations } from '@gamepark/react-game'
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import App from './App'
 import { FiveKingdomHistory } from './history/FiveKingdomHistory'
 import { Locators } from './locators/Locators'
 import { Material } from './material/Material'
 import { theme } from './theme'
-import translations from './translations.json'
 import { Tutorial } from './tutorial/Tutorial'
 
-setupTranslation(translations, { debug: false })
-
-ReactDOM.render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GameProvider
       game="5-royaumes"
@@ -23,7 +19,7 @@ ReactDOM.render(
       optionsSpec={FiveKingdomsOptionsSpec}
       GameSetup={FiveKingdomsSetup}
       material={Material}
-      MaterialHistory={FiveKingdomHistory}
+      logs={FiveKingdomHistory}
       locators={Locators}
       tutorial={new Tutorial()}
       animations={new MaterialGameAnimations()}
@@ -31,6 +27,5 @@ ReactDOM.render(
     >
       <App/>
     </GameProvider>
-  </StrictMode>,
-  document.getElementById('root')
+  </StrictMode>
 )

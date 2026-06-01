@@ -1,13 +1,13 @@
-/** @jsxImportSource @emotion/react */
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
-import { HistoryEntry, HistoryEntryContext } from '@gamepark/react-game'
-import { isMoveItemType } from '@gamepark/rules-api'
+import { HistoryEntry, MoveComponentContext } from '@gamepark/react-game'
+import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
+import { isMoveItemType, MaterialMove } from '@gamepark/rules-api'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 
 type RefillAlkaneHistoryProps = {
-  context: HistoryEntryContext
+  context: MoveComponentContext<MaterialMove, Kingdom>
 }
 
 export const RefillAlkaneHistory: FC<RefillAlkaneHistoryProps> = (props) => {

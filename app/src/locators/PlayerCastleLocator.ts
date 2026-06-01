@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { DropAreaDescription, MaterialContext, PileLocator } from '@gamepark/react-game'
 import { Location } from '@gamepark/rules-api'
 import { throneCardDescription } from '../material/descriptions/ThroneCardDescription'

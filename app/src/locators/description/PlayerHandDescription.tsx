@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { DropAreaDescription } from '@gamepark/react-game'
 import { characterCardDescription } from '../../material/descriptions/CharacterCardDescription'
 

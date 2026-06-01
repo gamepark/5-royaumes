@@ -46,7 +46,6 @@ import Ursid2 from '../../images/card/ursid/ursid_2.jpg'
 import Ursid3 from '../../images/card/ursid/ursid_3.jpg'
 import Ursid4 from '../../images/card/ursid/ursid_4.jpg'
 import Ursid5 from '../../images/card/ursid/ursid_5.jpg'
-/** @jsxImportSource @emotion/react */
 import UrsidBack from '../../images/card/ursid/ursid_back.jpg'
 import { CharacterCardHelp } from '../help/CharacterCardHelp'
 import displayLocationHelp = MaterialMoveBuilder.displayLocationHelp
@@ -55,6 +54,7 @@ export class CharacterCardDescription extends CardDescription {
   borderRadius = 0.5
   width = 6.35
   height = 8.89
+  transparency = true
 
   backImages = {
     [Kingdom.Reptile]: ReptileBack,

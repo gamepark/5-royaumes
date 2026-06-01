@@ -3,13 +3,14 @@ import { LocationType } from '../material/LocationType'
 import { MaterialType } from '../material/MaterialType'
 import { Memory } from './Memory'
 import { RuleId } from './RuleId'
+import { CardId } from '../cards/Card'
 
 export class ChooseAlkaneColorRule extends PlayerTurnRule {
 
   onRuleStart() {
     const adjacentCards = this.adjacentCards
     if (!adjacentCards) return []
-    if (adjacentCards.length > 1 && adjacentCards.filter((item) => adjacentCards.getItem()!.id.back === item.id.back).length !== adjacentCards.length) return []
+    if (adjacentCards.length > 1 && adjacentCards.filter((item) => (adjacentCards.getItem()!.id as CardId).back === (item.id as CardId).back).length !== adjacentCards.length) return []
     return [
       adjacentCards.moveItem({
         type: LocationType.PlayerHand,
@@ -55,7 +56,7 @@ export class ChooseAlkaneColorRule extends PlayerTurnRule {
 
     const card = this.material(MaterialType.CharacterCard).getItem(move.itemIndex)!
     const cardWithSameBack = this.alkaneCard
-      .filter((item) => item.id.back === card.id.back)
+      .filter((item) => (item.id as CardId).back === (card.id as CardId).back)
 
     const moves: MaterialMove[] = []
 

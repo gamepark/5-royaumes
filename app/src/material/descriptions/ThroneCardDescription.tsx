@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { CardDescription, MaterialContext } from '@gamepark/react-game'
@@ -20,6 +19,7 @@ import { ThroneCardHelp } from '../help/ThroneCardHelp'
 
 export class ThroneCardDescription extends CardDescription {
   borderRadius = 0.5
+  transparency = true
 
   getStaticItems(_context: MaterialContext) {
     const items = []

@@ -3,6 +3,7 @@ import { isTitan } from '../../cards/CardType'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { TitanEffect } from './TitanEffect'
+import { CardId } from '../../cards/Card'
 
 export class GaiaEffect extends TitanEffect {
 
@@ -12,13 +13,13 @@ export class GaiaEffect extends TitanEffect {
       .material(MaterialType.CharacterCard)
       .location(LocationType.PlayerTitan)
       .player(this.player)
-      .filter((item) => isTitan(item.id.front))
+      .filter((item) => isTitan((item.id as CardId).front!))
 
     const opponentTitans = this
       .material(MaterialType.CharacterCard)
       .location(LocationType.PlayerTitan)
       .player(opponent)
-      .filter((item) => isTitan(item.id.front))
+      .filter((item) => isTitan((item.id as CardId).front!))
 
     if (titans.length > opponentTitans.length) {
       return 1

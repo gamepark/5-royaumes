@@ -1,4 +1,7 @@
 import { isEnumValue } from '@gamepark/rules-api'
+import { Kingdom } from './Kingdom'
+
+export type CardId = { front?: Card; back?: Kingdom }
 
 export enum Card {
   Reptile1 = 1,

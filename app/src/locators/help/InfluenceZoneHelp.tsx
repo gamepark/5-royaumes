@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
 import { isLocationSubset, LocationHelpProps, usePlayerId, usePlayerName, useRules } from '@gamepark/react-game'

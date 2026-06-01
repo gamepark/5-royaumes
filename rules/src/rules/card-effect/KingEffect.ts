@@ -2,6 +2,7 @@ import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Effect } from './Effect'
 import { MaterialMove } from '@gamepark/rules-api'
+import { CardId } from '../../cards/Card'
 
 export class KingEffect extends Effect {
 
@@ -28,7 +29,7 @@ export class KingEffect extends Effect {
 
   get score() {
     const item = this.card.getItem()!
-    const kingdom = item.id.back
+    const kingdom = (item.id as CardId).back!
     const influenceCards =  this
       .material(MaterialType.CharacterCard)
       .location(LocationType.PlayerInfluenceZone)

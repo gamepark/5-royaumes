@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { baseKingdoms, Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { LocationType } from '@gamepark/5-royaumes/material/LocationType'
 import { MaterialType } from '@gamepark/5-royaumes/material/MaterialType'
@@ -7,6 +6,7 @@ import { ListLocator, LocationContext, MaterialContext } from '@gamepark/react-g
 import { Location, MaterialRules } from '@gamepark/rules-api'
 import { characterCardDescription } from '../material/descriptions/CharacterCardDescription'
 import { InfluenceZoneDescription } from './description/InfluenceZoneDescription'
+import { CardId } from '@gamepark/5-royaumes/cards/Card'
 
 class InfluenceZoneLocator extends ListLocator {
 
@@ -21,7 +21,7 @@ class InfluenceZoneLocator extends ListLocator {
     const { rules, player } = context
     if (rules.game.rule?.id === RuleId.Sorcerer && this.isMyLocation(rules, location, player) && rules.material(MaterialType.CharacterCard).selected().length) position.z += 10
     if (rules.game.rule?.id === RuleId.ChooseAction) {
-      const handColor = context.rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(location.player).getItem()?.id?.back
+      const handColor = (context.rules.material(MaterialType.CharacterCard).location(LocationType.PlayerHand).player(location.player).getItem()?.id as CardId | undefined)?.back
       if (location.player === context.player && location.id === handColor) position.z += 10
     }
     return position

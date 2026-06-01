@@ -4,6 +4,7 @@ import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { RuleId } from '../RuleId'
 import { WarriorEffect } from './WarriorEffect'
+import { CardId } from '../../cards/Card'
 
 export class WarriorMonkEffect extends WarriorEffect {
 
@@ -42,13 +43,13 @@ export class WarriorMonkEffect extends WarriorEffect {
       .material(MaterialType.CharacterCard)
       .location(LocationType.Council)
       .player(this.player)
-      .filter((item) => isWarrior(item.id.front))
+      .filter((item) => isWarrior((item.id as CardId).front!))
 
     const opponentWarrior = this
       .material(MaterialType.CharacterCard)
       .location(LocationType.Council)
       .player(opponent)
-      .filter((item) => isWarrior(item.id.front))
+      .filter((item) => isWarrior((item.id as CardId).front!))
 
     if (warriors.length > opponentWarrior.length) {
       return Math.min(this

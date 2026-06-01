@@ -5,6 +5,7 @@ import { MaterialType } from '../material/MaterialType'
 import { ThroneRule } from './card-effect/ThroneRule'
 import { RuleId } from './RuleId'
 import { InfluenceUtils } from './utils/InfluenceUtils'
+import { CardId } from '../cards/Card'
 
 export class InfluenceRule extends PlayerTurnRule {
   onRuleStart() {
@@ -31,7 +32,7 @@ export class InfluenceRule extends PlayerTurnRule {
   }
 
   get isImperialOrder() {
-    return this.hand.filter((item) => item.id.back === Kingdom.ImperialOrder).length
+    return this.hand.filter((item) => (item.id as CardId).back === Kingdom.ImperialOrder).length
   }
 
   get hand() {

@@ -1,5 +1,4 @@
 import { Locator, MaterialContext } from '@gamepark/react-game'
-/** @jsxImportSource @emotion/react */
 import { Location } from '@gamepark/rules-api'
 
 class PlayerThroneLocator extends Locator {

@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+﻿import { css } from '@emotion/react'
 import { MaterialHelpProps, Picture } from '@gamepark/react-game'
 import { FC } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
@@ -12,7 +11,7 @@ export const ThroneCardHelp: FC<MaterialHelpProps> = (props) => {
     <>
       <h2>{t('help.throne')}</h2>
       <p css={[alignIcon]}>
-        <Trans defaults="help.throne.effect" values={{ kingdom: t(`kingdom.${item.id}`)}}>
+        <Trans i18nKey="help.throne.effect" values={{ kingdom: t(`kingdom.${item.id}`)}}>
           <Picture src={Castle} />
         </Trans>
       </p>

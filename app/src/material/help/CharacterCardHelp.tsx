@@ -1,6 +1,5 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
-import { Card } from '@gamepark/5-royaumes/cards/Card'
+﻿import { css } from '@emotion/react'
+import { Card, CardId } from '@gamepark/5-royaumes/cards/Card'
 import { isKing, isKingdomTitan, isKingdomWarrior, isQueen, isSorcerer } from '@gamepark/5-royaumes/cards/CardType'
 import { Kingdom } from '@gamepark/5-royaumes/cards/Kingdom'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
@@ -27,7 +26,7 @@ export const CharacterCardHelp: FC<MaterialHelpProps> = (props) => {
   return (
     <>
       {canUndoDialog && <FontAwesomeIcon icon={faArrowLeft} css={goBackCss} onClick={() => undo(undoModalPredicate)} />}
-      { item.id.front === undefined ? <HiddenCharacterCardHelp {...props} />: <VisibleCharacterCardHelp {...props} />}
+      { (item.id as CardId).front === undefined ? <HiddenCharacterCardHelp {...props} />: <VisibleCharacterCardHelp {...props} />}
     </>
   )
   }
@@ -35,7 +34,7 @@ export const CharacterCardHelp: FC<MaterialHelpProps> = (props) => {
 export const HiddenCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item } = props
   const { t } = useTranslation()
-  const back = item.id.back
+  const back = (item.id as CardId).back!
 
   return (
     <>
@@ -54,8 +53,8 @@ export const HiddenCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
 export const VisibleCharacterCardHelp: FC<MaterialHelpProps> = (props) => {
   const { item } = props
   const { t } = useTranslation()
-  const id = item.id.front
-  const kingdom = item.id.back
+  const id = (item.id as CardId).front!
+  const kingdom = (item.id as CardId).back!
 
   return (
     <>
@@ -91,7 +90,7 @@ const Scoring: FC<MaterialHelpProps> = ({ item, itemIndex}) => {
       <>
         <hr />
         <p css={italic}>
-          <Trans defaults="help.score.card" values={{ score: score }}>
+          <Trans i18nKey="help.score.card" values={{ score: score }}>
             <strong/>
           </Trans>
         </p>
@@ -103,7 +102,7 @@ const Scoring: FC<MaterialHelpProps> = ({ item, itemIndex}) => {
     <>
       <hr/>
       <p css={italic}>
-        <Trans defaults="help.score.card.other" values={{ score: score, player: name }}>
+        <Trans i18nKey="help.score.card.other" values={{ score: score, player: name }}>
           <strong/>
         </Trans>
       </p>
@@ -136,7 +135,7 @@ const AlkaneLocation: FC<MaterialHelpProps> = (props) => {
   return (
     <>
       <p>
-        <Trans defaults="help.card.alkane">
+        <Trans i18nKey="help.card.alkane">
           <PlayMoveButton css={linkButtonCss} move={displayLocationHelp({ type: LocationType.AlkaneSquare })} local/>
         </Trans>
       </p>
@@ -166,7 +165,7 @@ const CouncilLocation: FC<MaterialHelpProps> = ({ item }) => {
   const itsMe = playerId === item.location.player
   return (
     <p>
-      <Trans defaults={itsMe? 'help.card.concile.you': 'help.card.concile.player'} values={{ player: name }}>
+      <Trans i18nKey={itsMe? 'help.card.concile.you': 'help.card.concile.player'} values={{ player: name }}>
         <PlayMoveButton css={linkButtonCss} move={displayLocationHelp({ type: LocationType.Council, player: item.location.player })} local />
       </Trans>
     </p>
@@ -174,44 +173,44 @@ const CouncilLocation: FC<MaterialHelpProps> = ({ item }) => {
 }
 
 const getEffectDescription = (id: Card) => {
-  if (isKing(id)) return <p css={alignIcon}><Trans defaults="help.card.king.effect"><strong/><Picture src={Castle}/></Trans></p>
-  if (isQueen(id)) return <p css={alignIcon}><Trans defaults="help.card.queen.effect"><strong/><Picture src={Castle}/></Trans></p>
-  if (isSorcerer(id)) return <p css={alignIcon}><Trans defaults="help.card.sorceress.effect"><strong/></Trans></p>
-  if (isKingdomWarrior(id)) return <p css={alignIcon}><Trans defaults="help.card.warrior.effect"><strong/><Picture src={Castle}/></Trans></p>
+  if (isKing(id)) return <p css={alignIcon}><Trans i18nKey="help.card.king.effect"><strong/><Picture src={Castle}/></Trans></p>
+  if (isQueen(id)) return <p css={alignIcon}><Trans i18nKey="help.card.queen.effect"><strong/><Picture src={Castle}/></Trans></p>
+  if (isSorcerer(id)) return <p css={alignIcon}><Trans i18nKey="help.card.sorceress.effect"><strong/></Trans></p>
+  if (isKingdomWarrior(id)) return <p css={alignIcon}><Trans i18nKey="help.card.warrior.effect"><strong/><Picture src={Castle}/></Trans></p>
   if (isKingdomTitan(id) || id === Card.Ouranos) return (
     <>
-      <p css={alignIcon}><Trans defaults="help.card.titan.effect1"><strong/><Picture src={Castle}/></Trans></p>
-      <p css={alignIcon}><Trans defaults="help.card.titan.effect2"><strong/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.titan.effect1"><strong/><Picture src={Castle}/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.titan.effect2"><strong/></Trans></p>
     </>
   )
-  if (id === Card.Papesse) return <p css={alignIcon}><Trans defaults="help.card.papess.effect"><strong/><Picture src={Castle}/></Trans></p>
+  if (id === Card.Papesse) return <p css={alignIcon}><Trans i18nKey="help.card.papess.effect"><strong/><Picture src={Castle}/></Trans></p>
   if (id === Card.Gaia) return (
     <>
-      <p css={alignIcon}><Trans defaults="help.card.titan.effect1"><strong/><Picture src={Castle}/></Trans></p>
-      <p css={alignIcon}><Trans defaults="help.card.titan.effect2"><strong/></Trans></p>
-      <p css={alignIcon}><Trans defaults="help.card.gaia.effect"><strong/></Trans><Picture src={Castle}/></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.titan.effect1"><strong/><Picture src={Castle}/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.titan.effect2"><strong/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.gaia.effect"><strong/></Trans><Picture src={Castle}/></p>
     </>
   )
   if (id === Card.Colonel) return (
     <>
-      <p css={alignIcon}><Trans defaults="help.card.colonel.effect1"><strong/><Picture src={Castle}/></Trans></p>
-      <p css={alignIcon}><Trans defaults="help.card.colonel.effect2"><strong/><Picture src={Castle}/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.colonel.effect1"><strong/><Picture src={Castle}/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.colonel.effect2"><strong/><Picture src={Castle}/></Trans></p>
     </>
   )
   if (id === Card.Captain) return (
     <>
-      <p css={alignIcon}><Trans defaults="help.card.captain.effect1"><strong/><Picture src={Castle}/></Trans></p>
-      <p css={alignIcon}><Trans defaults="help.card.captain.effect2"><strong/><Picture src={Castle}/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.captain.effect1"><strong/><Picture src={Castle}/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.captain.effect2"><strong/><Picture src={Castle}/></Trans></p>
     </>
   )
   if (id === Card.WarriorMonk) return (
     <>
-      <p css={alignIcon}><Trans defaults="help.card.monk.effect1"><strong/><Picture src={Castle}/></Trans></p>
-      <p css={alignIcon}><Trans defaults="help.card.monk.effect2"><strong/><Picture src={Castle}/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.monk.effect1"><strong/><Picture src={Castle}/></Trans></p>
+      <p css={alignIcon}><Trans i18nKey="help.card.monk.effect2"><strong/><Picture src={Castle}/></Trans></p>
     </>
   )
-  if (id === Card.Marshall) return <p css={alignIcon}><Trans defaults="help.card.marshal.effect"><strong/><Picture src={Castle}/></Trans></p>
-  if (id === Card.General) return <p css={alignIcon}><Trans defaults="help.card.general.effect"><strong/></Trans></p>
+  if (id === Card.Marshall) return <p css={alignIcon}><Trans i18nKey="help.card.marshal.effect"><strong/><Picture src={Castle}/></Trans></p>
+  if (id === Card.General) return <p css={alignIcon}><Trans i18nKey="help.card.general.effect"><strong/></Trans></p>
   return ''
 }
 

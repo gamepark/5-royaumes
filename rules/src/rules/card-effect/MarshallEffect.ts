@@ -1,5 +1,5 @@
 import { MaterialMove } from '@gamepark/rules-api'
-import { isImperialOrder } from '../../cards/Card'
+import { isImperialOrder, CardId } from '../../cards/Card'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
 import { Effect } from './Effect'
@@ -32,7 +32,7 @@ export class MarshallEffect extends Effect {
     const cards = this
       .material(MaterialType.CharacterCard)
       .location((location) => location.type === LocationType.PlayerTitan || location.type === LocationType.Council)
-      .filter((item) => isImperialOrder(item.id.front))
+      .filter((item) => isImperialOrder((item.id as CardId).front!))
 
     const myCards = cards.player(this.player).length
     const opponentCards = cards.player(opponent).length

@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { RuleId } from '@gamepark/5-royaumes/rules/RuleId'
 import { ComponentType } from 'react'
 import { ActivateCharacterRuleHeader } from './ActivateCharacterRuleHeader'

@@ -2,6 +2,7 @@ import { Material, MaterialGame, MaterialMove, PlayerTurnRule } from '@gamepark/
 import { baseKingdoms, Kingdom } from '../../cards/Kingdom'
 import { LocationType } from '../../material/LocationType'
 import { MaterialType } from '../../material/MaterialType'
+import { CardId } from '../../cards/Card'
 
 export class InfluenceUtils extends PlayerTurnRule {
 
@@ -17,7 +18,7 @@ export class InfluenceUtils extends PlayerTurnRule {
     for (const index of indexes) {
       const item = this.cards.getItem(index)!
       const card = this.cards.index(index)
-      const back = item.id.back
+      const back = (item.id as CardId).back!
       if (back === Kingdom.ReligiousOrder) continue
       if (back === Kingdom.ImperialOrder) {
         moves.push(
