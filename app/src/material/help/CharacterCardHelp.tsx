@@ -222,7 +222,7 @@ export const getCardName = (id: Card, kingdom: Kingdom, t: TFunction) => {
   if (isKingdomTitan(id)) return t('help.card.figure', { kingdom: t(`kingdom.${kingdom}`), figure: t('help.card.titan') })
   if (id === Card.Ouranos) return t('help.card.religious.visible', { figure: t('help.card.ouranos')})
   if (id === Card.Papesse) return t('help.card.religious.visible', { figure: t('help.card.papess')})
-  if (id === Card.Gaia) return t('help.card.religious.visible', { figure: t('help.card.titan')})
+  if (id === Card.Gaia) return t('help.card.religious.visible', { figure: t('help.card.gaia')})
   if (id === Card.Colonel) return t('help.card.colonel')
   if (id === Card.Captain) return t('help.card.captain')
   if (id === Card.WarriorMonk) return t('help.card.religious.visible', { figure: t('help.card.monk')})
