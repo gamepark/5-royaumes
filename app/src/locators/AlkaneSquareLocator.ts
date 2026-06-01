@@ -15,6 +15,17 @@ class AlkaneSquareLocator extends Locator {
   deltaX = 0
   deltaY = 0
 
+  getPositionDependencies(location: Location, { rules }: MaterialContext) {
+    if (location.x === undefined && location.y === undefined) return {}
+    if (rules.game !== this.game) {
+      this.refreshDeltaPosition(rules)
+      this.game = rules.game
+    }
+    // The whole alkane grid recenters via deltaX/deltaY when its bounds change (banner placed, refill...).
+    // Existing cards keep their own location, so we must declare the offset as a position dependency.
+    return { deltaX: this.deltaX, deltaY: this.deltaY }
+  }
+
   getCoordinates(location: Location, { rules }: MaterialContext) {
     if (location.x === undefined && location.y === undefined) return { x: -34.5, y: -10 }
     if (rules.game !== this.game) {
