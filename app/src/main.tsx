@@ -1,4 +1,4 @@
-import { FiveKingdomsOptionsSpec } from '@gamepark/5-royaumes/FiveKingdomsOptions'
+import { FiveKingdomsOptionsSpecV2 } from '@gamepark/5-royaumes/FiveKingdomsOptions'
 import { FiveKingdomsRules } from '@gamepark/5-royaumes/FiveKingdomsRules'
 import { FiveKingdomsSetup } from '@gamepark/5-royaumes/FiveKingdomsSetup'
 import { GameProvider, MaterialGameAnimations } from '@gamepark/react-game'
@@ -16,7 +16,7 @@ createRoot(document.getElementById('root')!).render(
     <GameProvider
       game="5-royaumes"
       Rules={FiveKingdomsRules}
-      optionsSpec={FiveKingdomsOptionsSpec}
+      optionsSpec={FiveKingdomsOptionsSpecV2}
       GameSetup={FiveKingdomsSetup}
       material={Material}
       logs={FiveKingdomHistory}

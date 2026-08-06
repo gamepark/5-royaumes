@@ -1,6 +1,5 @@
-import { OptionsSpec, TFunction } from '@gamepark/rules-api'
+import { OptionsSpecV2 } from '@gamepark/rules-api'
 import { baseKingdoms, Kingdom } from './cards/Kingdom'
-
 
 /**
  * This is the type of object that the game receives when a new game is started.
@@ -8,21 +7,19 @@ import { baseKingdoms, Kingdom } from './cards/Kingdom'
  */
 type PlayerOptions = { id: Kingdom }
 
-
 export type FiveKingdomsOptions = {
   players: PlayerOptions[]
 }
 
 /**
- * This object describes all the options a game can have, and will be used by GamePark website to create automatically forms for you game
- * (forms for friendly games, or forms for matchmaking preferences, for instance).
+ * The option space of 5-royaumes: structure only.
+ *
+ * Labels live in the game's presentation document, published beside its translations at
+ * `/options/<locale>.json` and keyed by convention. Subscription and competitive gates live in
+ * the platform database, so they can change without releasing the game again.
  */
-export const FiveKingdomsOptionsSpec: OptionsSpec<FiveKingdomsOptions> = {
-  players: {
-    id: {
-      label: (t: TFunction) => t('kingdom.choice'),
-      values: baseKingdoms,
-      valueSpec: kingdom => ({ label: t => t(`kingdom.${kingdom}`) })
-    }
-  }
+export const FiveKingdomsOptionsSpecV2: OptionsSpecV2 = {
+  specVersion: 2,
+  players: { min: 2, max: 2 },
+  identities: { values: baseKingdoms }
 }
